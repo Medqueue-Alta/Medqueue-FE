@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <h1>Tes</h1>
-      <Button>Tes Button</Button>
+      <Button variant={"outline"} className="bg-red-500 hover:bg-red-600 duration-500">Tes Button</Button>
     </>
   )
 }
