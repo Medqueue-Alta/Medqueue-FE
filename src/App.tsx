@@ -1,10 +1,12 @@
+import { Button } from "@/components/ui/button"
 
 
 function App() {
 
   return (
     <>
-      <h1 className="">Tes</h1>
+      <h1>Tes</h1>
+      <Button>Tes Button</Button>
     </>
   )
 }
