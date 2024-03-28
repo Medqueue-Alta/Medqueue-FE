@@ -37,43 +37,45 @@ const Register = () => {
                     <Label htmlFor="email">Email</Label>
                     <Input placeholder="Email" id="email" type="email"/>
                 </div>
-                <div className="mb-2">
-                    <Label htmlFor="tempatLahir">Tempat Lahir</Label>
-                    <Input placeholder="Tempat Lahir" id="tempatLahir"/>
-                </div>
-                <div className="mb-2">
-                    <Label>Tanggal Lahir</Label>
-                    <Popover>
-                    <PopoverTrigger asChild>
-                        <Button
-                        variant={"outline"}
-                        className={cn(
-                            "w-full justify-between text-left font-normal",
-                            !date && "text-muted-foreground"
-                        )}
-                        >
-                        {date ? format(date, "PP") : <span>Tanggal Lahir</span>}
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                            data-testid="calendar"
-                            mode="single"
-                            // selected={field.value}
-                            onSelect={(date) => {
-                            setDate(date)
-                            }}
-                            disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                            }
-                            captionLayout="dropdown-buttons"
-                            fromDate={new Date("1900-01-01")}
-                            toDate={new Date()}
-                            initialFocus
-                        />
-                    </PopoverContent>
-                    </Popover>
+                <div className="mb-2 flex justify-between items-center gap-3">
+                    <div className="w-1/2">
+                        <Label htmlFor="tempatLahir">Tempat Lahir</Label>
+                        <Input placeholder="Tempat Lahir" id="tempatLahir"/>
+                    </div>
+                    <div className="w-1/2">
+                        <Label>Tanggal Lahir</Label>
+                        <Popover>
+                        <PopoverTrigger asChild>
+                            <Button
+                            variant={"outline"}
+                            className={cn(
+                                "w-full justify-between text-left font-normal",
+                                !date && "text-muted-foreground"
+                            )}
+                            >
+                            {date ? format(date, "PP") : <span>Tanggal Lahir</span>}
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                                data-testid="calendar"
+                                mode="single"
+                                // selected={field.value}
+                                onSelect={(date) => {
+                                setDate(date)
+                                }}
+                                disabled={(date) =>
+                                date > new Date() || date < new Date("1900-01-01")
+                                }
+                                captionLayout="dropdown-buttons"
+                                fromDate={new Date("1900-01-01")}
+                                toDate={new Date()}
+                                initialFocus
+                            />
+                        </PopoverContent>
+                        </Popover>
+                    </div>
                 </div>
                 <div className="mb-2 flex items-center w-full gap-3">
                     <div className="w-1/2">
@@ -120,6 +122,14 @@ const Register = () => {
                 <div>
                     <Label htmlFor="telp">No Telpon</Label>
                     <Input placeholder="No Telpon" id="telp" type="tel"/>
+                </div>
+                <div className="mb-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input placeholder="Password" id="password" type="password"/>
+                </div>
+                <div className="mb-2">
+                    <Label htmlFor="passwordConfirmation">Password Confirmation</Label>
+                    <Input placeholder="Password Confirmation" id="passwordConfirmation" type="password"/>
                 </div>
             </div>
             <MainButton text="Register" />
