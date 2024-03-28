@@ -21,7 +21,7 @@ const AuthLayout = (props : Props) => {
             </div>
            <img src={Vector} className='invisible hidden md:block md:visible'/>
           </div>
-          <div className='bg-white h-full w-full flex flex-col justify-center items-center'>
+          <div className='bg-white rounded h-full w-full flex flex-col justify-center items-center'>
             {children}
           </div>
         </CardContent>
