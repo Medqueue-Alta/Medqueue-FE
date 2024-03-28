@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import MainButton from "@/components/MainButton"
 
 const Register = () => {
   const [date, setDate] = useState<Date>()
@@ -121,7 +122,7 @@ const Register = () => {
                     <Input placeholder="No Telpon" id="telp" type="tel"/>
                 </div>
             </div>
-            <Button className="bg-[#089993] hover:bg-[#1c5e5b] duration-500">Register</Button>
+            <MainButton text="Register"/>
         </AuthLayout>
   )
 }
