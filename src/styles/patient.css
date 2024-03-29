@@ -1,0 +1,28 @@
+.navbar-container {
+  position: sticky;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.footer-container {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  overflow: auto;
+  height: 5.8rem;
+  padding: 1.25rem;
+}

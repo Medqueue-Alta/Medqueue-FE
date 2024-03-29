@@ -1,14 +1,10 @@
-import MainButton from "@/components/MainButton"
-
 
 function App() {
-
   return (
     <>
-      <h1>Tes</h1>
-      <MainButton text="Tes"/>
+      <p>HelloWorld</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
