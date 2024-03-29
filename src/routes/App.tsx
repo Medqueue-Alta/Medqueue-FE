@@ -1,14 +1,22 @@
-import MainButton from "@/components/MainButton"
+import Login from '@/pages/Login'
+import Register from '@/pages/Register'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/register",
+    element: <Register />
+  }
+])
 
 function App() {
 
-  return (
-    <>
-      <h1>Tes</h1>
-      <MainButton text="Tes"/>
-    </>
-  )
+  return <RouterProvider router={router}/>
 }
 
 export default App
