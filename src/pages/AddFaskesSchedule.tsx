@@ -13,11 +13,31 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 import MainButton from "@/components/MainButton"
+import { Separator } from "@/components/ui/separator"
 
 const AddFaskesSchedule = () => {
   return (
 <FaskesLayout>
-      <FaskesSidebar nav={["Poli Umum","Poli Gigi & Mulut", "Poli KIA", "UGD"]}/>
+      <FaskesSidebar>
+        <ul className="flex flex-col justify-center pl-5 h-full gap-2">
+            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
+                <li className="text-white text-2xl">Poli Umum</li>
+            </div>
+            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
+                <li className="text-white text-2xl">Poli Gigi & Mulut</li>
+            </div>
+            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
+                <li className="text-white text-2xl">Poli KIA</li>
+            </div>
+            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
+                <li className="text-white text-2xl">UGD</li>
+            </div>
+            <Separator className="my-3"/>
+            <div className="cursor-pointer bg-[#92DBD8] p-2 max-w-[90%] rounded-lg">
+                <li className="text-2xl text-center">Tambah Jadwal</li>
+            </div>
+        </ul>
+      </FaskesSidebar>
       <FaskesContainer title="Tambah Jadwal">
         <div className="mt-3 w-[40%]">
           <div className="mb-3">
