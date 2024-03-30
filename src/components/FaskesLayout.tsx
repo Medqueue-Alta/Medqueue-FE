@@ -1,6 +1,4 @@
 import { ReactNode } from "react"
-import FaskesSidebar from "./FaskesSidebar";
-
 interface Props {
     children : ReactNode;
 }
@@ -8,14 +6,9 @@ interface Props {
 const FaskesLayout = (props: Props) => {
     const {children} = props
   return (
-    <div className="flex items-center">
-      <FaskesSidebar>
-        <p>Tes</p>
-      </FaskesSidebar>
-      <div>
+      <div className="flex items-center">
         {children}
       </div>
-    </div>
   )
 }
 
