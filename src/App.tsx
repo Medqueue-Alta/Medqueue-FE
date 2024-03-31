@@ -3,9 +3,7 @@
 function App() {
   return (
     <>
-      
-        <p>HelloWorld</p>
-      
+      <p>Hello World</p>
     </>
   );
 }
