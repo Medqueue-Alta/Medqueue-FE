@@ -1,11 +1,13 @@
-import AddFaskesSchedule from "./pages/AddFaskesSchedule"
+// import AddFaskesSchedule from "./pages/AddFaskesSchedule"
+
+import FaskesQueue from "./pages/FaskesQueue"
 
 
 
 
 function App() {
 
-  return <AddFaskesSchedule />
+  return <FaskesQueue />
 }
 
 export default App

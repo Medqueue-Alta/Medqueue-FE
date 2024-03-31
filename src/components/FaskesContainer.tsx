@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 
 interface Props {
     children: ReactNode;
-    title: string;
+    title?: string;
 }
 
 const FaskesContainer = (props: Props) => {
