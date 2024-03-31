@@ -1,8 +1,11 @@
+import PatientReservationCard from "./components/PatientCardTwo";
 
 function App() {
   return (
     <>
-      <p>HelloWorld</p>
+      <PatientReservationCard>
+        <p>HelloWorld</p>
+      </PatientReservationCard>
     </>
   );
 }
