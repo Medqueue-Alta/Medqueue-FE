@@ -1,9 +1,10 @@
+import PatientHome from "./pages/Patient";
 
 
 function App() {
   return (
     <>
-      <p>Hello World</p>
+      <PatientHome/>
     </>
   );
 }
