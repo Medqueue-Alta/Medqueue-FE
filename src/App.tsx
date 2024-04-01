@@ -1,10 +1,11 @@
-import PatientHome from "./pages/Patient";
+
+import PatientReservation from "./pages/Patient/reservasi";
 
 
 function App() {
   return (
     <>
-      <PatientHome/>
+      <PatientReservation />
     </>
   );
 }
