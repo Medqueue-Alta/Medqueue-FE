@@ -1,12 +1,7 @@
-
-
-import UpdateProfile from "./pages/Patient/update-profile";
-
-
 function App() {
   return (
     <>
-      <UpdateProfile />
+      <p>Hello OwO</p>
     </>
   );
 }
