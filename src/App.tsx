@@ -1,11 +1,12 @@
 
-import PatientReservation from "./pages/Patient/reservasi";
+
+import UpdateProfile from "./pages/Patient/update-profile";
 
 
 function App() {
   return (
     <>
-      <PatientReservation />
+      <UpdateProfile />
     </>
   );
 }
