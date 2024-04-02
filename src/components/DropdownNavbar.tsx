@@ -17,20 +17,20 @@ const DropdownNavbar = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className="gap-2">
           <img src="/user.png" alt="" />
           <Link to={"/faskes/update-profile"}>
             <p>Profile</p>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem className="gap-2">
           <img src="/calendar-clock.png" alt="" />
           <Link to={"/faskes/reservasi"}>
             <p>Reservasi</p>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className="gap-2">
           <img src="/log-out.png" alt="" />
           <p>Log Out</p>
         </DropdownMenuItem>
