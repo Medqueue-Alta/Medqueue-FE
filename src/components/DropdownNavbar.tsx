@@ -6,6 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
 
 const DropdownNavbar = () => {
   return (
@@ -18,16 +19,20 @@ const DropdownNavbar = () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <img src="/user.png" alt="" />
-          <p>Profile</p>
+          <Link to={"/faskes/update-profile"}>
+            <p>Profile</p>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <img src="/calendar-clock.png" alt="" />
-          <p>Reservasi</p>
+          <Link to={"/faskes/reservasi"}>
+            <p>Reservasi</p>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-            <img src="/log-out.png" alt="" />
-            <p>Log Out</p>
+          <img src="/log-out.png" alt="" />
+          <p>Log Out</p>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
