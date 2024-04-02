@@ -6,7 +6,7 @@ import PatientLayout from "@/components/PatientLayout";
 const PatientHome = () => {
   return (
     <PatientLayout>
-      <div className="grid grid-rows-3 justify-center justify-items-center h-full">
+      <div className="grid justify-center justify-items-center items-center h-full">
         <PatientInformationCard
           nama="John Doe"
           NIK="123456789"
@@ -18,8 +18,8 @@ const PatientHome = () => {
           tanggal="12-04-2024"
           dokter="dr. John Doe"
         />
-        <div className="">
-          <div className="flex flex-row gap-1">
+        <div className="self-start">
+          <div className="grid grid-flow-col gap-1">
             <QueueCard antrian="12" />
             <QueueCard antrian="15" />
           </div>

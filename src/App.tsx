@@ -1,7 +1,8 @@
+
 function App() {
   return (
     <>
-      <p>Hello OwO</p>
+      <p>Heyo :3</p>
     </>
   );
 }
