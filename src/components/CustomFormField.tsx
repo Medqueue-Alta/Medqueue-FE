@@ -26,7 +26,6 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 
-
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@radix-ui/react-checkbox";
 
@@ -103,6 +102,11 @@ export function CustomFormDatePicker<T extends FieldValues>(
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
+                disabled={(date) =>
+                  date <= new Date() ||
+                  date >
+                    new Date(new Date().setMonth(new Date().getMonth() + 3))
+                }
                 initialFocus
               />
             </PopoverContent>
