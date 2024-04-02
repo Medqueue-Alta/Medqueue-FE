@@ -17,7 +17,7 @@ const FaskesHome = () => {
         </FaskesSidebar>
         <div className="ml-5">
             <h1 className="text-4xl">WELCOME</h1>
-            <h3>02, April 2024</h3>
+            <h3 className="text-xl">02, April 2024</h3>
             <img src={Vector}/>
         </div>
    </FaskesLayout>
