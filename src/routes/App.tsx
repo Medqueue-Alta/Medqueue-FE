@@ -21,11 +21,11 @@ const router = createBrowserRouter([
     element: <FaskesHome />
   }, 
   {
-    path: "/faskes/antrian",
+    path: "/faskes/antrian/:poli",
     element: <FaskesQueue />
   }, 
   {
-    path: "/faskes/jadwal",
+    path: "/faskes/jadwal/:poli",
     element: <FaskesSchedule />
   },
   {

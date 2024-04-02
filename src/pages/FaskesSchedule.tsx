@@ -5,27 +5,39 @@ import MainButton from "@/components/MainButton"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Link, useParams } from "react-router-dom"
 const FaskesSchedule = () => {
+    const {poli} = useParams()
   return (
     <FaskesLayout>
       <FaskesSidebar>
         <ul className="flex flex-col justify-center pl-5 h-full gap-2">
-            <div className="cursor-pointer bg-[#92DBD8] p-2 max-w-[90%] rounded-lg">
-                <li className="text-2xl">Poli Umum</li>
-            </div>
-            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
-                <li className="text-white text-2xl">Poli Gigi & Mulut</li>
-            </div>
-            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
-                <li className="text-white text-2xl">Poli KIA</li>
-            </div>
-            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
-                <li className="text-white text-2xl">UGD</li>
-            </div>
+            <Link to={"/faskes/jadwal/umum"}>
+                <div className={`${poli === "umum" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "umum" ? "" : "text-white"} text-2xl`}>Poli Umum</li>
+                </div>
+            </Link>
+            <Link to={"/faskes/jadwal/gigi"}>
+                <div className={`${poli === "gigi" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "gigi" ? "" : "text-white"} text-2xl`}>Poli Gigi & Mulut</li>
+                </div>
+            </Link>
+            <Link to={"/faskes/jadwal/kia"}>
+                <div className={`${poli === "kia" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "kia" ? "" : "text-white"} text-2xl`}>Poli KIA</li>
+                </div>
+            </Link>
+            <Link to={"/faskes/jadwal/ugd"}>
+                <div className={`${poli === "ugd" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "ugd" ? "" : "text-white"} text-2xl`}>UGD</li>
+                </div>
+            </Link>
             <Separator className="my-3"/>
-            <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
-                <li className="text-2xl text-white">Tambah Jadwal</li>
-            </div>
+            <Link to={"/faskes/jadwal/add"}>
+                <div className={`cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`text-white text-2xl`}>Tambah Jadwal</li>
+                </div>
+            </Link>
         </ul>
       </FaskesSidebar>
       <FaskesContainer >
