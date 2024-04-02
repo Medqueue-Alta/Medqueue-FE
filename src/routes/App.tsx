@@ -1,4 +1,4 @@
-import FaskesAddSchedule from '@/pages/FaskesAddSchedule'
+import AddFaskesSchedule from '@/pages/AddFaskesSchedule'
 import FaskesHome from '@/pages/FaskesHome'
 import FaskesQueue from '@/pages/FaskesQueue'
 import FaskesSchedule from '@/pages/FaskesSchedule'
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/faskes/jadwal/add",
-    element: <FaskesAddSchedule />
+    element: <AddFaskesSchedule />
   }
 ])
 

@@ -13,7 +13,7 @@ const FaskesSidebar = (props: Props) => {
             <img src={Logo}/>
             <h1 className="text-white text-3xl">Medqueue</h1>
         </div>
-        <nav className="h-[50%]">
+        <nav className="h-[50%] mt-5">
             {children}
         </nav>
     </div>
