@@ -11,7 +11,7 @@ const PatientInformationCard = (props: Props) => {
 
   return (
     <Card className=" w-max h-max ">
-      <CardHeader className="flex flex-row justify-center bg-[#92DBD8]">
+      <CardHeader className="flex flex-row justify-center p-4 bg-[#92DBD8]">
         <CardTitle>{nama}</CardTitle>
       </CardHeader>
       <CardContent className="p-4 bg-[#BEE8E6]">
