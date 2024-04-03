@@ -10,12 +10,12 @@ const FaskesHome = () => {
         <ul className="flex flex-col justify-center pl-5 h-full gap-2">
             <Link to={"/faskes/antrian/umum"}>
                 <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
-                    <li className="text-white text-2xl">List Antrian</li>
+                    <li className="text-white text-xl">List Antrian</li>
                 </div>
             </Link>
             <Link to={"/faskes/jadwal/umum"}>
                 <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
-                    <li className="text-white text-2xl ">Setting Jadwal</li>
+                    <li className="text-white text-xl ">Setting Jadwal</li>
                 </div>
             </Link>
         </ul>
