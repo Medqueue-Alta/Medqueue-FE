@@ -22,6 +22,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
@@ -58,7 +69,7 @@ export function CustomFormField<T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem className="w-full">
-          <FormLabel className="font-bold text-lg">{label}</FormLabel>
+          <FormLabel className="font-bold text-lg md:text-sm">{label}</FormLabel>
           <FormControl className="text-m">{children(field)}</FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
@@ -79,7 +90,7 @@ export function CustomFormDatePicker<T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col w-full">
-          <FormLabel className="font-bold text-lg">{label}</FormLabel>
+          <FormLabel className="font-bold text-lg md:text-sm">{label}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -98,10 +109,19 @@ export function CustomFormDatePicker<T extends FieldValues>(
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
+            <Calendar
+                data-testid="calendar"
                 mode="single"
                 selected={field.value}
-                onSelect={field.onChange}
+                onSelect={(date) => {
+                  field.onChange(date);
+                }}
+                disabled={(date) =>
+                  date > new Date() || date < new Date("1900-01-01")
+                }
+                captionLayout="dropdown-buttons"
+                fromDate={new Date("1900-01-01")}
+                toDate={new Date()}
                 initialFocus
               />
             </PopoverContent>
@@ -133,6 +153,43 @@ export function CustomFormTextArea<T extends FieldValues>(
               {...field}
             />
           </FormControl>
+          {description && <FormDescription>{description}</FormDescription>}
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+export function CustomFormSelect<T extends FieldValues>(
+  props: Readonly<Props<T>>
+) {
+  const { name, label, placeholder, description, control, options } = props;
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>{label}</SelectLabel>
+                {options?.map((option) => (
+                  <SelectItem value={option.value as string} key={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>

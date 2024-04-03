@@ -1,138 +1,238 @@
 import AuthLayout from "@/components/authLayout"
-import {Label} from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import MainButton from "@/components/MainButton"
+import {zodResolver} from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { RegisterSchema, registerSchema } from "@/utils/api/auth/type"
+import { Form } from "@/components/ui/form"
+import { toast } from "sonner"
+import { userRegister } from "@/utils/api/auth/api"
+import { useNavigate } from "react-router-dom"
+import { CustomFormDatePicker, CustomFormField, CustomFormSelect } from "@/components/CustomFormField"
 
 const Register = () => {
-  const [date, setDate] = useState<Date>()
+  const navigate = useNavigate()
+  const form = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+        nama: "",
+        email: "",
+        jenis_kelamin: "",
+        golongan_darah: "",
+        no_bpjs: "",
+        nik: "",
+        no_telepon: "",
+        tempat_lahir: "",
+        tanggal_lahir: new Date(),
+        password: "",
+        passwordConfirmation: ""
+    }
+  })
+  const gender = [
+    {
+        label: "Laki - Laki",
+        value: "L"
+    },
+    {
+        label: "Perempuan",
+        value: "P"
+    }
+  ]
+  const gol_darah = [
+    {
+        label: "A",
+        value: "A"
+    },
+    {
+        label: "B",
+        value: "B"
+    },
+    {
+        label: "O",
+        value: "O"
+    },
+    {
+        label: "AB",
+        value: "AB"
+    }
+  ]
+  const register = async (body: RegisterSchema) => {
+    try {
+        // console.log(body)
+        const response = await userRegister(body)
+        toast(response.message)
+        navigate("/login")
+    } catch (error) {
+        // console.log((error as Error).message)
+        toast((error as Error).message)
+    }
+  } 
   return (
         <AuthLayout>
             <h1 className="text-2xl mt-2">Register</h1>
             <div className="w-full p-10">
-                <div className="mb-2">
-                    <Label htmlFor="namaLengkap">Nama Lengkap</Label>
-                    <Input placeholder="Nama Lengkap" id="namaLengkap"/>
-                </div>
-                <div className="mb-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input placeholder="Email" id="email" type="email"/>
-                </div>
-                <div className="mb-2 flex justify-between items-center gap-3">
-                    <div className="w-1/2">
-                        <Label htmlFor="tempatLahir">Tempat Lahir</Label>
-                        <Input placeholder="Tempat Lahir" id="tempatLahir"/>
-                    </div>
-                    <div className="w-1/2">
-                        <Label>Tanggal Lahir</Label>
-                        <Popover>
-                        <PopoverTrigger asChild>
-                            <Button
-                            variant={"outline"}
-                            className={cn(
-                                "w-full justify-between text-left font-normal",
-                                !date && "text-muted-foreground"
-                            )}
+                <Form {...form}>
+                    <form action="" onSubmit={form.handleSubmit(register)}>
+                        <div className="mb-2">
+                            <CustomFormField
+                                control={form.control}
+                                label="Nama Lengkap"
+                                name="nama"
                             >
-                            {date ? format(date, "PP") : <span>Tanggal Lahir</span>}
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                                data-testid="calendar"
-                                mode="single"
-                                // selected={field.value}
-                                onSelect={(date) => {
-                                setDate(date)
-                                }}
-                                disabled={(date) =>
-                                date > new Date() || date < new Date("1900-01-01")
-                                }
-                                captionLayout="dropdown-buttons"
-                                fromDate={new Date("1900-01-01")}
-                                toDate={new Date()}
-                                initialFocus
-                            />
-                        </PopoverContent>
-                        </Popover>
-                    </div>
-                </div>
-                <div className="mb-2 flex items-center w-full gap-3">
-                    <div className="w-1/2">
-                    <Label htmlFor="gender">Jenis Kelamin</Label>
-                        <Select>
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Jenis Kelamin" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                            <SelectLabel>Jenis Kelamin</SelectLabel>
-                            <SelectItem value="L">Laki - Laki</SelectItem>
-                            <SelectItem value="P">Perempuan</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                    </div>
-                    <div className="w-1/2">
-                    <Label htmlFor="goldar">Golongan Darah</Label>
-                        <Select>
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Golongan Darah" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                            <SelectLabel>Golongan Darah</SelectLabel>
-                            <SelectItem value="A">A</SelectItem>
-                            <SelectItem value="B">B</SelectItem>
-                            <SelectItem value="O">O</SelectItem>
-                            <SelectItem value="AB">AB</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                    </div>
-                </div>
-                <div className="mb-2">
-                    <Label htmlFor="nik">NIK</Label>
-                    <Input placeholder="NIK" id="nik"/>
-                </div>
-                <div className="mb-2">
-                    <Label htmlFor="bpjs">No BPJS</Label>
-                    <Input placeholder="No BPJS" id="bpjs"/>
-                </div>
-                <div>
-                    <Label htmlFor="telp">No Telpon</Label>
-                    <Input placeholder="No Telpon" id="telp" type="tel"/>
-                </div>
-                <div className="mb-2">
-                    <Label htmlFor="password">Password</Label>
-                    <Input placeholder="Password" id="password" type="password"/>
-                </div>
-                <div className="mb-2">
-                    <Label htmlFor="passwordConfirmation">Password Confirmation</Label>
-                    <Input placeholder="Password Confirmation" id="passwordConfirmation" type="password"/>
-                </div>
+                                {(field) => (
+                                    <Input
+                                        {...field} 
+                                        placeholder="Nama Lengkap"
+                                        aria-disabled={form.formState.isSubmitting}
+                                        disabled={form.formState.isSubmitting}
+                                        value={field.value as string}
+                                    />
+                                )}
+                            </CustomFormField>
+                        </div>
+                        <div className="mb-2">
+                            <CustomFormField
+                                control={form.control}
+                                label="Email"
+                                name="email"
+                            >
+                                {(field) => (
+                                    <Input
+                                        {...field} 
+                                        placeholder="Email"
+                                        aria-disabled={form.formState.isSubmitting}
+                                        disabled={form.formState.isSubmitting}
+                                        value={field.value as string}
+                                        type="email"
+                                    />
+                                )}
+                            </CustomFormField>
+                        </div>
+                        <div className="mb-2 flex justify-between items-center gap-3">
+                            <div className="w-1/2">
+                            <CustomFormField
+                                control={form.control}
+                                label="Tempat Lahir"
+                                name="tempat_lahir"
+                            >
+                                {(field) => (
+                                    <Input
+                                        {...field} 
+                                        placeholder="Tempat Lahir"
+                                        aria-disabled={form.formState.isSubmitting}
+                                        disabled={form.formState.isSubmitting}
+                                        value={field.value as string}
+                                    />
+                                )}
+                            </CustomFormField>
+                            </div>
+                            <div className="w-1/2">
+                               <CustomFormDatePicker label="Tanggal Lahir" placeholder="Tanggal Lahir" control={form.control} name="tanggal_lahir"/>
+                            </div>
+                        </div>
+                        <div className="mb-2 flex items-center w-full gap-3">
+                            <div className="w-1/2">
+                                <CustomFormSelect label="Jenis Kelamin" placeholder="Jenis Kelamin" control={form.control} name="jenis_kelamin" disabled={form.formState.isSubmitting} options={gender} />
+                            </div>
+                            <div className="w-1/2">
+                                <CustomFormSelect label="Golongan Darah" placeholder="Golongan Darah" control={form.control} name="golongan_darah" disabled={form.formState.isSubmitting} options={gol_darah} />
+                            </div>
+                        </div>
+                        <div className="mb-2">
+                            <CustomFormField
+                                    control={form.control}
+                                    label="NIK"
+                                    name="nik"
+                                >
+                                    {(field) => (
+                                        <Input
+                                            {...field} 
+                                            placeholder="NIK"
+                                            aria-disabled={form.formState.isSubmitting}
+                                            disabled={form.formState.isSubmitting}
+                                            value={field.value as string}
+                                        />
+                                    )}
+                            </CustomFormField>
+                        </div>
+                        <div className="mb-2">
+                        <CustomFormField
+                                control={form.control}
+                                label="No BPJS"
+                                name="no_bpjs"
+                            >
+                                {(field) => (
+                                    <Input
+                                        {...field} 
+                                        placeholder="No BPJS"
+                                        aria-disabled={form.formState.isSubmitting}
+                                        disabled={form.formState.isSubmitting}
+                                        value={field.value as string}
+                                    />
+                                )}
+                            </CustomFormField>
+                        </div>
+                        <div>
+                        <CustomFormField
+                                control={form.control}
+                                label="No Telpon"
+                                name="no_telepon"
+                            >
+                                {(field) => (
+                                    <Input
+                                        {...field} 
+                                        placeholder="No Telpon"
+                                        aria-disabled={form.formState.isSubmitting}
+                                        disabled={form.formState.isSubmitting}
+                                        value={field.value as string}
+                                        type="tel"
+                                    />
+                                )}
+                            </CustomFormField>
+                        </div>
+                        <div className="mb-2">
+                        <CustomFormField
+                                control={form.control}
+                                label="Password"
+                                name="password"
+                            >
+                                {(field) => (
+                                    <Input
+                                        {...field} 
+                                        placeholder="Password"
+                                        aria-disabled={form.formState.isSubmitting}
+                                        disabled={form.formState.isSubmitting}
+                                        value={field.value as string}
+                                        type="password"
+                                    />
+                                )}
+                            </CustomFormField>
+                        </div>
+                        <div className="mb-2">
+                        <CustomFormField
+                                control={form.control}
+                                label="Konfirmasi Password"
+                                name="passwordConfirmation"
+                            >
+                                {(field) => (
+                                    <Input
+                                        {...field} 
+                                        placeholder="Konfirmasi Password"
+                                        aria-disabled={form.formState.isSubmitting}
+                                        disabled={form.formState.isSubmitting}
+                                        value={field.value as string}
+                                        type="password"
+                                    />
+                                )}
+                            </CustomFormField>
+                        </div>
+                        <div className="text-center">
+                            <MainButton text="Register" type="submit" className="mt-3"/>
+
+                        </div>
+                    </form>
+                </Form>
             </div>
-            <MainButton text="Register" />
         </AuthLayout>
   )
 }
