@@ -25,7 +25,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 
-import { ReservationSchema, reservationSchema } from "@/utils/reservation-type";
+import { ReservationSchema, reservationSchema } from "@/utils/api-list/patient/reservation-type";
 
 import {
   Select,
