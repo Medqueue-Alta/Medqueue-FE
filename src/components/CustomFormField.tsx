@@ -22,19 +22,32 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@radix-ui/react-checkbox";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 
 interface Props<T extends FieldValues> {
   name: FieldPath<T>;
   label: string;
   placeholder?: string;
-  options?: any[];
+  options?: {
+    label: string;
+    value: string | number;
+  }[];
   description?: string;
   control: Control<T>;
   "data-testid"?: string;
@@ -56,7 +69,7 @@ export function CustomFormField<T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem className="w-full">
-          <FormLabel className="font-bold text-lg">{label}</FormLabel>
+          <FormLabel className="font-bold text-lg md:text-sm">{label}</FormLabel>
           <FormControl className="text-m">{children(field)}</FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
@@ -77,7 +90,7 @@ export function CustomFormDatePicker<T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col w-full">
-          <FormLabel className="font-bold text-lg">{label}</FormLabel>
+          <FormLabel className="font-bold text-lg md:text-sm">{label}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -96,15 +109,19 @@ export function CustomFormDatePicker<T extends FieldValues>(
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
+            <Calendar
+                data-testid="calendar"
                 mode="single"
                 selected={field.value}
-                onSelect={field.onChange}
+                onSelect={(date) => {
+                  field.onChange(date);
+                }}
                 disabled={(date) =>
-                  date <= new Date() ||
-                  date >
-                    new Date(new Date().setMonth(new Date().getMonth() + 3))
+                  date > new Date() || date < new Date("1900-01-01")
                 }
+                captionLayout="dropdown-buttons"
+                fromDate={new Date("1900-01-01")}
+                toDate={new Date()}
                 initialFocus
               />
             </PopoverContent>
@@ -182,7 +199,7 @@ export function CustomFormSelect<T extends FieldValues>(
           <FormLabel>{label}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
@@ -190,8 +207,8 @@ export function CustomFormSelect<T extends FieldValues>(
               <SelectGroup>
                 <SelectLabel>{label}</SelectLabel>
                 {options?.map((option) => (
-                  <SelectItem value={option} key={option}>
-                    {option}
+                  <SelectItem value={option.value as string} key={option.value}>
+                    {option.label}
                   </SelectItem>
                 ))}
               </SelectGroup>
