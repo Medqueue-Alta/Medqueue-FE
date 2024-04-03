@@ -28,15 +28,13 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@radix-ui/react-checkbox";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 
 interface Props<T extends FieldValues> {
   name: FieldPath<T>;
   label: string;
   placeholder?: string;
-  options?: {
-    label: string;
-    value: string | number;
-  }[];
+  options?: any[];
   description?: string;
   control: Control<T>;
   "data-testid"?: string;
@@ -164,6 +162,43 @@ export function CustomFormCheckbox<T extends FieldValues>(
             <FormLabel>{label}</FormLabel>
             {description && <FormDescription>{description}</FormDescription>}
           </div>
+        </FormItem>
+      )}
+    />
+  );
+}
+
+export function CustomFormSelect<T extends FieldValues>(
+  props: Readonly<Props<T>>
+) {
+  const { name, label, placeholder, description, control, options } = props;
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>{label}</SelectLabel>
+                {options?.map((option) => (
+                  <SelectItem value={option} key={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          {description && <FormDescription>{description}</FormDescription>}
+          <FormMessage />
         </FormItem>
       )}
     />
