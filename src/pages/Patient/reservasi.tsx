@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+
 
 import { CustomFormDatePicker } from "@/components/CustomFormField";
 import PatientInformationCard from "@/components/PatientInformationCard";
@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
+
 
 import { ReservationSchema, reservationSchema } from "@/utils/api-list/patient/reservation-type";
 
@@ -30,27 +30,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
+import { addNewReservation } from "@/utils/api-list/patient/api";
 
 const PatientReservation = () => {
   const form = useForm<ReservationSchema>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
       Poli: "",
+      Hari: new Date(),
       Jadwal: "",
       Keluhan: "",
       BPJS: false,
     },
   });
 
-  function onSubmit(data: z.infer<typeof reservationSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: ReservationSchema) {
+    try {
+      const result = await addNewReservation(data);
+
+      toast(result.message);
+    
+    } catch (error) {
+      toast((error as Error).message.toString());
+    }
   }
 
   return (
