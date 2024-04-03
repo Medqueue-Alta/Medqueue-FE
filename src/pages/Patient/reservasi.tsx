@@ -132,19 +132,23 @@ const PatientReservation = () => {
                   </FormItem>
                 )}
               />
-              <CustomFormField
+              <FormField
                 control={form.control}
                 name="Keluhan"
-                label="Keluhan"
-              >
-                {(field) => (
-                  <Textarea
-                    placeholder="Keluhan"
-                    className="resize-none"
-                    {...field}
-                  />
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-bold text-lg">Keluhan</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Keluhan"
+                        className="resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </CustomFormField>
+              />
               <FormField
                 control={form.control}
                 name="BPJS"
