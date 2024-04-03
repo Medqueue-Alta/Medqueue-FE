@@ -1,20 +1,19 @@
 import * as z from "zod";
 
-export const reservationSchema = z
-  .object({
-    full_name: z.string().min(1, { message: "Full name is required" }),
-    email: z
-      .string()
-      .min(1, { message: "Email is required" })
-      .email("Not a valid email"),
-    password: z.string().min(6, { message: "Password is required" }),
-    repassword: z.string().min(6, { message: "Password is required" }),
-    role: z.string().default("user"),
-    address: z.string().min(1, { message: "Address is required" }),
-    phone_number: z
-      .string()
-      .min(8, { message: "Phone number minimum length is 8" }),
-  })
+export const reservationSchema = z.object({
+  Poli: z.string().min(1, { message: "Please choose the clinic" }),
+  Hari: z.date({ required_error: "Please choose the date" }),
+  Jadwal: z.string().min(1, { message: "Please choose the schedule" }),
+  Keluhan: z
+    .string()
+    .min(10, {
+      message: "Symptoms Must Be at least 10 characters.",
+    })
+    .max(160, {
+      message: "Symptoms must not be longer than 30 characters.",
+    }),
+  BPJS: z.boolean().default(false).optional(),
+});
   
 
 export type ReservationSchema = z.infer<typeof reservationSchema>;
