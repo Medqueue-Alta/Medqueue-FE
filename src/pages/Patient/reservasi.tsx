@@ -2,10 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import {
-
-  CustomFormDatePicker,
-} from "@/components/CustomFormField";
+import { CustomFormDatePicker } from "@/components/CustomFormField";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 import PatientReservationCard from "@/components/ReservationCard";
@@ -15,7 +12,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
-  
   FormField,
   FormItem,
   FormLabel,
@@ -101,6 +97,13 @@ const PatientReservation = () => {
                   </FormItem>
                 )}
               />
+              {/* <CustomFormSelect
+                control={form.control}
+                name="Poli"
+                label="Poli Klinik"
+                placeholder="Poli Klinik"
+                options={Poli}
+              /> */}
               <CustomFormDatePicker
                 control={form.control}
                 name="Hari"
@@ -131,6 +134,13 @@ const PatientReservation = () => {
                   </FormItem>
                 )}
               />
+              {/* <CustomFormSelect
+                control={form.control}
+                name="Jadwal"
+                label="Jadwal"
+                placeholder="Jadwal"
+                options={Jadwal}
+              /> */}
               <FormField
                 control={form.control}
                 name="Keluhan"
