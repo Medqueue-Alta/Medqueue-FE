@@ -15,11 +15,15 @@ export const addNewReservation = async (body: ReservationSchema) => {
       }
     }
 
-    const response = await axios.post("/books", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.post(
+      "http://petstore.swagger.io/v2/reservasi",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     return response.data as IResponse;
   } catch (error: any) {
