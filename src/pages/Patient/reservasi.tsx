@@ -149,9 +149,12 @@ const PatientReservation = () => {
                     <FormLabel className="font-bold text-lg">Keluhan</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Keluhan"
-                        className="resize-none"
                         {...field}
+                        placeholder="Keluhan"
+                        disabled={form.formState.isSubmitting}
+                        aria-disabled={form.formState.isSubmitting}
+                        value={field.value as string}
+                        className="resize-none"
                       />
                     </FormControl>
                     <FormMessage />
