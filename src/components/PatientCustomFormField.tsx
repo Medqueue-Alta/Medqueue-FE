@@ -183,9 +183,9 @@ export function CustomFormSelect<T extends FieldValues>(
       render={({ field }) => (
         <FormItem>
           <FormLabel className="font-bold text-lg">{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
-            <FormControl>
-              <SelectTrigger className="w-[180px]">
+          <Select onValueChange={field.onChange} defaultValue={field.value} >
+            <FormControl >
+              <SelectTrigger className="w-full]">
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
