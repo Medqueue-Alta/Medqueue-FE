@@ -153,8 +153,8 @@ const PatientReservation = () => {
               <CustomFormSelect
                 control={form.control}
                 name="Hari"
-                label="Tanggal Daftar"
-                placeholder="Tanggal Daftar"
+                label="Hari"
+                placeholder="Hari"
                 options={hariOptions}
               />
 
