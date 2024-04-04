@@ -23,5 +23,9 @@ export const valueFormatData = (value: any) => {
     return value as Blob;
   }
 
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+
   return String(value);
 };

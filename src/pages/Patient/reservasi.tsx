@@ -50,7 +50,6 @@ const PatientReservation = () => {
       const result = await addNewReservation(data);
 
       toast(result.message);
-    
     } catch (error) {
       toast((error as Error).message.toString());
     }

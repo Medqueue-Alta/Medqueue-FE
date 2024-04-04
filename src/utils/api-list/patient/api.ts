@@ -16,7 +16,7 @@ export const addNewReservation = async (body: ReservationSchema) => {
     }
 
     const response = await axios.post(
-      "http://petstore.swagger.io/v2/reservasi",
+      " https://medqueue.site/reservations",
       formData,
       {
         headers: {
