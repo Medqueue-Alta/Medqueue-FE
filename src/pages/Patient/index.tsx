@@ -1,5 +1,5 @@
-import PatientCard from "@/components/ReservedScheduleCard";
-import QueueCard from "@/components/QueueCard";
+import PatientCard from "@/components/PatientReservedScheduleCard";
+import QueueCard from "@/components/PatientQueueCard";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 

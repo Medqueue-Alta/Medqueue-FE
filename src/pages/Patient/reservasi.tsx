@@ -2,10 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 
-import { CustomFormDatePicker } from "@/components/CustomFormField";
+import { CustomFormDatePicker } from "@/components/PatientCustomFormField";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
-import PatientReservationCard from "@/components/ReservationCard";
+import PatientReservationCard from "@/components/PatientReservationCard";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";

@@ -1,4 +1,4 @@
-import DropdownNavbar from "./DropdownNavbar";
+import DropdownNavbar from "./PatientDropdownNavbar";
 
 
 const NavigationBar = () => {
