@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-
-import { CustomFormDatePicker } from "@/components/PatientCustomFormField";
+import {
+  CustomFormSelect,
+} from "@/components/PatientCustomFormField";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 import PatientReservationCard from "@/components/PatientReservationCard";
@@ -20,16 +21,11 @@ import {
 
 import { Textarea } from "@/components/ui/textarea";
 
-
-import { ReservationSchema, reservationSchema } from "@/utils/api-list/patient/reservation-type";
-
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  ReservationSchema,
+  reservationSchema,
+} from "@/utils/api-list/patient/reservation-type";
+
 import { toast } from "sonner";
 import { addNewReservation } from "@/utils/api-list/patient/api";
 
@@ -37,13 +33,85 @@ const PatientReservation = () => {
   const form = useForm<ReservationSchema>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
-      Poli: "",
-      Hari: new Date(),
+      poli: "",
+      Hari: "",
       Jadwal: "",
-      Keluhan: "",
+      keluhan: "",
       BPJS: false,
     },
   });
+
+  const poli = [
+    {
+      label: "Poli Umum",
+      value: "Poli Umum",
+    },
+    {
+      label: "Poli Gigi & Mulut",
+      value: "Poli Gigi & Mulut",
+    },
+    {
+      label: "Poli KIA",
+      value: "Poli KIA",
+    },
+    {
+      label: "UGD",
+      value: "UGD",
+    },
+  ];
+
+  const poliOptions = poli.map((option) => ({
+    label: option.label,
+    value: option.value,
+  }));
+
+  const Hari = [
+    {
+      label: "Senin",
+      value: "Senin",
+    },
+    {
+      label: "Selasa",
+      value: "Selasa",
+    },
+    {
+      label: "Rabu",
+      value: "Rabu",
+    },
+    {
+      label: "Kamis",
+      value: "Kamis",
+    },
+    {
+      label: "Jumat",
+      value: "Jumat",
+    },
+  ];
+
+  const hariOptions = Hari.map((option) => ({
+    label: option.label,
+    value: option.value,
+  }));
+
+  const jadwal = [
+    {
+      label: "Pagi",
+      value: "pagi",
+    },
+    {
+      label: "Siang",
+      value: "siang",
+    },
+    {
+      label: "Malam",
+      value: "malam",
+    },
+  ];
+
+  const jadwalOptions = jadwal.map((option) => ({
+    label: option.label,
+    value: option.value,
+  }));
 
   async function onSubmit(data: ReservationSchema) {
     try {
@@ -69,83 +137,37 @@ const PatientReservation = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-2"
             >
-              <FormField
+              <CustomFormSelect
                 control={form.control}
-                name="Poli"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold text-lg">
-                      Poli Klinik
-                    </FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Poli Klinik" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Poli Umum">Poli Umum</SelectItem>
-                        <SelectItem value="Poli Gigi & Mulut">
-                          Poli GIgi & Mulut
-                        </SelectItem>
-                        <SelectItem value="Poli KIA">Poli KIA</SelectItem>
-                        <SelectItem value="UGD">UGD</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* <CustomFormSelect
-                control={form.control}
-                name="Poli"
+                name="poli"
                 label="Poli Klinik"
                 placeholder="Poli Klinik"
-                options={Poli}
-              /> */}
-              <CustomFormDatePicker
+                options={poliOptions}
+              />
+              {/* <CustomFormDatePicker
                 control={form.control}
                 name="Hari"
                 label="Tanggal Daftar"
                 placeholder="Tanggal Daftar"
-              />
-              <FormField
+              /> */}
+              <CustomFormSelect
                 control={form.control}
-                name="Jadwal"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold text-lg">Jadwal</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Jadwal" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="1">1</SelectItem>
-                        <SelectItem value="2">2</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                name="Hari"
+                label="Tanggal Daftar"
+                placeholder="Tanggal Daftar"
+                options={hariOptions}
               />
-              {/* <CustomFormSelect
+
+              <CustomFormSelect
                 control={form.control}
                 name="Jadwal"
                 label="Jadwal"
                 placeholder="Jadwal"
-                options={Jadwal}
-              /> */}
+                options={jadwalOptions}
+              />
               <FormField
                 control={form.control}
-                name="Keluhan"
+                name="keluhan"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-bold text-lg">Keluhan</FormLabel>
