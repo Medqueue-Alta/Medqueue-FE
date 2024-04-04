@@ -1,7 +1,6 @@
 import * as z from "zod";
 
 export const reservationSchema = z.object({
-<<<<<<< HEAD
   poli: z
     .string()
     .min(1, { message: "Silahkan pilih Poli Klinik yang sesuai" }),
@@ -25,21 +24,5 @@ export const reservationSchema = z.object({
     }),
   BPJS: z.boolean().default(false).optional(),
 });
-=======
-  Poli: z.string().min(1, { message: "Please choose the clinic" }),
-  Hari: z.date({ required_error: "Please choose the date" }),
-  Jadwal: z.string().min(1, { message: "Please choose the schedule" }),
-  Keluhan: z
-    .string()
-    .min(10, {
-      message: "Symptoms Must Be at least 10 characters.",
-    })
-    .max(160, {
-      message: "Symptoms must not be longer than 30 characters.",
-    }),
-  BPJS: z.boolean().default(false).optional(),
-});
-  
->>>>>>> 54d5ba48b3a095e8d04b0f6cd4fa36248d3621f3
 
 export type ReservationSchema = z.infer<typeof reservationSchema>;
