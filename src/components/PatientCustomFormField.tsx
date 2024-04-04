@@ -99,7 +99,9 @@ export function CustomFormDatePicker<T extends FieldValues>(
               <Calendar
                 mode="single"
                 selected={field.value}
-                onSelect={field.onChange}
+                onSelect={(date) => {
+                  field.onChange(date);
+                }}
                 disabled={(date) =>
                   date <= new Date() ||
                   date >
@@ -190,8 +192,8 @@ export function CustomFormSelect<T extends FieldValues>(
               <SelectGroup>
                 <SelectLabel>{label}</SelectLabel>
                 {options?.map((option) => (
-                  <SelectItem value={option} key={option}>
-                    {option}
+                  <SelectItem value={option.value} key={option.value}>
+                    {option.label}
                   </SelectItem>
                 ))}
               </SelectGroup>
