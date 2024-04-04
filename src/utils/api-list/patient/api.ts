@@ -1,8 +1,9 @@
-import axios from "axios";
+
 
 import { checkProperty, valueFormatData } from "@/utils/formatter";
 import { IResponse } from "@/utils/types/api";
 import { ReservationSchema } from "./reservation-type";
+import axiosWithConfig from "../axiosWithConfig";
 
 export const addNewReservation = async (body: ReservationSchema) => {
   try {
@@ -15,8 +16,8 @@ export const addNewReservation = async (body: ReservationSchema) => {
       }
     }
 
-    const response = await axios.post(
-      " https://medqueue.site/reservations",
+    const response = await axiosWithConfig.post(
+      "/reservation",
       formData,
       {
         headers: {
