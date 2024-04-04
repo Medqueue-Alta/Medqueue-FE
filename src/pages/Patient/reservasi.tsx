@@ -20,6 +20,12 @@ import {
 } from "@/components/ui/form";
 
 import { Textarea } from "@/components/ui/textarea";
+<<<<<<< HEAD
+=======
+import { toast } from "@/components/ui/use-toast";
+
+import { ReservationSchema, reservationSchema } from "@/utils/api/patient/reservation-type";
+>>>>>>> 54d5ba48b3a095e8d04b0f6cd4fa36248d3621f3
 
 import {
   ReservationSchema,
