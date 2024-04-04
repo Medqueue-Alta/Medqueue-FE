@@ -1,12 +1,12 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
+import Login from '@/pages/auth/Login'
+import Register from '@/pages/auth/Register'
 
-import AddFaskesSchedule from '@/pages/AddFaskesSchedule'
-import FaskesHome from '@/pages/FaskesHome'
-import FaskesQueue from '@/pages/FaskesQueue'
-import FaskesSchedule from '@/pages/FaskesSchedule'
+import AddFaskesSchedule from '@/pages/faskes/AddFaskesSchedule'
+import FaskesHome from '@/pages/faskes/FaskesHome'
+import FaskesQueue from '@/pages/faskes/FaskesQueue'
+import FaskesSchedule from '@/pages/faskes/FaskesSchedule'
 
 import PatientHome from '@/pages/Patient'
 import PatientReservation from '@/pages/Patient/reservasi'
