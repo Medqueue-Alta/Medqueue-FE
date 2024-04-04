@@ -116,10 +116,6 @@ export function CustomFormDatePicker<T extends FieldValues>(
                 onSelect={(date) => {
                   field.onChange(date);
                 }}
-<<<<<<< HEAD:src/components/PatientCustomFormField.tsx
-                
-=======
->>>>>>> 54d5ba48b3a095e8d04b0f6cd4fa36248d3621f3:src/components/CustomFormField.tsx
                 disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
                 }
@@ -200,17 +196,10 @@ export function CustomFormSelect<T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem>
-<<<<<<< HEAD:src/components/PatientCustomFormField.tsx
-          <FormLabel className="font-bold text-lg">{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value} >
-            <FormControl >
-              <SelectTrigger className="w-full]">
-=======
           <FormLabel>{label}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger className="w-full">
->>>>>>> 54d5ba48b3a095e8d04b0f6cd4fa36248d3621f3:src/components/CustomFormField.tsx
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
@@ -218,11 +207,7 @@ export function CustomFormSelect<T extends FieldValues>(
               <SelectGroup>
                 <SelectLabel>{label}</SelectLabel>
                 {options?.map((option) => (
-<<<<<<< HEAD:src/components/PatientCustomFormField.tsx
-                  <SelectItem value={option.value} key={option.value}>
-=======
                   <SelectItem value={option.value as string} key={option.value}>
->>>>>>> 54d5ba48b3a095e8d04b0f6cd4fa36248d3621f3:src/components/CustomFormField.tsx
                     {option.label}
                   </SelectItem>
                 ))}

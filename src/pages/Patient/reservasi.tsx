@@ -1,9 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
-import {
-  CustomFormSelect,
-} from "@/components/PatientCustomFormField";
+import { CustomFormSelect } from "@/components/PatientCustomFormField";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 import PatientReservationCard from "@/components/PatientReservationCard";
@@ -18,22 +17,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Textarea } from "@/components/ui/textarea";
-<<<<<<< HEAD
-=======
-import { toast } from "@/components/ui/use-toast";
-
-import { ReservationSchema, reservationSchema } from "@/utils/api/patient/reservation-type";
->>>>>>> 54d5ba48b3a095e8d04b0f6cd4fa36248d3621f3
 
 import {
   ReservationSchema,
   reservationSchema,
-} from "@/utils/api-list/patient/reservation-type";
-
-import { toast } from "sonner";
-import { addNewReservation } from "@/utils/api-list/patient/api";
+} from "@/utils/api/patient/reservation-type";
+import { addNewReservation } from "@/utils/api/patient/api";
 
 const PatientReservation = () => {
   const form = useForm<ReservationSchema>({
