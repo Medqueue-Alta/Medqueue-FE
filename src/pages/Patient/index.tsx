@@ -1,17 +1,36 @@
+import { useEffect, useState } from "react";
+
 import PatientCard from "@/components/ReservedScheduleCard";
 import QueueCard from "@/components/QueueCard";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 
+import { getPatient } from "@/utils/api/patient/api";
+
 const PatientHome = () => {
+  const [patient, setPatient] = useState("");
+  const [nik, setNIK] = useState("");
+  const [bpjs, setBPJS] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getPatient();
+        setPatient(response.nama);
+        setNIK(response.no_nik);
+        setBPJS(response.no_bpjs);
+      } catch (error) {
+        console.log((error as Error).message.toString());
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center h-full">
-        <PatientInformationCard
-          nama="John Doe"
-          NIK="123456789"
-          BJPS="1234556"
-        />
+        <PatientInformationCard nama={patient} NIK={nik} BJPS={bpjs} />
         <PatientCard
           title="Poli Umum"
           jadwal="12:00"
@@ -23,7 +42,9 @@ const PatientHome = () => {
             <QueueCard antrian="12" />
             <QueueCard antrian="15" />
           </div>
-          <p className="text-xs">*Antrian yang terlewat akan dimasukkan ke dalam waiting list</p>
+          <p className="text-xs">
+            *Antrian yang terlewat akan dimasukkan ke dalam waiting list
+          </p>
         </div>
       </div>
     </PatientLayout>

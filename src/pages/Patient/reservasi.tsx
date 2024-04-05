@@ -1,6 +1,7 @@
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useEffect, useState } from "react";
 
 import { CustomFormDatePicker } from "@/components/CustomFormField";
 import PatientInformationCard from "@/components/PatientInformationCard";
@@ -17,12 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
-
-import { ReservationSchema, reservationSchema } from "@/utils/api/patient/reservation-type";
-
 import {
   Select,
   SelectContent,
@@ -30,8 +26,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "@/components/ui/use-toast";
+
+import { getPatient } from "@/utils/api/patient/api";
+import {
+  ReservationSchema,
+  reservationSchema,
+} from "@/utils/api/patient/reservation-type";
 
 const PatientReservation = () => {
+  const [patient, setPatient] = useState("");
+  const [nik, setNIK] = useState("");
+  const [bpjs, setBPJS] = useState("");
+
   const form = useForm<ReservationSchema>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
@@ -53,14 +60,25 @@ const PatientReservation = () => {
     });
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getPatient();
+        setPatient(response.nama);
+        setNIK(response.no_nik);
+        setBPJS(response.no_bpjs);
+      } catch (error) {
+        console.log((error as Error).message.toString());
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center h-full">
-        <PatientInformationCard
-          nama="John Doe"
-          NIK="123456789"
-          BJPS="1234556"
-        />
+        <PatientInformationCard nama={patient} NIK={nik} BJPS={bpjs} />
         <PatientReservationCard>
           <Form {...form}>
             <form
