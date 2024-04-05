@@ -1,5 +1,3 @@
-
-
 import { checkProperty, valueFormatData } from "@/utils/formatter";
 import { IResponse } from "@/utils/types/api";
 import { ReservationSchema } from "./reservation-type";
@@ -16,15 +14,11 @@ export const addNewReservation = async (body: ReservationSchema) => {
       }
     }
 
-    const response = await axiosWithConfig.post(
-      "/reservation",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const response = await axiosWithConfig.post("/reservation", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     return response.data as IResponse;
   } catch (error: any) {

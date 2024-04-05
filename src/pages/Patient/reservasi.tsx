@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { CustomFormSelect } from "@/components/PatientCustomFormField";
+import { CustomFormDatePicker, CustomFormSelect } from "@/components/PatientCustomFormField";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 import PatientReservationCard from "@/components/PatientReservationCard";
@@ -61,34 +61,6 @@ const PatientReservation = () => {
     value: option.value,
   }));
 
-  const Hari = [
-    {
-      label: "Senin",
-      value: "Senin",
-    },
-    {
-      label: "Selasa",
-      value: "Selasa",
-    },
-    {
-      label: "Rabu",
-      value: "Rabu",
-    },
-    {
-      label: "Kamis",
-      value: "Kamis",
-    },
-    {
-      label: "Jumat",
-      value: "Jumat",
-    },
-  ];
-
-  const hariOptions = Hari.map((option) => ({
-    label: option.label,
-    value: option.value,
-  }));
-
   const jadwal = [
     {
       label: "Pagi",
@@ -140,18 +112,11 @@ const PatientReservation = () => {
                 placeholder="Poli Klinik"
                 options={poliOptions}
               />
-              {/* <CustomFormDatePicker
+              <CustomFormDatePicker
                 control={form.control}
                 name="Hari"
                 label="Tanggal Daftar"
                 placeholder="Tanggal Daftar"
-              /> */}
-              <CustomFormSelect
-                control={form.control}
-                name="Hari"
-                label="Hari"
-                placeholder="Hari"
-                options={hariOptions}
               />
 
               <CustomFormSelect

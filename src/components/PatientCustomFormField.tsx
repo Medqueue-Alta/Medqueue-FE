@@ -90,7 +90,9 @@ export function CustomFormDatePicker<T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col w-full">
-          <FormLabel className="font-bold text-lg md:text-sm">{label}</FormLabel>
+          <FormLabel className="font-bold text-lg md:text-sm">
+            {label}
+          </FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -109,7 +111,7 @@ export function CustomFormDatePicker<T extends FieldValues>(
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
+              <Calendar
                 data-testid="calendar"
                 mode="single"
                 selected={field.value}
@@ -117,11 +119,11 @@ export function CustomFormDatePicker<T extends FieldValues>(
                   field.onChange(date);
                 }}
                 disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
+                  date <= new Date() ||
+                  date >
+                    new Date(new Date().setMonth(new Date().getMonth() + 3))
                 }
-                captionLayout="dropdown-buttons"
-                fromDate={new Date("1900-01-01")}
-                toDate={new Date()}
+                
                 initialFocus
               />
             </PopoverContent>
