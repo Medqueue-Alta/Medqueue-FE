@@ -5,13 +5,14 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { LoginSchema, loginSchema } from "@/utils/api/auth/type"
 import { Form } from "@/components/ui/form"
-import { toast } from "sonner"
+import { useToast } from "@/components/ui/use-toast"
 import { userLogin } from "@/utils/api/auth/api"
 import { useNavigate } from "react-router-dom"
 import { CustomFormField } from "@/components/CustomFormField"
 
 const Login = () => {
   const navigate = useNavigate()
+  const { toast } = useToast()
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -22,11 +23,18 @@ const Login = () => {
   const login = async (body: LoginSchema) => {
     try {
         const response = await userLogin(body)
-        toast(response.message)
+        toast({
+            title: "Success",
+            description: response.message
+        })
         localStorage.setItem("token",response.data.token)
         navigate("/")
     } catch (error) {
-        toast((error as Error).message)
+        toast({
+            title: "Error",
+            description: (error as Error).message,
+            variant: "destructive"
+        })
     }
   }
   return (

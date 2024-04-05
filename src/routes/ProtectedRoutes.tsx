@@ -1,7 +1,8 @@
-import {toast} from "sonner"
+import { useToast } from "@/components/ui/use-toast"
 import {Navigate, Outlet, useLocation} from "react-router-dom"
 const ProtectedRoutes = () => {
     const {pathname} = useLocation()
+    const { toast } = useToast()
     const token = localStorage.getItem("token")
     const authProtected = ["/login","/register"]
     const protectedByToken = [
@@ -24,7 +25,11 @@ const ProtectedRoutes = () => {
     }
     if(protectedByToken.includes(pathname)){
         if(!token) {
-           toast("Kamu harus login terlebih dahulu")
+           toast({
+            title: "Error",
+            description: "Kamu harus melakukan login terlebih dahulu",
+            variant: "destructive"
+           })
           return <Navigate to="/login"/>
         }
     } 
