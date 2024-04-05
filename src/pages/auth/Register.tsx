@@ -5,13 +5,14 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { RegisterSchema, registerSchema } from "@/utils/api/auth/type"
 import { Form } from "@/components/ui/form"
-import { toast } from "sonner"
+import { useToast } from "@/components/ui/use-toast"
 import { userRegister } from "@/utils/api/auth/api"
 import { useNavigate } from "react-router-dom"
 import { CustomFormDatePicker, CustomFormField, CustomFormSelect } from "@/components/CustomFormField"
 
 const Register = () => {
   const navigate = useNavigate()
+  const { toast } = useToast()
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -60,11 +61,18 @@ const Register = () => {
     try {
         // console.log(body)
         const response = await userRegister(body)
-        toast(response.message)
+        toast({
+            title: "Success",
+            description: response.message
+        })
         navigate("/login")
     } catch (error) {
         // console.log((error as Error).message)
-        toast((error as Error).message)
+        toast({
+            title: "Error",
+            description: (error as Error).message,
+            variant: "destructive"
+        })
     }
   } 
   return (

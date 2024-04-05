@@ -19,13 +19,13 @@ const DropdownNavbar = () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="gap-2">
           <img src="/user.png" alt="" />
-          <Link to={"/faskes/update-profile"}>
+          <Link to={"/pasien/update-profile"}>
             <p>Profile</p>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="gap-2">
           <img src="/calendar-clock.png" alt="" />
-          <Link to={"/faskes/reservasi"}>
+          <Link to={"/pasien/reservasi"}>
             <p>Reservasi</p>
           </Link>
         </DropdownMenuItem>
