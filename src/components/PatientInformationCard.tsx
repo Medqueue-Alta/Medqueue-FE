@@ -10,20 +10,18 @@ const PatientInformationCard = (props: Props) => {
   const { nama, NIK, BJPS } = props;
 
   return (
-    <Card className=" w-max h-max ">
+    <Card className=" w-full h-max ">
       <CardHeader className="flex flex-row justify-center p-4 bg-[#92DBD8]">
         <CardTitle>{nama}</CardTitle>
       </CardHeader>
       <CardContent className="p-4 bg-[#BEE8E6]">
         <div className="grid grid-cols-3">
           <p>NIK</p>
-          <p>:</p>
-          <p className="">{NIK}</p>
+          <p className="col-span-2">: {NIK}</p>
         </div>
         <div className="grid grid-cols-3">
-          <p>BPJS</p> 
-          <p>:</p>
-          <p>{BJPS}</p>
+          <p>BPJS</p>
+          <p className="col-span-2">: {BJPS}</p>
         </div>
       </CardContent>
     </Card>
