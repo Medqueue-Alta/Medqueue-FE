@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import PatientCard from "@/components/PatientReservedScheduleCard";
 import QueueCard from "@/components/PatientQueueCard";
 import PatientInformationCard from "@/components/PatientInformationCard";
