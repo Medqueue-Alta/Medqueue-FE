@@ -10,11 +10,15 @@ import { useForm } from "react-hook-form"
 import { SchedulesSchema, schedulesSchema } from "@/utils/api/faskes/type"
 import { Form } from "@/components/ui/form"
 import { CustomFormField, CustomFormSelect } from "@/components/CustomFormField"
+import { postSchedules } from "@/utils/api/faskes/api"
+import { useToast } from "@/components/ui/use-toast"
+import { setAxiosConfig } from "@/utils/api/axiosWithConfig"
 
 const AddFaskesSchedule = () => {
   const {poli} = useParams()
   const location = useLocation()
   const navigate = useNavigate()
+  const {toast} = useToast()
   const form = useForm<SchedulesSchema>({
     resolver: zodResolver(schedulesSchema),
     defaultValues: {
@@ -76,9 +80,19 @@ const AddFaskesSchedule = () => {
   const addSchedule = async (body : SchedulesSchema) => {
     try {
       console.log(body)
+      setAxiosConfig(localStorage.getItem("token")!)
+      const response = await postSchedules(body)
+      toast({
+        title: "Success",
+        description: response.message
+      })
       navigate("/")
     } catch (error) {
-      console.log(error)
+      toast({
+        title: "Error",
+        description: (error as Error).message,
+        variant: "destructive"
+      })
     }
   }
   return (
