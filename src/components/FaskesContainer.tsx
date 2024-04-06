@@ -8,7 +8,7 @@ interface Props {
 const FaskesContainer = (props: Props) => {
     const {children,title} = props
   return (
-    <div className="flex justify-center items-center w-full h-screen">
+    <div className="flex justify-center items-center w-full">
         <div className="bg-[#92DBD8] h-[70%] w-[90%] ">
             <div className="h-[15%] flex items-center justify-center">
                 <h1 className="text-2xl">{title}</h1>
