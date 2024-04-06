@@ -18,13 +18,13 @@ const Register = () => {
     defaultValues: {
         nama: "",
         email: "",
-        jenis_kelamin: "",
-        golongan_darah: "",
+        gender: "",
+        gol_darah: "",
         no_bpjs: "",
-        nik: "",
+        no_nik: "",
         no_telepon: "",
         tempat_lahir: "",
-        tanggal_lahir: new Date(),
+        tgl_lahir: new Date(),
         password: "",
         passwordConfirmation: ""
     }
@@ -59,7 +59,6 @@ const Register = () => {
   ]
   const register = async (body: RegisterSchema) => {
     try {
-        // console.log(body)
         const response = await userRegister(body)
         toast({
             title: "Success",
@@ -135,22 +134,22 @@ const Register = () => {
                             </CustomFormField>
                             </div>
                             <div className="w-1/2">
-                               <CustomFormDatePicker label="Tanggal Lahir" placeholder="Tanggal Lahir" control={form.control} name="tanggal_lahir"/>
+                               <CustomFormDatePicker label="Tanggal Lahir" placeholder="Tanggal Lahir" control={form.control} name="tgl_lahir"/>
                             </div>
                         </div>
                         <div className="mb-2 flex items-center w-full gap-3">
                             <div className="w-1/2">
-                                <CustomFormSelect label="Jenis Kelamin" placeholder="Jenis Kelamin" control={form.control} name="jenis_kelamin" disabled={form.formState.isSubmitting} options={gender} />
+                                <CustomFormSelect label="Jenis Kelamin" placeholder="Jenis Kelamin" control={form.control} name="gender" disabled={form.formState.isSubmitting} options={gender} />
                             </div>
                             <div className="w-1/2">
-                                <CustomFormSelect label="Golongan Darah" placeholder="Golongan Darah" control={form.control} name="golongan_darah" disabled={form.formState.isSubmitting} options={gol_darah} />
+                                <CustomFormSelect label="Golongan Darah" placeholder="Golongan Darah" control={form.control} name="gol_darah" disabled={form.formState.isSubmitting} options={gol_darah} />
                             </div>
                         </div>
                         <div className="mb-2">
                             <CustomFormField
                                     control={form.control}
                                     label="NIK"
-                                    name="nik"
+                                    name="no_nik"
                                 >
                                     {(field) => (
                                         <Input
