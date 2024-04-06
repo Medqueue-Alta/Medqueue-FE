@@ -5,12 +5,11 @@ import { IResponse } from "@/utils/types/api";
 import { ReservationSchema } from "./reservation-type";
 // import axiosWithConfig from "../axiosWithConfig";
 import { IPatient } from "./type";
+import axiosWithConfig from "../axiosWithConfig";
 
 export const getPatient = async () => {
   try {
-    const response = await axios.get(
-      "https://virtserver.swaggerhub.com/MNFAWWAZ99/MedQueue/1.0.0/profile"
-    );
+    const response = await axiosWithConfig("/users")
 
     return response.data as IPatient;
   } catch (error: any) {
