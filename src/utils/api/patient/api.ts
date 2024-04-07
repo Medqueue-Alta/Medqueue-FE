@@ -10,7 +10,7 @@ import axiosWithConfig from "../axiosWithConfig";
 
 export const getPatient = async () => {
   try {
-    const response = await axiosWithConfig("/users");
+    const response = await axiosWithConfig.get("/users");
 
     return response.data as IResponse<IPatient>;
   } catch (error: any) {
