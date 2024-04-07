@@ -7,15 +7,12 @@ import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { SchedulesSchema } from "@/utils/api/faskes/type"
 import { useSchedulesState } from "@/utils/states/schedules"
-import { useUserState } from "@/utils/states/user"
 import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 const FaskesSchedule = () => {
     const {poli} = useParams()
-    const {user,fetchUser} = useUserState()
     const {schedules, fetchSchedules} = useSchedulesState()
     useEffect(() => {
-        fetchUser()
         fetchSchedules()
     },[poli])
     const renderDataByPoli = (): SchedulesSchema[] => {
