@@ -5,14 +5,18 @@ import MainButton from "@/components/MainButton"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useToast } from "@/components/ui/use-toast"
+import { deleteSchedule } from "@/utils/api/faskes/api"
 import { ScheduleType, useSchedulesState } from "@/utils/states/schedules"
 import { useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 
 const FaskesSchedule = () => {
     const {poli} = useParams()
     const {schedules, fetchSchedules} = useSchedulesState()
+    const {toast} = useToast()
+    const navigate = useNavigate()
     useEffect(() => {
         fetchSchedules()
     },[poli])
@@ -22,6 +26,21 @@ const FaskesSchedule = () => {
             return item.poli === poli!.toLowerCase();
         });
     };
+    const deleteData = async (id: number) => {
+        try {
+            const response = await deleteSchedule(id)
+            toast({
+                title: "Success",
+                description: response.message
+            })
+            navigate(`/`)
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: (error as Error).message
+            })
+        }
+    }
   return (
     <FaskesLayout>
       <FaskesSidebar>
@@ -81,7 +100,7 @@ const FaskesSchedule = () => {
                                         <TableCell>12</TableCell>
                                         <TableCell className="flex items-center justify-center gap-3">
                                             <MainButton text="Edit"/>
-                                            <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
+                                            <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id)}>Hapus</Button>
                                         </TableCell>
                                     </TableRow>
                         ))}
