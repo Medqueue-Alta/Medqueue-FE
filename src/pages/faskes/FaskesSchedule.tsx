@@ -92,17 +92,17 @@ const FaskesSchedule = () => {
                     </TableHeader>
                     <TableBody>
                         {renderDataByPoli().map((item,index) => (
-                                    <TableRow className="text-center border-black" key={item.schedule_id}>
-                                        <TableCell>{index + 1}</TableCell>
-                                        <TableCell>{item.hari}</TableCell>
-                                        <TableCell>{item.jam_mulai} - {item.jam_selesai}</TableCell>
-                                        <TableCell>{item.kuota}</TableCell>
-                                        <TableCell>12</TableCell>
-                                        <TableCell className="flex items-center justify-center gap-3">
-                                            <MainButton text="Edit"/>
-                                            <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id)}>Hapus</Button>
-                                        </TableCell>
-                                    </TableRow>
+                            <TableRow className="text-center border-black" key={item.schedule_id}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{item.hari}</TableCell>
+                                <TableCell>{item.jam_mulai} - {item.jam_selesai}</TableCell>
+                                <TableCell>{item.kuota}</TableCell>
+                                <TableCell>12</TableCell>
+                                <TableCell className="flex items-center justify-center gap-3">
+                                    <MainButton text="Edit"/>
+                                    <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id)}>Hapus</Button>
+                                </TableCell>
+                            </TableRow>
                         ))}
                     </TableBody>
                 </Table>
