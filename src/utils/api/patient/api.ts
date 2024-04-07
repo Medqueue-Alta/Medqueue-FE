@@ -5,6 +5,7 @@ import {
   ISchedule,
   ReservationSchema,
   ScheduleData,
+  UpdateProfileSchema,
 } from "@/utils/api/patient/type";
 import axiosWithConfig from "../axiosWithConfig";
 
@@ -40,6 +41,28 @@ export const addNewReservation = async (body: ReservationSchema) => {
     }
 
     const response = await axiosWithConfig.post("/reservations", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data as IResponse;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const updateProfile = async (body: UpdateProfileSchema) => {
+  try {
+    const formData = new FormData();
+
+    let key: keyof typeof body;
+    for (key in body) {
+      if (checkProperty(body[key])) {
+        formData.append(key, valueFormatData(body[key]));
+      }
+    }
+    const response = await axiosWithConfig.put("/users", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
