@@ -5,9 +5,26 @@ import MainButton from "@/components/MainButton"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { SchedulesSchema } from "@/utils/api/faskes/type"
+import { useSchedulesState } from "@/utils/states/schedules"
+import { useUserState } from "@/utils/states/user"
+import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 const FaskesSchedule = () => {
     const {poli} = useParams()
+    const {user,fetchUser} = useUserState()
+    const {schedules, fetchSchedules} = useSchedulesState()
+    useEffect(() => {
+        fetchUser()
+        fetchSchedules()
+    },[poli])
+    const renderDataByPoli = (): SchedulesSchema[] => {
+        return schedules!.filter((item: SchedulesSchema) => {
+            const poliParts = item.poli.split(" ");
+            const poliName = poliParts.length === 2 ? poliParts[1].toLowerCase() : item.poli.toLowerCase();
+            return poliName === poli!.toLowerCase();
+        });
+    };
   return (
     <FaskesLayout>
       <FaskesSidebar>
@@ -40,97 +57,42 @@ const FaskesSchedule = () => {
             </Link>
         </ul>
       </FaskesSidebar>
-      <FaskesContainer >
-        <Table>
-            <TableHeader className="bg-[#92DBD8] sticky top-0">
-                <TableHead className="text-black text-center">No</TableHead>
-                <TableHead className="text-black text-center">Hari</TableHead>
-                <TableHead className="text-black text-center">Jam Praktek</TableHead>
-                <TableHead className="text-black text-center">Kuota</TableHead>
-                <TableHead className="text-black text-center">Terisi</TableHead>
-                <TableHead className="text-black text-center"></TableHead>
-            </TableHeader>
-            <TableBody>
-                <TableRow className="text-center border-black">
-                    <TableCell>1</TableCell>
-                    <TableCell>Senin</TableCell>
-                    <TableCell>08:30 - 19:00</TableCell>
-                    <TableCell>50</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Edit"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
-                    </TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>2</TableCell>
-                    <TableCell>Selasa</TableCell>
-                    <TableCell>08:30 - 19:00</TableCell>
-                    <TableCell>50</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Edit"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
-                    </TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>3</TableCell>
-                    <TableCell>Rabu</TableCell>
-                    <TableCell>08:30 - 19:00</TableCell>
-                    <TableCell>50</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Edit"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
-                    </TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>4</TableCell>
-                    <TableCell>Kamis</TableCell>
-                    <TableCell>08:30 - 19:00</TableCell>
-                    <TableCell>50</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Edit"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
-                    </TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>5</TableCell>
-                    <TableCell>Jumat</TableCell>
-                    <TableCell>08:30 - 19:00</TableCell>
-                    <TableCell>50</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Edit"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
-                    </TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>6</TableCell>
-                    <TableCell>Sabtu</TableCell>
-                    <TableCell>08:30 - 19:00</TableCell>
-                    <TableCell>50</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Edit"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
-                    </TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>7</TableCell>
-                    <TableCell>Minggu</TableCell>
-                    <TableCell>08:30 - 19:00</TableCell>
-                    <TableCell>50</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Edit"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
-                    </TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
-      </FaskesContainer>
+      {renderDataByPoli().length < 1 ? (
+            <>
+                <div className="flex w-full justify-center items-center">
+                    <h1 className="text-3xl">Data Not Found</h1>
+                </div>
+            </>
+        ) : (
+            <FaskesContainer >
+                <Table>
+                    <TableHeader className="bg-[#92DBD8] sticky top-0">
+                        <TableHead className="text-black text-center">No</TableHead>
+                        <TableHead className="text-black text-center">Hari</TableHead>
+                        <TableHead className="text-black text-center">Jam Praktek</TableHead>
+                        <TableHead className="text-black text-center">Kuota</TableHead>
+                        <TableHead className="text-black text-center">Terisi</TableHead>
+                        <TableHead className="text-black text-center"></TableHead>
+                    </TableHeader>
+                    <TableBody>
+                        {renderDataByPoli().map((item,index) => (
+                                    <TableRow className="text-center border-black" key={index}>
+                                        <TableCell>{index + 1}</TableCell>
+                                        <TableCell>{item.hari}</TableCell>
+                                        <TableCell>{item.jam_mulai} - {item.jam_selesai}</TableCell>
+                                        <TableCell>{item.kuota}</TableCell>
+                                        <TableCell>12</TableCell>
+                                        <TableCell className="flex items-center justify-center gap-3">
+                                            <MainButton text="Edit"/>
+                                            <Button className="bg-red-500 hover:bg-red-700 duration-500">Hapus</Button>
+                                        </TableCell>
+                                    </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </FaskesContainer>
+
+        )}
     </FaskesLayout>
   )
 }
