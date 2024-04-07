@@ -21,7 +21,7 @@ const ProtectedRoutes = () => {
         "/pasien/update-profile"
     ]
     if(authProtected.includes(pathname)) {
-        if (token) {return <Navigate to="/faskes/home"/>}
+        if (token) {return <Navigate to="/"/>}
     }
     if(protectedByToken.includes(pathname)){
         if(!token) {
