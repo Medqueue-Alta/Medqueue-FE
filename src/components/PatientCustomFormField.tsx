@@ -82,7 +82,7 @@ export function CustomFormField<T extends FieldValues>(
 export function CustomFormDatePicker<T extends FieldValues>(
   props: Readonly<Props<T>>
 ) {
-  const { name, label, placeholder, description, control } = props;
+  const { name, label, disabled, placeholder, description, control } = props;
 
   return (
     <FormField
@@ -101,6 +101,7 @@ export function CustomFormDatePicker<T extends FieldValues>(
                   "pl-3 text-left font-normal",
                   !field.value && "text-muted-foreground"
                 )}
+                disabled={disabled}
               >
                 {field.value ? (
                   format(field.value, "dd MMM yyyy")
@@ -116,14 +117,14 @@ export function CustomFormDatePicker<T extends FieldValues>(
                 mode="single"
                 selected={field.value}
                 onSelect={(date) => {
-                  field.onChange(date);
+                  const day = date?.toString();
+                  field.onChange(day);
                 }}
                 disabled={(date) =>
                   date <= new Date() ||
                   date >
                     new Date(new Date().setMonth(new Date().getMonth() + 3))
                 }
-                
                 initialFocus
               />
             </PopoverContent>
@@ -136,10 +137,8 @@ export function CustomFormDatePicker<T extends FieldValues>(
   );
 }
 
-export function CustomFormTextArea<T extends FieldValues>(
-  props: Readonly<ChildrenProps<T>>
-) {
-  const { name, label, description, control } = props;
+export function CustomFormTextArea<T extends FieldValues>(props: Readonly<Props<T>>) {
+  const { name, label, disabled, placeholder, description, control } = props;
 
   return (
     <FormField
@@ -150,8 +149,9 @@ export function CustomFormTextArea<T extends FieldValues>(
           <FormLabel className="font-bold text-lg">{label}</FormLabel>
           <FormControl className="text-m">
             <Textarea
-              placeholder="Tell us a little bit about yourself"
+              placeholder={placeholder}
               className="resize-none"
+              disabled={disabled}
               {...field}
             />
           </FormControl>
@@ -163,9 +163,7 @@ export function CustomFormTextArea<T extends FieldValues>(
   );
 }
 
-export function CustomFormCheckbox<T extends FieldValues>(
-  props: Readonly<ChildrenProps<T>>
-) {
+export function CustomFormCheckbox<T extends FieldValues>(props: Readonly<Props<T>>) {
   const { name, label, description, control } = props;
 
   return (
@@ -190,7 +188,7 @@ export function CustomFormCheckbox<T extends FieldValues>(
 export function CustomFormSelect<T extends FieldValues>(
   props: Readonly<Props<T>>
 ) {
-  const { name, label, placeholder, description, control, options } = props;
+  const { name, label, disabled, placeholder, description, control, options } = props;
 
   return (
     <FormField
@@ -201,7 +199,7 @@ export function CustomFormSelect<T extends FieldValues>(
           <FormLabel>{label}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full" disabled={disabled}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
@@ -209,7 +207,10 @@ export function CustomFormSelect<T extends FieldValues>(
               <SelectGroup>
                 <SelectLabel>{label}</SelectLabel>
                 {options?.map((option) => (
-                  <SelectItem value={option.value as string} key={option.value}>
+                  <SelectItem
+                    value={option.value.toString()}
+                    key={option.value.toString()}
+                  >
                     {option.label}
                   </SelectItem>
                 ))}
