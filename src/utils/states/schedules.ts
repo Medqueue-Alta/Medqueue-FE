@@ -12,7 +12,7 @@ interface ScheduleType {
 }
 
 interface ScheduleStoreType {
-    schedules: ScheduleType | null;
+    schedules: ScheduleType[] | null;
     fetchSchedules: () => Promise<void>;
 }
 
