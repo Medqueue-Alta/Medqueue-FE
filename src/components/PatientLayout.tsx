@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Footer from "./Footer";
-import NavigationBar from "./NavigationBar";
+import Footer from "./PatientFooter";
+import NavigationBar from "./PatientNavigationBar";
 
 interface Props {
   children: ReactNode;

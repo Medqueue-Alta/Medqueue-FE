@@ -1,17 +1,28 @@
-import axios from "axios";
-
 import { checkProperty, valueFormatData } from "@/utils/formatter";
 import { IResponse } from "@/utils/types/api";
-import { ReservationSchema } from "./reservation-type";
-// import axiosWithConfig from "../axiosWithConfig";
-import { IPatient } from "./type";
+import {
+  IPatient,
+  ISchedule,
+  ReservationSchema,
+  ScheduleData,
+} from "@/utils/api/patient/type";
 import axiosWithConfig from "../axiosWithConfig";
 
 export const getPatient = async () => {
   try {
-    const response = await axiosWithConfig("/users")
+    const response = await axiosWithConfig.get("/users");
 
-    return response.data as IPatient;
+    return response.data as IResponse<IPatient>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const getSchedule = async () => {
+  try {
+    const response = await axiosWithConfig.get("/schedules");
+
+    return response.data as ISchedule<ScheduleData[]>;
   } catch (error: any) {
     throw Error(error.response.data.message);
   }
@@ -28,7 +39,7 @@ export const addNewReservation = async (body: ReservationSchema) => {
       }
     }
 
-    const response = await axios.post("/books", formData, {
+    const response = await axiosWithConfig.post("/reservations", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
