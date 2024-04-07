@@ -1,12 +1,16 @@
 import { checkProperty, valueFormatData } from "@/utils/formatter";
 import { IResponse } from "@/utils/types/api";
-import { IPatient, ISchedule, ReservationSchema, ScheduleData } from "@/utils/api/patient/type";
-import axios from "axios";
+import {
+  IPatient,
+  ISchedule,
+  ReservationSchema,
+  ScheduleData,
+} from "@/utils/api/patient/type";
 import axiosWithConfig from "../axiosWithConfig";
 
 export const getPatient = async () => {
   try {
-    const response = await axiosWithConfig("/users")
+    const response = await axiosWithConfig("/users");
 
     return response.data as IResponse<IPatient>;
   } catch (error: any) {
@@ -16,9 +20,7 @@ export const getPatient = async () => {
 
 export const getSchedule = async () => {
   try {
-    const response = await axios.get(
-      "https://virtserver.swaggerhub.com/MNFAWWAZ99/MedQueue/1.0.0/schedules"
-    );
+    const response = await axiosWithConfig.get("/schedules");
 
     return response.data as ISchedule<ScheduleData[]>;
   } catch (error: any) {
@@ -37,15 +39,11 @@ export const addNewReservation = async (body: ReservationSchema) => {
       }
     }
 
-    const response = await axios.post(
-      "https://virtserver.swaggerhub.com/MNFAWWAZ99/MedQueue/1.0.0/reservations",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const response = await axiosWithConfig.post("/reservations", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     return response.data as IResponse;
   } catch (error: any) {
