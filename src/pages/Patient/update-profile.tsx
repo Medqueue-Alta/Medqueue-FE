@@ -109,165 +109,171 @@ const UpdateProfile = () => {
   return (
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center h-full">
-        <UpdateProfileCard nama={patient}>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-2"
-            >
-              <CustomFormField
-                control={form.control}
-                label="Nama Lengkap"
-                name="nama"
+        <div className="w-full my-5">
+          <UpdateProfileCard nama={patient}>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-col gap-2"
               >
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="Nama Lengkap"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                  />
-                )}
-              </CustomFormField>
-              <CustomFormField
-                control={form.control}
-                label="Email"
-                name="email"
-              >
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="Email"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                    type="email"
-                  />
-                )}
-              </CustomFormField>
-              <CustomFormField
-                control={form.control}
-                label="Tempat Lahir"
-                name="tempat_lahir"
-              >
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="Tempat Lahir"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                  />
-                )}
-              </CustomFormField>
-              <CustomFormDatePicker
-                label="Tanggal Lahir"
-                placeholder="Tanggal Lahir"
-                control={form.control}
-                name="tgl_lahir"
-              />
-              <CustomFormSelect
-                label="Jenis Kelamin"
-                placeholder="Jenis Kelamin"
-                control={form.control}
-                name="gender"
-                disabled={form.formState.isSubmitting}
-                options={genderOptions}
-              />
-              <CustomFormSelect
-                label="Golongan Darah"
-                placeholder="Golongan Darah"
-                control={form.control}
-                name="gol_darah"
-                disabled={form.formState.isSubmitting}
-                options={goldarOptions}
-              />
-              <CustomFormField control={form.control} label="NIK" name="no_nik">
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="NIK"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                  />
-                )}
-              </CustomFormField>
-              <CustomFormField
-                control={form.control}
-                label="No BPJS"
-                name="no_bpjs"
-              >
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="No BPJS"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                  />
-                )}
-              </CustomFormField>
-              <CustomFormField
-                control={form.control}
-                label="No Telpon"
-                name="no_telepon"
-              >
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="No Telpon"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                    type="tel"
-                  />
-                )}
-              </CustomFormField>
-              <CustomFormField
-                control={form.control}
-                label="Password"
-                name="password"
-              >
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="Password"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                    type="password"
-                  />
-                )}
-              </CustomFormField>
-              <CustomFormField
-                control={form.control}
-                label="Konfirmasi Password"
-                name="passwordConfirmation"
-              >
-                {(field) => (
-                  <Input
-                    {...field}
-                    placeholder="Konfirmasi Password"
-                    aria-disabled={form.formState.isSubmitting}
-                    disabled={form.formState.isSubmitting}
-                    value={field.value as string}
-                    type="password"
-                  />
-                )}
-              </CustomFormField>
-              <div className="flex flex-col gap-2">
-                <Button
-                  type="submit"
-                  className="w-max h-max self-center bg-[#089993]"
+                <CustomFormField
+                  control={form.control}
+                  label="Nama Lengkap"
+                  name="nama"
                 >
-                  Update
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </UpdateProfileCard>
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="Nama Lengkap"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                    />
+                  )}
+                </CustomFormField>
+                <CustomFormField
+                  control={form.control}
+                  label="Email"
+                  name="email"
+                >
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="Email"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                      type="email"
+                    />
+                  )}
+                </CustomFormField>
+                <CustomFormField
+                  control={form.control}
+                  label="Tempat Lahir"
+                  name="tempat_lahir"
+                >
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="Tempat Lahir"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                    />
+                  )}
+                </CustomFormField>
+                <CustomFormDatePicker
+                  label="Tanggal Lahir"
+                  placeholder="Tanggal Lahir"
+                  control={form.control}
+                  name="tgl_lahir"
+                />
+                <CustomFormSelect
+                  label="Jenis Kelamin"
+                  placeholder="Jenis Kelamin"
+                  control={form.control}
+                  name="gender"
+                  disabled={form.formState.isSubmitting}
+                  options={genderOptions}
+                />
+                <CustomFormSelect
+                  label="Golongan Darah"
+                  placeholder="Golongan Darah"
+                  control={form.control}
+                  name="gol_darah"
+                  disabled={form.formState.isSubmitting}
+                  options={goldarOptions}
+                />
+                <CustomFormField
+                  control={form.control}
+                  label="NIK"
+                  name="no_nik"
+                >
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="NIK"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                    />
+                  )}
+                </CustomFormField>
+                <CustomFormField
+                  control={form.control}
+                  label="No BPJS"
+                  name="no_bpjs"
+                >
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="No BPJS"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                    />
+                  )}
+                </CustomFormField>
+                <CustomFormField
+                  control={form.control}
+                  label="No Telpon"
+                  name="no_telepon"
+                >
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="No Telpon"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                      type="tel"
+                    />
+                  )}
+                </CustomFormField>
+                <CustomFormField
+                  control={form.control}
+                  label="Password"
+                  name="password"
+                >
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="Password"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                      type="password"
+                    />
+                  )}
+                </CustomFormField>
+                <CustomFormField
+                  control={form.control}
+                  label="Konfirmasi Password"
+                  name="passwordConfirmation"
+                >
+                  {(field) => (
+                    <Input
+                      {...field}
+                      placeholder="Konfirmasi Password"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string}
+                      type="password"
+                    />
+                  )}
+                </CustomFormField>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    type="submit"
+                    className="w-max h-max self-center bg-[#089993]"
+                  >
+                    Update
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </UpdateProfileCard>
+        </div>
       </div>
     </PatientLayout>
   );

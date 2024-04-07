@@ -12,7 +12,7 @@ const PatientLayout = (props: Props) => {
   return (
     <div className="layout-container">
       <NavigationBar />
-      <div className="w-full h-screen">{children}</div>
+      <div className="w-full h-full">{children}</div>
       <Footer />
     </div>
   );
