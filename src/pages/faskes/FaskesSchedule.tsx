@@ -5,21 +5,21 @@ import MainButton from "@/components/MainButton"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { SchedulesSchema } from "@/utils/api/faskes/type"
-import { useSchedulesState } from "@/utils/states/schedules"
+import { ScheduleType, useSchedulesState } from "@/utils/states/schedules"
 import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
+
+
 const FaskesSchedule = () => {
     const {poli} = useParams()
     const {schedules, fetchSchedules} = useSchedulesState()
     useEffect(() => {
         fetchSchedules()
     },[poli])
-    const renderDataByPoli = (): SchedulesSchema[] => {
-        return schedules!.filter((item: SchedulesSchema) => {
-            const poliParts = item.poli.split(" ");
-            const poliName = poliParts.length === 2 ? poliParts[1].toLowerCase() : item.poli.toLowerCase();
-            return poliName === poli!.toLowerCase();
+    console.log(schedules)
+    const renderDataByPoli = (): ScheduleType[] => {
+        return schedules!.filter((item: ScheduleType) => {
+            return item.poli === poli!.toLowerCase();
         });
     };
   return (
@@ -73,7 +73,7 @@ const FaskesSchedule = () => {
                     </TableHeader>
                     <TableBody>
                         {renderDataByPoli().map((item,index) => (
-                                    <TableRow className="text-center border-black" key={index}>
+                                    <TableRow className="text-center border-black" key={item.schedule_id}>
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{item.hari}</TableCell>
                                         <TableCell>{item.jam_mulai} - {item.jam_selesai}</TableCell>

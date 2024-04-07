@@ -32,19 +32,19 @@ const AddFaskesSchedule = () => {
   const poliKlinik = [
     {
       label: "Poli Umum",
-      value: "Poli Umum"
+      value: "umum"
     },
     {
       label: "Poli Gigi & Mulut",
-      value: "Poli Gigi & Mulut"
+      value: "gigi"
     },
     {
       label: "Poli KIA",
-      value: "Poli KIA"
+      value: "kia"
     },
     {
       label: "UGD",
-      value: "UGD"
+      value: "ugd"
     },
   ]
   const hari = [

@@ -2,7 +2,7 @@ import {create} from "zustand"
 import { setAxiosConfig } from "../api/axiosWithConfig";
 import { getFaskesSchedules } from "../api/faskes/api";
 
-interface ScheduleType {
+export interface ScheduleType {
     schedule_id: number;
     poli: string;
     hari: string;
@@ -12,12 +12,12 @@ interface ScheduleType {
 }
 
 interface ScheduleStoreType {
-    schedules: ScheduleType[] | null;
+    schedules: ScheduleType[] | [];
     fetchSchedules: () => Promise<void>;
 }
 
 export const useSchedulesState = create<ScheduleStoreType>()((set) => ({
-    schedules: null,
+    schedules: [],
     fetchSchedules: async () => {
         try {
             setAxiosConfig(localStorage.getItem("token")!)
