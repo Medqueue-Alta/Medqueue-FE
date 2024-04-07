@@ -1,7 +1,6 @@
 import { checkProperty, valueFormatData } from "@/utils/formatter";
 import { IResponse } from "@/utils/types/api";
 import { IPatient, ISchedule, ReservationSchema, ScheduleData } from "@/utils/api/patient/type";
-import axiosWithConfig from "../axiosWithConfig";
 import axios from "axios";
 
 export const getPatient = async () => {

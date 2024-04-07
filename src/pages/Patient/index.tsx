@@ -12,20 +12,20 @@ const PatientHome = () => {
   const [nik, setNIK] = useState("");
   const [bpjs, setBPJS] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getPatient();
-        setPatient(response.nama);
-        setNIK(response.no_nik);
-        setBPJS(response.no_bpjs);
-      } catch (error) {
-        console.log((error as Error).message.toString());
-      }
-    };
+ useEffect(() => {
+   const fetchData = async () => {
+     try {
+       const response = await getPatient();
+       setPatient(response.data.nama);
+       setNIK(response.data.no_nik);
+       setBPJS(response.data.no_bpjs);
+     } catch (error) {
+       console.log((error as Error).message.toString());
+     }
+   };
 
-    fetchData();
-  }, []);
+   fetchData();
+ }, []);
 
   return (
     <PatientLayout>
