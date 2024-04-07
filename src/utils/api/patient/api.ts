@@ -1,14 +1,15 @@
 import { checkProperty, valueFormatData } from "@/utils/formatter";
 import { IResponse } from "@/utils/types/api";
-import { IPatient, ISchedule, ReservationSchema, ScheduleData } from "@/utils/api/patient/type";
+
+import { ReservationSchema } from "./reservation-type";
+// import axiosWithConfig from "../axiosWithConfig";
+import { IPatient } from "./type";
 import axiosWithConfig from "../axiosWithConfig";
-import axios from "axios";
+
 
 export const getPatient = async () => {
   try {
-    const response = await axios.get(
-      "https://virtserver.swaggerhub.com/MNFAWWAZ99/MedQueue/1.0.0/profile"
-    );
+    const response = await axiosWithConfig("/users")
 
     return response.data as IResponse<IPatient>;
   } catch (error: any) {

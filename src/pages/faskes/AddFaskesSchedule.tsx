@@ -1,24 +1,86 @@
 import FaskesLayout from "@/components/FaskesLayout"
 import FaskesSidebar from "@/components/FaskesSidebar"
 import FaskesContainer from "@/components/FaskesContainer"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
 import MainButton from "@/components/MainButton"
 import { Separator } from "@/components/ui/separator"
-import { Link, useParams, useLocation } from "react-router-dom"
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { SchedulesSchema, schedulesSchema } from "@/utils/api/faskes/type"
+import { Form } from "@/components/ui/form"
+import { CustomFormField, CustomFormSelect } from "@/components/CustomFormField"
 
 const AddFaskesSchedule = () => {
   const {poli} = useParams()
   const location = useLocation()
+  const navigate = useNavigate()
+  const form = useForm<SchedulesSchema>({
+    resolver: zodResolver(schedulesSchema),
+    defaultValues: {
+      poli: "",
+      hari: "",
+      jam_mulai: "",
+      jam_selesai: "",
+      kuota: ""
+    }
+  })
+  const poliKlinik = [
+    {
+      label: "Poli Umum",
+      value: "Poli Umum"
+    },
+    {
+      label: "Poli Gigi & Mulut",
+      value: "Poli Gigi & Mulut"
+    },
+    {
+      label: "Poli KIA",
+      value: "Poli KIA"
+    },
+    {
+      label: "UGD",
+      value: "UGD"
+    },
+  ]
+  const hari = [
+    {
+      label: "Senin",
+      value: "Senin"
+    },
+    {
+      label: "Selasa",
+      value: "Selasa"
+    },
+    {
+      label: "Rabu",
+      value: "Rabu"
+    },
+    {
+      label: "Kamis",
+      value: "Kamis"
+    },
+    {
+      label: "Jumat",
+      value: "Jumat"
+    },
+    {
+      label: "Sabtu",
+      value: "Sabtu"
+    },
+    {
+      label: "Minggu",
+      value: "Minggu"
+    },
+  ]
+  const addSchedule = async (body : SchedulesSchema) => {
+    try {
+      console.log(body)
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
 <FaskesLayout>
       <FaskesSidebar>
@@ -53,60 +115,75 @@ const AddFaskesSchedule = () => {
       </FaskesSidebar>
       <FaskesContainer title="Tambah Jadwal">
         <div className="mt-3 w-[40%]">
-          <div className="mb-3">
-            <Label>Poli Klinik</Label>
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Poli Klinik" />
-              </SelectTrigger>
-              <SelectContent>
-                 <SelectGroup>
-                    <SelectLabel>Poli Klinik</SelectLabel>
-                    <SelectItem value="Poli Umum">Poli Umum</SelectItem>
-                    <SelectItem value="Poli Gigi & Mulut">Poli Gigi & Mulut</SelectItem>
-                    <SelectItem value="Poli KIA">Poli KIA</SelectItem>
-                    <SelectItem value="UGD">UGD</SelectItem>
-                 </SelectGroup>
-                </SelectContent>
-              </Select>
-          </div>
-          <div className="mb-3">
-            <Label>Hari</Label>
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Hari" />
-              </SelectTrigger>
-              <SelectContent>
-                 <SelectGroup>
-                    <SelectLabel>Hari</SelectLabel>
-                    <SelectItem value="Poli Umum">Senin</SelectItem>
-                    <SelectItem value="Poli Gigi & Mulut">Selasa</SelectItem>
-                    <SelectItem value="Poli KIA">Rabu</SelectItem>
-                    <SelectItem value="UGD">Kamis</SelectItem>
-                    <SelectItem value="UGD">Jumat</SelectItem>
-                    <SelectItem value="UGD">Sabtu</SelectItem>
-                    <SelectItem value="UGD">Minggu</SelectItem>
-                 </SelectGroup>
-                </SelectContent>
-              </Select>
-          </div>
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div className="w-1/2">
-              <Label>Waktu Mulai</Label>
-              <Input type="time" placeholder="Waktu Mulai"/>
-            </div>
-            <div className="w-1/2">
-              <Label>Waktu Selesai</Label>
-              <Input type="time" placeholder="Waktu Selesai"/>
-            </div>
-          </div>
-          <div className="mb-6">
-              <Label>Kuota Antrian</Label>
-              <Input type="number" placeholder="Kuota Antrian" min={1}/>
-          </div>
-          <div className="text-center">
-            <MainButton text="Tambah Jadwal"/>
-          </div>
+          <Form {...form}>
+            <form action="" onSubmit={form.handleSubmit(addSchedule)}>
+              <div className="mb-3">
+                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli" disabled={form.formState.isSubmitting} options={poliKlinik} />
+              </div>
+              <div className="mb-3">
+                  <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari} />
+              </div>
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <div className="w-1/2">
+                  <CustomFormField
+                    control={form.control}
+                    name="jam_mulai"
+                    label="Jam Mulai"
+                  >
+                    {(field) => (
+                      <Input 
+                        {...field}
+                        type="time" 
+                        placeholder="Jam Mulai"
+                        aria-disabled={form.formState.isSubmitting}
+                        disabled={form.formState.isSubmitting}
+                        value={field.value as string} 
+                      />
+                    )}
+                  </CustomFormField>
+                </div>
+                <div className="w-1/2">
+                <CustomFormField
+                    control={form.control}
+                    name="jam_selesai"
+                    label="Jam Selesai"
+                  >
+                    {(field) => (
+                      <Input 
+                        {...field}
+                        type="time" 
+                        placeholder="Jam Selesai"
+                        aria-disabled={form.formState.isSubmitting}
+                        disabled={form.formState.isSubmitting}
+                        value={field.value as string} 
+                      />
+                    )}
+                  </CustomFormField>
+                </div>
+              </div>
+              <div className="mb-6">
+                <CustomFormField
+                  control={form.control}
+                  name="kuota"
+                  label="Kuota"
+                >
+                  {(field) => (
+                    <Input 
+                      {...field}
+                      type="number" 
+                      placeholder="Kuota"
+                      aria-disabled={form.formState.isSubmitting}
+                      disabled={form.formState.isSubmitting}
+                      value={field.value as string} 
+                    />
+                  )}
+                </CustomFormField>
+              </div>
+              <div className="text-center">
+                <MainButton text="Tambah Jadwal" type="submit"/>
+              </div>
+            </form>
+          </Form>
         </div>
       </FaskesContainer>
    </FaskesLayout>
