@@ -102,14 +102,14 @@ const PatientReservation = () => {
       }
     };
 
-    const poli = form.getValues("poli");
+    const poliValue = form.getValues("poli");
 
     // Jika Poli sudah terisi, jalankan fungsi fetchJadwal
-    if (poli) {
+    if (poliValue) {
       fetchJadwal();
     }
 
-  }, [form.getValues("poli")]);
+  }, [form]);
 
   useEffect(() => {
     // tanggal di ekstrak dari value yang di input dari datepicker
@@ -126,7 +126,7 @@ const PatientReservation = () => {
       // Simpan hari yang dipilih dalam state selectedDay
       setDay(selectedDay.toLowerCase());
     }
-  }, [form.getValues("Hari")]);
+  }, [form]);
 
   
   useEffect(() => {
@@ -153,79 +153,86 @@ const PatientReservation = () => {
   return (
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center h-full">
-        <PatientInformationCard nama={patient} NIK={nik} BJPS={bpjs} />
-        <PatientReservationCard>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-2"
-            >
-              <CustomFormSelect
-                control={form.control}
-                name="poli"
-                label="Poli Klinik"
-                placeholder="Poli Klinik"
-                options={poliOptions}
-              />
-              <CustomFormDatePicker
-                control={form.control}
-                name="Hari"
-                label="Tanggal Daftar"
-                placeholder="Tanggal Daftar"
-                disabled={
-                  form.formState.isSubmitting || form.watch("poli") === ""
-                }
-              />
-              <CustomFormSelect
-                control={form.control}
-                name="Jadwal"
-                label="Jadwal"
-                placeholder="Pilih Jadwal"
-                options={jadwalBaru.map((jadwal) => ({
-                  label: `${jadwal.hari} - ${jadwal.jam_praktek}`,
-                  value: jadwal.schedule_id.toString(),
-                }))}
-                disabled={
-                  form.formState.isSubmitting || form.watch("Hari") === ""
-                }
-              />
-              <CustomFormTextArea
-                control={form.control}
-                name="keluhan"
-                label="Keluhan"
-                placeholder="Keluhan Anda"
-                disabled={
-                  form.formState.isSubmitting || form.watch("Jadwal") === ""
-                }
-                aria-disabled={form.formState.isSubmitting}
-              />
-              <FormField
-                control={form.control}
-                name="BPJS"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={
-                          form.formState.isSubmitting ||
-                          form.watch("Jadwal") === ""
-                        }
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel>Centang Jika Menggunakan BPJS</FormLabel>
-                    </div>
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-max self-center bg-[#089993]">
-                Submit
-              </Button>
-            </form>
-          </Form>
-        </PatientReservationCard>
+        <div className="w-full my-5">
+          <PatientInformationCard nama={patient} NIK={nik} BJPS={bpjs} />
+        </div>
+        <div className="w-full my-5">
+          <PatientReservationCard>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-col gap-2"
+              >
+                <CustomFormSelect
+                  control={form.control}
+                  name="poli"
+                  label="Poli Klinik"
+                  placeholder="Poli Klinik"
+                  options={poliOptions}
+                />
+                <CustomFormDatePicker
+                  control={form.control}
+                  name="Hari"
+                  label="Tanggal Daftar"
+                  placeholder="Tanggal Daftar"
+                  disabled={
+                    form.formState.isSubmitting || form.watch("poli") === ""
+                  }
+                />
+                <CustomFormSelect
+                  control={form.control}
+                  name="Jadwal"
+                  label="Jadwal"
+                  placeholder="Pilih Jadwal"
+                  options={jadwalBaru.map((jadwal) => ({
+                    label: `${jadwal.hari} - ${jadwal.jam_praktek}`,
+                    value: jadwal.schedule_id.toString(),
+                  }))}
+                  disabled={
+                    form.formState.isSubmitting || form.watch("Hari") === ""
+                  }
+                />
+                <CustomFormTextArea
+                  control={form.control}
+                  name="keluhan"
+                  label="Keluhan"
+                  placeholder="Keluhan Anda"
+                  disabled={
+                    form.formState.isSubmitting || form.watch("Jadwal") === ""
+                  }
+                  aria-disabled={form.formState.isSubmitting}
+                />
+                <FormField
+                  control={form.control}
+                  name="BPJS"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          disabled={
+                            form.formState.isSubmitting ||
+                            form.watch("Jadwal") === ""
+                          }
+                        />
+                      </FormControl>
+                      <div className="space-y-1 leading-none">
+                        <FormLabel>Centang Jika Menggunakan BPJS</FormLabel>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  className="w-max self-center bg-[#089993]"
+                >
+                  Submit
+                </Button>
+              </form>
+            </Form>
+          </PatientReservationCard>
+        </div>
       </div>
     </PatientLayout>
   );
