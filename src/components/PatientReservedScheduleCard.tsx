@@ -11,7 +11,7 @@ const PatientCard = (props: Props) => {
   const { title, tanggal, jadwal, dokter } = props;
 
   return (
-    <Card className="self-start w-max h-max ">
+    <Card className="self-start w-full h-full ">
       <CardHeader className="flex flex-row justify-center p-4 bg-[#92DBD8]">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
