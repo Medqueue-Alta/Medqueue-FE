@@ -32,6 +32,16 @@ export const postSchedules = async (body: SchedulesSchema) => {
     }
 }
 
+export const editSchedule = async (id : number, body : SchedulesSchema) => {
+    try {
+        const response = await axiosWithConfig.put(`/schedules/${id}`,body)
+
+        return response.data as IResponse
+    } catch (error : any) {
+        throw Error(error.response.data.message)
+    }
+} 
+
 export const deleteSchedule = async (id : number) => {
     try {
         const response = await axiosWithConfig.delete(`/schedules/${id}`)
