@@ -16,10 +16,8 @@ import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 import { getPatient, updateProfile } from "@/utils/api/patient/api";
-import {
-  updateProfileSchema,
-  UpdateProfileSchema,
-} from "@/utils/api/patient/type";
+import { updateProfileSchema, UpdateProfileSchema } from "@/utils/api/patient/form-type";
+
 
 const UpdateProfile = () => {
   const [patient, setPatient] = useState("");

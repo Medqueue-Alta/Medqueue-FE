@@ -29,10 +29,9 @@ import {
 } from "@/utils/api/patient/api";
 import {
   IPatient,
-  ReservationSchema,
-  reservationSchema,
   ScheduleData,
 } from "@/utils/api/patient/type";
+import { ReservationSchema, reservationSchema } from "@/utils/api/patient/form-type";
 
 const PatientReservation = () => {
   const [user, setUser] = useState<IPatient>();

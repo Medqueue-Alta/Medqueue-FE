@@ -3,11 +3,10 @@ import { IResponse } from "@/utils/types/api";
 import {
   IPatient,
   ISchedule,
-  ReservationSchema,
   ScheduleData,
-  UpdateProfileSchema,
 } from "@/utils/api/patient/type";
 import axiosWithConfig from "../axiosWithConfig";
+import { ReservationSchema, UpdateProfileSchema } from "./form-type";
 
 export const getPatient = async () => {
   try {
