@@ -5,44 +5,92 @@ import QueueCard from "@/components/PatientQueueCard";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 
-import { getPatient } from "@/utils/api/patient/api";
-import { IPatient } from "@/utils/api/patient/type";
+import {
+  getPatient,
+  getPatientReservation,
+  getReservations,
+} from "@/utils/api/patient/api";
+import {
+  IPatient,
+  IReservation,
+  PatientReservation,
+} from "@/utils/api/patient/type";
+import { IResponse } from "@/utils/types/api";
 
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
+  const [data, setData] = useState<IResponse<IReservation>>();
+  const [reservation, setReservation] =
+    useState<IResponse<PatientReservation>>();
 
- useEffect(() => {
-   async function fetchData () {
-     try {
-       const response = await getPatient();
-       setUser(response.data);
-       
-     } catch (error) {
-       console.log((error as Error).message.toString());
-     }
-   }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getPatient();
+        setUser(response.data);
+      } catch (error) {
+        console.log((error as Error).message.toString());
+      }
+    }
 
-   fetchData();
- }, []);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchReservations() {
+      try {
+        const response = await getReservations();
+        setData(response);
+      } catch (error) {
+        console.log((error as Error).message.toString());
+      }
+    }
+
+    fetchReservations();
+  }, []);
+
+  useEffect(() => {
+    async function fetchPatientReservation() {
+      try {
+        const response = await getPatientReservation(
+          data?.data.reservations_id
+        );
+        setReservation(response);
+      } catch (error) {
+        console.log((error as Error).message.toString());
+      }
+    }
+
+    fetchPatientReservation();
+  }, []);
 
   return (
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center gap-2">
         <div className="w-full my-8">
-          <PatientInformationCard nama={user?.nama} NIK={user?.no_nik} BJPS={user?.no_bpjs} />
+          <PatientInformationCard
+            nama={user?.nama}
+            NIK={user?.no_nik}
+            BJPS={user?.no_bpjs}
+          />
         </div>
         <div className="w-full my-5">
           <PatientCard
-            title="Poli Umum"
-            jadwal="12:00"
-            tanggal="12-04-2024"
-            dokter="dr. John Doe"
+            title={data?.data.poli}
+            jadwal={reservation?.data.jam_mulai}
+            tanggal={reservation?.data.tanggal}
           />
         </div>
         <div className="w-full my-24 self-start">
           <div className="grid grid-flow-col gap-1">
-            <QueueCard antrian="12" />
-            <QueueCard antrian="15" />
+            <QueueCard
+              title="Antrian Anda"
+              antrian={reservation?.data.nomor_antrian}
+            />
+            <QueueCard
+              title="Antrian Sekarang"
+              antrian={reservation?.data.antrian_sekarang}
+            />
           </div>
           <p className="text-xs">
             *Antrian yang terlewat akan dimasukkan ke dalam waiting list

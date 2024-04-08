@@ -4,12 +4,6 @@ export interface IPatient {
   no_bpjs: string;
 }
 
-export interface ISchedule<ScheduleData> {
-  code: string;
-  message: string;
-  data: ScheduleData;
-}
-
 export interface ScheduleData {
   schedule_id: number;
   poli: string;
@@ -17,4 +11,18 @@ export interface ScheduleData {
   jam_praktek: string;
   kuota: number;
   terisi: number;
+}
+
+export interface IReservation {
+  reservations_id: number;
+  nama: string;
+  poli: string;
+}
+
+export interface PatientReservation {
+  nomor_antrian: number;
+  antrian_sekarang: number;
+  tanggal: string;
+  jam_mulai: string;
+  jam_selesai: string;
 }
