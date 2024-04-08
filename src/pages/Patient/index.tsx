@@ -6,23 +6,21 @@ import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 
 import { getPatient } from "@/utils/api/patient/api";
+import { IPatient } from "@/utils/api/patient/type";
 
 const PatientHome = () => {
-  const [patient, setPatient] = useState("");
-  const [nik, setNIK] = useState("");
-  const [bpjs, setBPJS] = useState("");
+  const [user, setUser] = useState<IPatient>();
 
  useEffect(() => {
-   const fetchData = async () => {
+   async function fetchData () {
      try {
        const response = await getPatient();
-       setPatient(response.data.nama);
-       setNIK(response.data.no_nik);
-       setBPJS(response.data.no_bpjs);
+       setUser(response.data);
+       
      } catch (error) {
        console.log((error as Error).message.toString());
      }
-   };
+   }
 
    fetchData();
  }, []);
@@ -31,7 +29,7 @@ const PatientHome = () => {
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center gap-2">
         <div className="w-full my-8">
-          <PatientInformationCard nama={patient} NIK={nik} BJPS={bpjs} />
+          <PatientInformationCard nama={user?.nama} NIK={user?.no_nik} BJPS={user?.no_bpjs} />
         </div>
         <div className="w-full my-5">
           <PatientCard
