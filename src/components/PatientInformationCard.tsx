@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Props {
-  nama: string;
-  NIK: string;
-  BJPS: string;
+  nama?: string;
+  NIK?: string;
+  BJPS?: string;
 }
 
 const PatientInformationCard = (props: Props) => {

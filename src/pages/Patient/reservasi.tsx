@@ -28,15 +28,14 @@ import {
   getSchedule,
 } from "@/utils/api/patient/api";
 import {
+  IPatient,
   ReservationSchema,
   reservationSchema,
   ScheduleData,
 } from "@/utils/api/patient/type";
 
 const PatientReservation = () => {
-  const [patient, setPatient] = useState("");
-  const [nik, setNIK] = useState("");
-  const [bpjs, setBPJS] = useState("");
+  const [user, setUser] = useState<IPatient>();
   const [jadwal, setJadwal] = useState<ScheduleData[]>([]);
   const [jadwalBaru, setJadwalBaru] = useState<ScheduleData[]>([]);
   const [day, setDay] = useState("");
@@ -78,17 +77,14 @@ const PatientReservation = () => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData() {
       try {
         const response = await getPatient();
-        setPatient(response.data.nama);
-        setNIK(response.data.no_nik);
-        setBPJS(response.data.no_bpjs);
+        setUser(response.data);
       } catch (error) {
         console.log((error as Error).message.toString());
       }
-    };
-
+    }
     fetchData();
   }, []);
 
@@ -154,7 +150,7 @@ const PatientReservation = () => {
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center h-full">
         <div className="w-full my-5">
-          <PatientInformationCard nama={patient} NIK={nik} BJPS={bpjs} />
+          <PatientInformationCard nama={user?.nama} NIK={user?.no_nik} BJPS={user?.no_bpjs} />
         </div>
         <div className="w-full my-5">
           <PatientReservationCard>
