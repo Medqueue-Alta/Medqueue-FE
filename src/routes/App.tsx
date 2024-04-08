@@ -12,6 +12,7 @@ import PatientHome from '@/pages/Patient'
 import PatientReservation from '@/pages/Patient/reservasi'
 import UpdateProfile from '@/pages/Patient/update-profile'
 import ProtectedRoutes from './ProtectedRoutes'
+import EditFaskesSchedule from '@/pages/faskes/EditFaskesSchedule'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/faskes/jadwal/add",
         element: <AddFaskesSchedule />,
+      },
+      {
+        path: "/faskes/jadwal/:poli/:id",
+        element: <EditFaskesSchedule />,
       },
       {
         path: "/pasien/home",
