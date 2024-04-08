@@ -102,14 +102,14 @@ const PatientReservation = () => {
       }
     };
 
-    const poli = form.getValues("poli");
+    const poliValue = form.getValues("poli");
 
     // Jika Poli sudah terisi, jalankan fungsi fetchJadwal
-    if (poli) {
+    if (poliValue) {
       fetchJadwal();
     }
 
-  }, [form.getValues("poli")]);
+  }, [form]);
 
   useEffect(() => {
     // tanggal di ekstrak dari value yang di input dari datepicker
@@ -126,7 +126,7 @@ const PatientReservation = () => {
       // Simpan hari yang dipilih dalam state selectedDay
       setDay(selectedDay.toLowerCase());
     }
-  }, [form.getValues("Hari")]);
+  }, [form]);
 
   
   useEffect(() => {
