@@ -4,27 +4,26 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import PatientLayout from "@/components/PatientLayout";
-import { Button } from "@/components/ui/button";
-
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-
 import UpdateProfileCard from "@/components/PatientUpdateProfileCard";
+import {
+  CustomFormField,
+  CustomFormSelect,
+} from "@/components/PatientCustomFormField";
+import { CustomFormDatePicker } from "@/components/CustomFormField";
+
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 import { getPatient, updateProfile } from "@/utils/api/patient/api";
 import {
   updateProfileSchema,
   UpdateProfileSchema,
 } from "@/utils/api/patient/type";
-import {
-  CustomFormDatePicker,
-  CustomFormField,
-  CustomFormSelect,
-} from "@/components/PatientCustomFormField";
-import { Form } from "@/components/ui/form";
 
 const UpdateProfile = () => {
   const [patient, setPatient] = useState("");
+
   const form = useForm<UpdateProfileSchema>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -41,6 +40,7 @@ const UpdateProfile = () => {
       passwordConfirmation: "",
     },
   });
+  
   const gender = [
     {
       label: "Laki-Laki",
@@ -49,8 +49,7 @@ const UpdateProfile = () => {
     {
       label: "Perempuan",
       value: "P",
-    }
-    
+    },
   ];
 
   const genderOptions = gender.map((option) => ({
@@ -58,29 +57,29 @@ const UpdateProfile = () => {
     value: option.value,
   }));
 
-   const gol_darah = [
-     {
-       label: "A",
-       value: "A",
-     },
-     {
-       label: "B",
-       value: "B",
-     },
-     {
-       label: "AB",
-       value: "AB",
-     },
-     {
-       label: "O",
-       value: "O",
-     },
-   ];
+  const gol_darah = [
+    {
+      label: "A",
+      value: "A",
+    },
+    {
+      label: "B",
+      value: "B",
+    },
+    {
+      label: "AB",
+      value: "AB",
+    },
+    {
+      label: "O",
+      value: "O",
+    },
+  ];
 
-   const goldarOptions = gol_darah.map((option) => ({
-     label: option.label,
-     value: option.value,
-   }));
+  const goldarOptions = gol_darah.map((option) => ({
+    label: option.label,
+    value: option.value,
+  }));
 
   useEffect(() => {
     const fetchData = async () => {
