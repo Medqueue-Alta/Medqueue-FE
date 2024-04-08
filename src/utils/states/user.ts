@@ -12,6 +12,7 @@ interface UserState {
     no_nik: string;
     gol_darah: string;
     no_telepon: string;
+    role: string;
 }
 
 interface UserStore {

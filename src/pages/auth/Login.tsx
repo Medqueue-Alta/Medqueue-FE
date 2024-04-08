@@ -7,11 +7,9 @@ import { LoginSchema, loginSchema } from "@/utils/api/auth/type"
 import { Form } from "@/components/ui/form"
 import { useToast } from "@/components/ui/use-toast"
 import { userLogin } from "@/utils/api/auth/api"
-import { useNavigate } from "react-router-dom"
 import { CustomFormField } from "@/components/CustomFormField"
 
 const Login = () => {
-  const navigate = useNavigate()
   const { toast } = useToast()
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -27,8 +25,9 @@ const Login = () => {
             title: "Success",
             description: response.message
         })
+        const payload = JSON.parse(atob(response.data.token.split(".")[1]))
+        payload.id === 1 ? localStorage.setItem("role","admin") : localStorage.setItem("role","pasien")
         localStorage.setItem("token",response.data.token)
-        navigate("/")
     } catch (error) {
         toast({
             title: "Error",
