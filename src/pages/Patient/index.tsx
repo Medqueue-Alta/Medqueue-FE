@@ -30,7 +30,7 @@ const PatientHome = () => {
   return (
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center">
-        <div className="w-full my-5">
+        <div className="w-full  my-5">
           <PatientInformationCard nama={patient} NIK={nik} BJPS={bpjs} />
         </div>
         <div className="w-full my-5">
@@ -41,7 +41,7 @@ const PatientHome = () => {
             dokter="dr. John Doe"
           />
         </div>
-        <div className="w-full my-5 self-start">
+        <div className="w-full my-28 self-start">
           <div className="grid grid-flow-col gap-1">
             <QueueCard antrian="12" />
             <QueueCard antrian="15" />
