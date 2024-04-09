@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useToast } from "@/components/ui/use-toast"
 import { deleteSchedule } from "@/utils/api/faskes/api"
-import { ScheduleType, useSchedulesState } from "@/utils/states/schedules"
+import { useSchedulesState } from "@/utils/states/schedules"
 import { useEffect } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 
@@ -18,14 +18,11 @@ const FaskesSchedule = () => {
     const {toast} = useToast()
     const navigate = useNavigate()
     useEffect(() => {
-        fetchSchedules()
+        fetchSchedules(parseInt(poli!))
     },[poli])
+
     console.log(schedules)
-    const renderDataByPoli = (): ScheduleType[] => {
-        return schedules!.filter((item: ScheduleType) => {
-            return item.poli === poli!.toLowerCase();
-        });
-    };
+    
     const deleteData = async (id: number) => {
         try {
             const response = await deleteSchedule(id)
@@ -45,24 +42,24 @@ const FaskesSchedule = () => {
     <FaskesLayout>
       <FaskesSidebar>
         <ul className="flex flex-col justify-center pl-5 h-full gap-2">
-            <Link to={"/faskes/jadwal/umum"}>
-                <div className={`${poli === "umum" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                    <li className={`${poli === "umum" ? "" : "text-white"} text-xl`}>Poli Umum</li>
+            <Link to={"/faskes/jadwal/1"}>
+                <div className={`${poli === "1" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "1" ? "" : "text-white"} text-xl`}>Poli Umum</li>
                 </div>
             </Link>
-            <Link to={"/faskes/jadwal/gigi"}>
-                <div className={`${poli === "gigi" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                    <li className={`${poli === "gigi" ? "" : "text-white"} text-xl`}>Poli Gigi & Mulut</li>
+            <Link to={"/faskes/jadwal/2"}>
+                <div className={`${poli === "2" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "2" ? "" : "text-white"} text-xl`}>Poli Gigi & Mulut</li>
                 </div>
             </Link>
-            <Link to={"/faskes/jadwal/kia"}>
-                <div className={`${poli === "kia" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                    <li className={`${poli === "kia" ? "" : "text-white"} text-xl`}>Poli KIA</li>
+            <Link to={"/faskes/jadwal/3"}>
+                <div className={`${poli === "3" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "3" ? "" : "text-white"} text-xl`}>Poli KIA</li>
                 </div>
             </Link>
-            <Link to={"/faskes/jadwal/ugd"}>
-                <div className={`${poli === "ugd" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                    <li className={`${poli === "ugd" ? "" : "text-white"} text-xl`}>UGD</li>
+            <Link to={"/faskes/jadwal/4"}>
+                <div className={`${poli === "4" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                    <li className={`${poli === "4" ? "" : "text-white"} text-xl`}>UGD</li>
                 </div>
             </Link>
             <Separator className="my-3"/>
@@ -73,7 +70,7 @@ const FaskesSchedule = () => {
             </Link>
         </ul>
       </FaskesSidebar>
-      {renderDataByPoli().length < 1 ? (
+      {schedules.length < 1 ? (
             <>
                 <div className="flex w-full justify-center items-center">
                     <h1 className="text-3xl">Data Not Found</h1>
@@ -91,7 +88,7 @@ const FaskesSchedule = () => {
                         <TableHead className="text-black text-center"></TableHead>
                     </TableHeader>
                     <TableBody>
-                        {renderDataByPoli().map((item,index) => (
+                        {schedules.map((item,index) => (
                             <TableRow className="text-center border-black" key={item.schedule_id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{item.hari}</TableCell>

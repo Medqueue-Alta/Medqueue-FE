@@ -14,24 +14,24 @@ const FaskesQueue = () => {
     <FaskesLayout>
       <FaskesSidebar>
         <ul className="flex flex-col justify-center pl-5 h-full gap-2">
-                <Link to={"/faskes/antrian/umum"}>
-                    <div className={`${poli === "umum" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "umum" ? "" : "text-white"} text-xl`}>Poli Umum</li>
+                <Link to={"/faskes/antrian/1"}>
+                    <div className={`${poli === "1" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                        <li className={`${poli === "1" ? "" : "text-white"} text-xl`}>Poli Umum</li>
                     </div>
                 </Link>
-                <Link to={"/faskes/antrian/gigi"}>
-                    <div className={`${poli === "gigi" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "gigi" ? "" : "text-white"} text-xl`}>Poli Gigi & Mulut</li>
+                <Link to={"/faskes/antrian/2"}>
+                    <div className={`${poli === "2" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                        <li className={`${poli === "2" ? "" : "text-white"} text-xl`}>Poli Gigi & Mulut</li>
                     </div>
                 </Link>
-                <Link to={"/faskes/antrian/kia"}>
-                    <div className={`${poli === "kia" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "kia" ? "" : "text-white"} text-xl`}>Poli KIA</li>
+                <Link to={"/faskes/antrian/3"}>
+                    <div className={`${poli === "3" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                        <li className={`${poli === "3" ? "" : "text-white"} text-xl`}>Poli KIA</li>
                     </div>
                 </Link>
-                <Link to={"/faskes/antrian/ugd"}>
-                    <div className={`${poli === "ugd" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "ugd" ? "" : "text-white"} text-xl`}>UGD</li>
+                <Link to={"/faskes/antrian/4"}>
+                    <div className={`${poli === "4" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
+                        <li className={`${poli === "4" ? "" : "text-white"} text-xl`}>UGD</li>
                     </div>
                 </Link>
                 <Separator className="my-3"/>

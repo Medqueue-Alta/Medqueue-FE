@@ -13,15 +13,15 @@ export interface ScheduleType {
 
 interface ScheduleStoreType {
     schedules: ScheduleType[] | [];
-    fetchSchedules: () => Promise<void>;
+    fetchSchedules: (poli_id : number) => Promise<void>;
 }
 
 export const useSchedulesState = create<ScheduleStoreType>()((set) => ({
     schedules: [],
-    fetchSchedules: async () => {
+    fetchSchedules: async (poli_id : number) => {
         try {
             setAxiosConfig(localStorage.getItem("token")!)
-            const response = await getFaskesSchedules()
+            const response = await getFaskesSchedules(poli_id)
             set({schedules: response.data})
         } catch (error : any) {
             throw Error(error.response.data.message)
