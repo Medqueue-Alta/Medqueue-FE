@@ -133,11 +133,13 @@ const PatientReservation = () => {
   useEffect(() => {
     // Perintah baru untuk melakukan penyaringan jadwal setelah
     // selectedDay diperbarui
+    console.log(day)
     if (day !== "") {
       const sortedJadwal = jadwal.filter(
         (jadwal) => jadwal.hari.toLowerCase() === day
       );
       setJadwalBaru(sortedJadwal);
+      console.log(jadwalBaru)
     }
   }, [day, jadwal]);
 
@@ -146,7 +148,7 @@ const PatientReservation = () => {
   }, [jadwalBaru]);
 
   useEffect(() => {
-    if (jadwalBaru.length === 0 && jadwalBaru.length !== prevJadwalBaruLength) {
+    if (prevJadwalBaruLength === 0 && jadwalBaru.length === 0) {
       toast({
         title: "Error",
         description: "Tidak ada jadwal tersedia untuk hari ini.",

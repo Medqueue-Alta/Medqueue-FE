@@ -11,7 +11,7 @@ import { ReservationSchema, UpdateProfileSchema } from "./form-type";
 
 export const getPatient = async () => {
   try {
-    const response = await axiosWithConfig.get("/profile");
+    const response = await axiosWithConfig.get("/users");
 
     return response.data as IResponse<IPatient>;
   } catch (error: any) {
