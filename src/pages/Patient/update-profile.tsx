@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "@/components/ui/use-toast";
+
 
 import PatientLayout from "@/components/PatientLayout";
 import UpdateProfileCard from "@/components/PatientUpdateProfileCard";
@@ -17,6 +18,7 @@ import { Input } from "@/components/ui/input";
 
 import { getPatient, updateProfile } from "@/utils/api/patient/api";
 import { updateProfileSchema, UpdateProfileSchema } from "@/utils/api/patient/form-type";
+import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 
 
 const UpdateProfile = () => {
@@ -82,11 +84,16 @@ const UpdateProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setAxiosConfig(localStorage.getItem("token")!);
         const response = await getPatient();
         setPatient(response.data.nama);
         console.log(patient);
       } catch (error) {
-        console.log((error as Error).message.toString());
+        toast({
+          title: "Error",
+          description: (error as Error).message,
+          variant: "destructive",
+        });
       }
     };
 
@@ -97,9 +104,16 @@ const UpdateProfile = () => {
     try {
       const result = await updateProfile(data);
 
-      toast(result.message);
+      toast({
+        title: "Success",
+        description: result.message,
+      });
     } catch (error) {
-      toast((error as Error).message.toString());
+      toast({
+        title: "Error",
+        description: (error as Error).message,
+        variant: "destructive",
+      });
     }
   }
 

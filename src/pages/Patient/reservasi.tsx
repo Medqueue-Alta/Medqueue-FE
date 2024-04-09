@@ -1,7 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "@/components/ui/use-toast";
 
 import {
   CustomFormDatePicker,
@@ -27,11 +27,11 @@ import {
   getPatient,
   getSchedule,
 } from "@/utils/api/patient/api";
+import { IPatient, ScheduleData } from "@/utils/api/patient/type";
 import {
-  IPatient,
-  ScheduleData,
-} from "@/utils/api/patient/type";
-import { ReservationSchema, reservationSchema } from "@/utils/api/patient/form-type";
+  ReservationSchema,
+  reservationSchema,
+} from "@/utils/api/patient/form-type";
 
 const PatientReservation = () => {
   const [user, setUser] = useState<IPatient>();
@@ -92,8 +92,13 @@ const PatientReservation = () => {
       try {
         const response = await getSchedule();
         setJadwal(response.data);
+        console.log(jadwal);
       } catch (error) {
-        console.log((error as Error).message.toString());
+        toast({
+          title: "Error",
+          description: (error as Error).message,
+          variant: "destructive",
+        });
       }
     };
 
@@ -103,8 +108,7 @@ const PatientReservation = () => {
     if (poliValue) {
       fetchJadwal();
     }
-
-  }, [form]);
+  }, [form.getValues("poli")]);
 
   useEffect(() => {
     // tanggal di ekstrak dari value yang di input dari datepicker
@@ -121,11 +125,10 @@ const PatientReservation = () => {
       // Simpan hari yang dipilih dalam state selectedDay
       setDay(selectedDay.toLowerCase());
     }
-  }, [form]);
+  }, [form.getValues("Hari")]);
 
-  
   useEffect(() => {
-    // Perintah baru untuk melakukan penyaringan jadwal setelah 
+    // Perintah baru untuk melakukan penyaringan jadwal setelah
     // selectedDay diperbarui
     if (day !== "") {
       const sortedJadwal = jadwal.filter(
@@ -141,7 +144,11 @@ const PatientReservation = () => {
 
       toast(result.message);
     } catch (error) {
-      toast((error as Error).message.toString());
+      toast({
+        title: "Error",
+        description: (error as Error).message,
+        variant: "destructive",
+      });
     }
   }
 
@@ -149,7 +156,11 @@ const PatientReservation = () => {
     <PatientLayout>
       <div className="grid justify-center justify-items-center items-center h-full">
         <div className="w-full my-5">
-          <PatientInformationCard nama={user?.nama} NIK={user?.no_nik} BJPS={user?.no_bpjs} />
+          <PatientInformationCard
+            nama={user?.nama}
+            NIK={user?.no_nik}
+            BJPS={user?.no_bpjs}
+          />
         </div>
         <div className="w-full my-5">
           <PatientReservationCard>
