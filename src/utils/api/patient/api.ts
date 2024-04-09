@@ -11,7 +11,7 @@ import { ReservationSchema, UpdateProfileSchema } from "./form-type";
 
 export const getPatient = async () => {
   try {
-    const response = await axiosWithConfig.get("/users");
+    const response = await axiosWithConfig.get("/profile");
 
     return response.data as IResponse<IPatient>;
   } catch (error: any) {
@@ -19,9 +19,11 @@ export const getPatient = async () => {
   }
 };
 
-export const getSchedule = async () => {
+export const getSchedule = async (poli_id: string) => {
   try {
-    const response = await axiosWithConfig.get("/schedules");
+    const response = await axiosWithConfig.get(`/schedules/`, {
+      params: { poli_id },
+    });
 
     return response.data as IResponse<ScheduleData[]>;
   } catch (error: any) {
@@ -39,7 +41,9 @@ export const getReservations = async () => {
   }
 };
 
-export const getPatientReservation = async (reservations_id: number | undefined) => {
+export const getPatientReservation = async (
+  reservations_id: number | undefined
+) => {
   try {
     const response = await axiosWithConfig.get(
       `/reservations/${reservations_id}`
@@ -50,7 +54,6 @@ export const getPatientReservation = async (reservations_id: number | undefined)
     throw Error(error.response.data.message);
   }
 };
-
 
 export const addNewReservation = async (body: ReservationSchema) => {
   try {
@@ -85,7 +88,7 @@ export const updateProfile = async (body: UpdateProfileSchema) => {
         formData.append(key, valueFormatData(body[key]));
       }
     }
-    const response = await axiosWithConfig.put("/users", formData, {
+    const response = await axiosWithConfig.put("/profile", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

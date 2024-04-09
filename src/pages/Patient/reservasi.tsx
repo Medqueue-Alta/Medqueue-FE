@@ -32,30 +32,32 @@ import {
   ReservationSchema,
   reservationSchema,
 } from "@/utils/api/patient/form-type";
+import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 
 const PatientReservation = () => {
   const [user, setUser] = useState<IPatient>();
   const [jadwal, setJadwal] = useState<ScheduleData[]>([]);
   const [jadwalBaru, setJadwalBaru] = useState<ScheduleData[]>([]);
   const [day, setDay] = useState("");
+  const [prevJadwalBaruLength, setPrevJadwalBaruLength] = useState<number>(0);
 
   // List Poli di hardcode untuk saat ini
   const poli = [
     {
       label: "Poli Umum",
-      value: "Poli Umum",
+      value: "1",
     },
     {
       label: "Poli Gigi & Mulut",
-      value: "Poli Gigi & Mulut",
+      value: "2",
     },
     {
       label: "Poli KIA",
-      value: "Poli KIA",
+      value: "3",
     },
     {
       label: "UGD",
-      value: "UGD",
+      value: "4",
     },
   ];
 
@@ -88,9 +90,12 @@ const PatientReservation = () => {
   }, []);
 
   useEffect(() => {
+    const poliValue = form.getValues("poli");
+
     const fetchJadwal = async () => {
       try {
-        const response = await getSchedule();
+        setAxiosConfig(localStorage.getItem("token")!);
+        const response = await getSchedule(poliValue);
         setJadwal(response.data);
         console.log(jadwal);
       } catch (error) {
@@ -101,8 +106,6 @@ const PatientReservation = () => {
         });
       }
     };
-
-    const poliValue = form.getValues("poli");
 
     // Jika Poli sudah terisi, jalankan fungsi fetchJadwal
     if (poliValue) {
@@ -138,11 +141,28 @@ const PatientReservation = () => {
     }
   }, [day, jadwal]);
 
+  useEffect(() => {
+    setPrevJadwalBaruLength(jadwalBaru.length);
+  }, [jadwalBaru]);
+
+  useEffect(() => {
+    if (jadwalBaru.length === 0 && jadwalBaru.length !== prevJadwalBaruLength) {
+      toast({
+        title: "Error",
+        description: "Tidak ada jadwal tersedia untuk hari ini.",
+        variant: "destructive",
+      });
+    }
+  }, [jadwalBaru, prevJadwalBaruLength]);
+
   async function onSubmit(data: ReservationSchema) {
     try {
       const result = await addNewReservation(data);
 
-      toast(result.message);
+      toast({
+        title: "Success",
+        description: result.message,
+      });
     } catch (error) {
       toast({
         title: "Error",
@@ -191,7 +211,7 @@ const PatientReservation = () => {
                   label="Jadwal"
                   placeholder="Pilih Jadwal"
                   options={jadwalBaru.map((jadwal) => ({
-                    label: `${jadwal.hari} - ${jadwal.jam_praktek}`,
+                    label: `${jadwal.hari} - ${jadwal.jam_mulai}`,
                     value: jadwal.schedule_id.toString(),
                   }))}
                   disabled={

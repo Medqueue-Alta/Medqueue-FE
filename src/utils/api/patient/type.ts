@@ -8,7 +8,7 @@ export interface ScheduleData {
   schedule_id: number;
   poli: string;
   hari: string;
-  jam_praktek: string;
+  jam_mulai: string;
   kuota: number;
   terisi: number;
 }
