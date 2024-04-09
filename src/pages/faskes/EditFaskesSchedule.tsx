@@ -22,10 +22,10 @@ const EditFaskesSchedule = () => {
   const form = useForm<SchedulesSchema>({
     resolver: zodResolver(schedulesSchema),
     defaultValues: {
-      poli_id:1,
-      hari:"",
-      jam_mulai:"",
-      jam_selesai:"",
+      poli_id: 1,
+      hari: "",
+      jam_mulai: "",
+      jam_selesai: "",
       kuota: 0
     }
   })
@@ -95,7 +95,6 @@ const EditFaskesSchedule = () => {
       })
     }
   }
-  console.log(poli,id)
   return (
 <FaskesLayout>
       <FaskesSidebar>
@@ -133,7 +132,7 @@ const EditFaskesSchedule = () => {
           <Form {...form}>
             <form action="" onSubmit={form.handleSubmit(addSchedule)}>
               <div className="mb-3">
-                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled options={poliKlinik} />
+                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli" disabled options={poliKlinik} />
               </div>
               <div className="mb-3">
                   <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari} />

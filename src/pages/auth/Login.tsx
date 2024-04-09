@@ -25,8 +25,7 @@ const Login = () => {
             title: "Success",
             description: response.message
         })
-        const payload = JSON.parse(atob(response.data.token.split(".")[1]))
-        payload.id === 1 ? localStorage.setItem("role","admin") : localStorage.setItem("role","pasien")
+        localStorage.setItem("role", response.data.role)
         localStorage.setItem("token",response.data.token)
     } catch (error) {
         toast({

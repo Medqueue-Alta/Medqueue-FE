@@ -11,6 +11,15 @@ export const getFaskesSchedules = async (poli_id : number) => {
         throw Error(error.response.data.message)
     }
 }
+export const getFaskesSchedulesById = async (schedule_id : number) => {
+    try {
+        const response = await axiosWithConfig.get(`/schedules/${schedule_id}`)
+        
+        return response.data as IResponse
+    } catch (error : any) {
+        throw Error(error.response.data.message)
+    }
+}
 
 export const getResevations = async () => {
     try {

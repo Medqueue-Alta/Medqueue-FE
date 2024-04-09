@@ -19,7 +19,7 @@ const FaskesSchedule = () => {
     const navigate = useNavigate()
     useEffect(() => {
         fetchSchedules(parseInt(poli!))
-    },[poli])
+    },[fetchSchedules, poli])
 
     console.log(schedules)
     
@@ -97,7 +97,7 @@ const FaskesSchedule = () => {
                                 <TableCell>12</TableCell>
                                 <TableCell className="flex items-center justify-center gap-3">
                                     <MainButton text="Edit" onClick={() => navigate(`/faskes/jadwal/${poli}/${item.schedule_id}`)}/>
-                                    <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id)}>Hapus</Button>
+                                    <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id!)}>Hapus</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
