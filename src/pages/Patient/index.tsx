@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 import PatientCard from "@/components/PatientReservedScheduleCard";
 import QueueCard from "@/components/PatientQueueCard";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 
+import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 import {
   getPatient,
   getPatientReservation,
@@ -17,6 +19,7 @@ import {
 } from "@/utils/api/patient/type";
 import { IResponse } from "@/utils/types/api";
 
+
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
   const [data, setData] = useState<IResponse<IReservation>>();
@@ -26,10 +29,15 @@ const PatientHome = () => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setAxiosConfig(localStorage.getItem("token")!);
         const response = await getPatient();
         setUser(response.data);
       } catch (error) {
-        console.log((error as Error).message.toString());
+        toast({
+          title: "Error",
+          description: (error as Error).message,
+          variant: "destructive",
+        });
       }
     }
 
@@ -42,7 +50,11 @@ const PatientHome = () => {
         const response = await getReservations();
         setData(response);
       } catch (error) {
-        console.log((error as Error).message.toString());
+        toast({
+          title: "Error",
+          description: (error as Error).message,
+          variant: "destructive",
+        });
       }
     }
 
