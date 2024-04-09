@@ -18,6 +18,8 @@ import {
   PatientReservation,
 } from "@/utils/api/patient/type";
 import { IResponse } from "@/utils/types/api";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 
 const PatientHome = () => {
@@ -78,7 +80,7 @@ const PatientHome = () => {
 
   return (
     <PatientLayout>
-      <div className="grid justify-center justify-items-center items-center gap-2">
+      <div className="grid grid-rows-2 justify-center justify-items-center items-center gap-2 h-full">
         <div className="w-full my-8">
           <PatientInformationCard
             nama={user?.nama}
@@ -86,28 +88,42 @@ const PatientHome = () => {
             BJPS={user?.no_bpjs}
           />
         </div>
-        <div className="w-full my-5">
-          <PatientCard
-            title={data?.data.poli}
-            jadwal={reservation?.data.jam_mulai}
-            tanggal={reservation?.data.tanggal}
-          />
-        </div>
-        <div className="w-full my-24 self-start">
-          <div className="grid grid-flow-col gap-1">
-            <QueueCard
-              title="Antrian Anda"
-              antrian={reservation?.data.nomor_antrian}
-            />
-            <QueueCard
-              title="Antrian Sekarang"
-              antrian={reservation?.data.antrian_sekarang}
-            />
+        {reservation?.data ? ( // Check if reservation data is available
+          <>
+            <div className="w-full my-5">
+              <PatientCard
+                title={data?.data.poli}
+                jadwal={reservation?.data.jam_mulai}
+                tanggal={reservation?.data.tanggal}
+              />
+            </div>
+            <div className="w-full my-24 self-start">
+              <div className="grid grid-flow-col gap-1">
+                <QueueCard
+                  title="Antrian Anda"
+                  antrian={reservation?.data.nomor_antrian}
+                />
+                <QueueCard
+                  title="Antrian Sekarang"
+                  antrian={reservation?.data.antrian_sekarang}
+                />
+              </div>
+              <p className="text-xs">
+                *Antrian yang terlewat akan dimasukkan ke dalam waiting list
+              </p>
+            </div>
+          </>
+        ) : (
+          <div className="w-full my-24 py-20 self-start text-2xl ">
+            <Button
+              type="submit"
+              className="w-max self-center text-xl bg-[#089993]"
+              asChild
+            >
+              <Link to={"/pasien/reservasi"}>Silakan buat reservasi</Link>
+            </Button>
           </div>
-          <p className="text-xs">
-            *Antrian yang terlewat akan dimasukkan ke dalam waiting list
-          </p>
-        </div>
+        )}
       </div>
     </PatientLayout>
   );
