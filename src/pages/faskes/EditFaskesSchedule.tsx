@@ -10,41 +10,48 @@ import { useForm } from "react-hook-form"
 import { SchedulesSchema, schedulesSchema } from "@/utils/api/faskes/type"
 import { Form } from "@/components/ui/form"
 import { CustomFormField, CustomFormSelect } from "@/components/CustomFormField"
-import { postSchedules } from "@/utils/api/faskes/api"
+import { editSchedule } from "@/utils/api/faskes/api"
 import { useToast } from "@/components/ui/use-toast"
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig"
+import { useSchedulesState } from "@/utils/states/schedules"
+import { useEffect } from "react"
 
 const EditFaskesSchedule = () => {
-  const {poli} = useParams()
+  const {poli,id} = useParams()
   const location = useLocation()
   const navigate = useNavigate()
   const {toast} = useToast()
+  const {schedule, fetchScedulesById} = useSchedulesState()
   const form = useForm<SchedulesSchema>({
     resolver: zodResolver(schedulesSchema),
-    defaultValues: {
-      poli_id: 1,
-      hari: "",
-      jam_mulai: "",
-      jam_selesai: "",
-      kuota: 0
-    }
   })
+
+  useEffect(() => {
+    fetchScedulesById(parseInt(id!))
+  },[poli,fetchScedulesById,id])
+
+
+  useEffect(() => {
+    form.reset(schedule);
+  }, [schedule,form])
+
+  console.log(schedule)
   const poliKlinik = [
     {
       label: "Poli Umum",
-      value: 1
+      value: "1"
     },
     {
       label: "Poli Gigi & Mulut",
-      value: 2
+      value: "2"
     },
     {
       label: "Poli KIA",
-      value: 3
+      value: "3"
     },
     {
       label: "UGD",
-      value: 4
+      value: "4"
     },
   ]
   const hari = [
@@ -77,11 +84,17 @@ const EditFaskesSchedule = () => {
       value: "Minggu"
     },
   ]
-  const addSchedule = async (body : SchedulesSchema) => {
+
+  const formatTime = (strTime : string) => {
+    const timeParts = strTime ? strTime.split('.') : ""
+    return `${timeParts[0]}:${timeParts[1]}`
+  }
+
+  const editSchedules = async (body : SchedulesSchema) => {
     try {
       console.log(body)
       setAxiosConfig(localStorage.getItem("token")!)
-      const response = await postSchedules(body)
+      const response = await editSchedule(parseInt(id!) , body)
       toast({
         title: "Success",
         description: response.message
@@ -130,12 +143,12 @@ const EditFaskesSchedule = () => {
       <FaskesContainer title="Edit Jadwal">
         <div className="mt-3 w-[40%]">
           <Form {...form}>
-            <form action="" onSubmit={form.handleSubmit(addSchedule)}>
+            <form action="" onSubmit={form.handleSubmit(editSchedules)}>
               <div className="mb-3">
-                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled options={poliKlinik} />
+                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled={form.formState.isSubmitting} options={poliKlinik}/>
               </div>
               <div className="mb-3">
-                  <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari} />
+                  <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari}/>
               </div>
               <div className="mb-3 flex items-center justify-between gap-3">
                 <div className="w-1/2">
@@ -151,7 +164,7 @@ const EditFaskesSchedule = () => {
                         placeholder="Jam Mulai"
                         aria-disabled={form.formState.isSubmitting}
                         disabled={form.formState.isSubmitting}
-                        value={field.value as string} 
+                        value={formatTime(field.value as string)} 
                       />
                     )}
                   </CustomFormField>
@@ -169,7 +182,7 @@ const EditFaskesSchedule = () => {
                         placeholder="Jam Selesai"
                         aria-disabled={form.formState.isSubmitting}
                         disabled={form.formState.isSubmitting}
-                        value={field.value as string} 
+                        value={formatTime(field.value as string)} 
                       />
                     )}
                   </CustomFormField>

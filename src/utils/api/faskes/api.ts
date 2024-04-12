@@ -4,7 +4,7 @@ import { SchedulesSchema } from "./type"
 
 export const getFaskesSchedules = async (poli_id : number) => {
     try {
-        const response = await axiosWithConfig.get(`/schedules/poli?poli_id=${poli_id}`)
+        const response = await axiosWithConfig.get(`/schedules?poli_id=${poli_id}`)
         
         return response.data as IResponse
     } catch (error : any) {
