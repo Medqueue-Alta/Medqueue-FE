@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig"
 
 const EditFaskesSchedule = () => {
-  const {poli,id} = useParams()
+  const {poli} = useParams()
   const location = useLocation()
   const navigate = useNavigate()
   const {toast} = useToast()
@@ -32,19 +32,19 @@ const EditFaskesSchedule = () => {
   const poliKlinik = [
     {
       label: "Poli Umum",
-      value: "umum"
+      value: 1
     },
     {
       label: "Poli Gigi & Mulut",
-      value: "gigi"
+      value: 2
     },
     {
       label: "Poli KIA",
-      value: "kia"
+      value: 3
     },
     {
       label: "UGD",
-      value: "ugd"
+      value: 4
     },
   ]
   const hari = [
@@ -132,7 +132,7 @@ const EditFaskesSchedule = () => {
           <Form {...form}>
             <form action="" onSubmit={form.handleSubmit(addSchedule)}>
               <div className="mb-3">
-                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli" disabled options={poliKlinik} />
+                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled options={poliKlinik} />
               </div>
               <div className="mb-3">
                   <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari} />
