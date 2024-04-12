@@ -4,6 +4,7 @@ const ProtectedRoutes = () => {
     const {pathname} = useLocation()
     const { toast } = useToast()
     const token = localStorage.getItem("token")
+    const role = localStorage.getItem("role")
     const authProtected = ["/login","/register"]
     const protectedByToken = [
         "/",
@@ -21,7 +22,15 @@ const ProtectedRoutes = () => {
         "/pasien/update-profile"
     ]
     if(authProtected.includes(pathname)) {
-        if (token) {return <Navigate to="/"/>}
+        if (token) {
+            if(role) {
+                if(role === "admin") {
+                    return <Navigate to="/" />
+                } else if(role === "pasien") {
+                    return <Navigate to="/pasien/home" />
+                }
+            }
+        }
     }
     if(protectedByToken.includes(pathname)){
         if(!token) {

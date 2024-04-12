@@ -8,12 +8,12 @@ const FaskesHome = () => {
    <FaskesLayout>
         <FaskesSidebar>
         <ul className="flex flex-col justify-center pl-5 h-full gap-2">
-            <Link to={"/faskes/antrian/umum"}>
+            <Link to={"/faskes/antrian/1"}>
                 <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
                     <li className="text-white text-xl">List Antrian</li>
                 </div>
             </Link>
-            <Link to={"/faskes/jadwal/umum"}>
+            <Link to={"/faskes/jadwal/1"}>
                 <div className="cursor-pointer p-2 max-w-[90%] rounded-lg">
                     <li className="text-white text-xl ">Setting Jadwal</li>
                 </div>

@@ -4,6 +4,7 @@ import { LoginSchema, RegisterSchema } from "./type";
 
 interface LoginPayload {
     token: string;
+    role: string;
 }
 
 export const userRegister = async (body: RegisterSchema) => {

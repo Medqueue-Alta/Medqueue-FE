@@ -14,7 +14,7 @@ import { postSchedules } from "@/utils/api/faskes/api"
 import { useToast } from "@/components/ui/use-toast"
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig"
 
-const AddFaskesSchedule = () => {
+const EditFaskesSchedule = () => {
   const {poli} = useParams()
   const location = useLocation()
   const navigate = useNavigate()
@@ -32,19 +32,19 @@ const AddFaskesSchedule = () => {
   const poliKlinik = [
     {
       label: "Poli Umum",
-      value: "1"
+      value: 1
     },
     {
       label: "Poli Gigi & Mulut",
-      value: "2"
+      value: 2
     },
     {
       label: "Poli KIA",
-      value: "3"
+      value: 3
     },
     {
       label: "UGD",
-      value: "4"
+      value: 4
     },
   ]
   const hari = [
@@ -127,12 +127,12 @@ const AddFaskesSchedule = () => {
                 </Link>
         </ul>
       </FaskesSidebar>
-      <FaskesContainer title="Tambah Jadwal">
+      <FaskesContainer title="Edit Jadwal">
         <div className="mt-3 w-[40%]">
           <Form {...form}>
             <form action="" onSubmit={form.handleSubmit(addSchedule)}>
               <div className="mb-3">
-                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled={form.formState.isSubmitting} options={poliKlinik} />
+                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled options={poliKlinik} />
               </div>
               <div className="mb-3">
                   <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari} />
@@ -204,4 +204,4 @@ const AddFaskesSchedule = () => {
   )
 }
 
-export default AddFaskesSchedule
+export default EditFaskesSchedule
