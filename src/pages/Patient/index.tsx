@@ -114,10 +114,10 @@ const PatientHome = () => {
             </div>
           </>
         ) : (
-          <div className="w-full my-24 py-20 self-start text-2xl ">
+          <div className="w-full my-28 py-14 self-start text-2xl ">
             <Button
               type="submit"
-              className="w-max self-center text-xl bg-[#089993]"
+              className="w-full h-full self-center text-xl bg-[#089993]"
               asChild
             >
               <Link to={"/pasien/reservasi"}>Silakan buat reservasi</Link>
