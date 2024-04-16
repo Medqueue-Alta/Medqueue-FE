@@ -3,7 +3,6 @@ import { IResponse } from "@/utils/types/api";
 import {
   IPatient,
   IReservation,
-  PatientReservation,
   ScheduleData,
 } from "@/utils/api/patient/type";
 import axiosWithConfig from "../axiosWithConfig";
