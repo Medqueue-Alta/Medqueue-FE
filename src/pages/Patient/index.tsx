@@ -68,7 +68,7 @@ const PatientHome = () => {
       
       setNewNewData(newData[0]);
       try {
-        const idJadwal = newData[0].id_jadwal;
+        const idJadwal = newNewData?.id_jadwal;
         const response = await getSchedule(idJadwal);
         setInformation(response.data);
       } catch (error) {
@@ -77,7 +77,7 @@ const PatientHome = () => {
     }
 
     fetchPatientSchedule();
-  }, [reservation]);
+  }, [user, reservation]);
 
   function poliIDConversion(kodePoli?: number) {
     const namaPoli: { [key: number]: string } = {
@@ -107,7 +107,6 @@ const PatientHome = () => {
             <div className="w-full my-5">
               <PatientCard
                 title={poliIDConversion(newNewData?.poli_id)}
-                // title={information?.jam_mulai}
                 jadwal={information?.jam_mulai}
                 tanggal={information?.hari}
               />
