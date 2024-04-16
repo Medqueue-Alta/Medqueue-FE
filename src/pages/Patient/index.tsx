@@ -59,25 +59,27 @@ const PatientHome = () => {
   }, []);
 
   useEffect(() => {
-    const newData = reservation.filter((item) => item.reservations_id === 5);
-
-    if (newData.length > 0) {
-      setNewNewData(newData[0]);
+    if (reservation.length !== 0) {
+      setNewNewData(reservation[0]);
       console.log(newNewData);
-    }
-
-    const idJadwal = newNewData?.id_jadwal;
-    if (idJadwal !== undefined) {
-      setJadwal(idJadwal);
     }
   }, [reservation, newNewData]);
 
   useEffect(() => {
+    const idJadwal = newNewData?.id_jadwal;
+    if (idJadwal !== undefined) {
+      setJadwal(idJadwal);
+    }
+  }, [newNewData]);
+
+  useEffect(() => {
     async function fetchPatientSchedule() {
       try {
-        console.log(Jadwal);
-        const response = await getSchedule(Jadwal);
-        setInformation(response.data);
+        if (Jadwal) {
+          console.log(Jadwal);
+          const response = await getSchedule(Jadwal);
+          setInformation(response.data);
+        }
       } catch (error) {
         toast({
           title: "Error",
