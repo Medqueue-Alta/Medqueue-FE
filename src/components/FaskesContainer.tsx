@@ -13,7 +13,7 @@ const FaskesContainer = (props: Props) => {
             <div className="h-[15%] flex items-center justify-center">
                 <h1 className="text-2xl">{title}</h1>
             </div>
-            <div className="bg-[#BEE8E6] h-full w-full flex justify-center">
+            <div className="bg-[#BEE8E6] h-full max-h-screen w-full flex justify-center">
                 {children}
             </div>
         </div>

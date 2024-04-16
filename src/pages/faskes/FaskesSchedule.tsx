@@ -38,6 +38,25 @@ const FaskesSchedule = () => {
             })
         }
     }
+    const formatDay = (day : string) => {
+        let formattedDay = ""
+        if (day === "Monday") {
+            formattedDay = "Senin"
+        } else if (day === "Tuesday") {
+            formattedDay = "Selasa"
+        } else if (day === "Wednesday") {
+            formattedDay = "Rabu"
+        } else if (day === "Thursday") {
+            formattedDay = "Kamis"
+        } else if(day === "Friday") {
+            formattedDay = "Jumat"
+        } else if (day === "Saturday") {
+            formattedDay = "Sabtu"
+        } else if (day === "Sunday") {
+            formattedDay = "Minggu"
+        }
+        return formattedDay
+    }
   return (
     <FaskesLayout>
       <FaskesSidebar>
@@ -91,7 +110,7 @@ const FaskesSchedule = () => {
                         {schedules.map((item,index) => (
                             <TableRow className="text-center border-black" key={item.schedule_id}>
                                 <TableCell>{index + 1}</TableCell>
-                                <TableCell>{item.hari}</TableCell>
+                                <TableCell>{formatDay(item.hari)}</TableCell>
                                 <TableCell>{item.jam_mulai} - {item.jam_selesai}</TableCell>
                                 <TableCell>{item.kuota}</TableCell>
                                 <TableCell>12</TableCell>

@@ -11,6 +11,7 @@ export const setAxiosConfig = (token: string) => {
 
 axiosWithConfig.interceptors.request.use((axiosConfig) => {
     axiosConfig.baseURL = "https://medqueue.site"
+    // axiosConfig.baseURL = "https://virtserver.swaggerhub.com/WFHADIT/medqueue.site/1.0.0"
     axiosConfig.headers.Authorization = `Bearer ${bearerToken}`
 
     return axiosConfig

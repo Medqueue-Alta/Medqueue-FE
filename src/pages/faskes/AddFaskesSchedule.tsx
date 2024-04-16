@@ -13,22 +13,24 @@ import { CustomFormField, CustomFormSelect } from "@/components/CustomFormField"
 import { postSchedules } from "@/utils/api/faskes/api"
 import { useToast } from "@/components/ui/use-toast"
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig"
+import { useSchedulesState } from "@/utils/states/schedules"
+import { useEffect } from "react"
 
 const AddFaskesSchedule = () => {
   const {poli} = useParams()
   const location = useLocation()
   const navigate = useNavigate()
   const {toast} = useToast()
+  const {schedule} = useSchedulesState()
   const form = useForm<SchedulesSchema>({
     resolver: zodResolver(schedulesSchema),
-    defaultValues: {
-      poli_id: 1,
-      hari: "",
-      jam_mulai: "",
-      jam_selesai: "",
-      kuota: 0
-    }
   })
+
+  useEffect(() => {
+    form.reset(schedule);
+  }, [schedule,form])
+
+
   const poliKlinik = [
     {
       label: "Poli Umum",
@@ -50,31 +52,31 @@ const AddFaskesSchedule = () => {
   const hari = [
     {
       label: "Senin",
-      value: "Senin"
+      value: "Monday"
     },
     {
       label: "Selasa",
-      value: "Selasa"
+      value: "Tuesday"
     },
     {
       label: "Rabu",
-      value: "Rabu"
+      value: "Wednesday"
     },
     {
       label: "Kamis",
-      value: "Kamis"
+      value: "Thursday"
     },
     {
       label: "Jumat",
-      value: "Jumat"
+      value: "Friday"
     },
     {
       label: "Sabtu",
-      value: "Sabtu"
+      value: "Saturday"
     },
     {
       label: "Minggu",
-      value: "Minggu"
+      value: "Sunday"
     },
   ]
   const addSchedule = async (body : SchedulesSchema) => {
@@ -132,7 +134,7 @@ const AddFaskesSchedule = () => {
           <Form {...form}>
             <form action="" onSubmit={form.handleSubmit(addSchedule)}>
               <div className="mb-3">
-                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled={form.formState.isSubmitting} options={poliKlinik} />
+                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled={form.formState.isSubmitting} options={poliKlinik}/>
               </div>
               <div className="mb-3">
                   <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari} />

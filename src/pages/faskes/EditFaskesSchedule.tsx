@@ -57,31 +57,31 @@ const EditFaskesSchedule = () => {
   const hari = [
     {
       label: "Senin",
-      value: "Senin"
+      value: "Monday"
     },
     {
       label: "Selasa",
-      value: "Selasa"
+      value: "Tuesday"
     },
     {
       label: "Rabu",
-      value: "Rabu"
+      value: "Wednesday"
     },
     {
       label: "Kamis",
-      value: "Kamis"
+      value: "Thursday"
     },
     {
       label: "Jumat",
-      value: "Jumat"
+      value: "Friday"
     },
     {
       label: "Sabtu",
-      value: "Sabtu"
+      value: "Saturday"
     },
     {
       label: "Minggu",
-      value: "Minggu"
+      value: "Sunday"
     },
   ]
 

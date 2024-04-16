@@ -5,11 +5,18 @@ import MainButton from "@/components/MainButton"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useReservationStore } from "@/utils/states/reservation"
 import { Check } from "lucide-react"
+import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 
 const FaskesQueue = () => {
   const {poli} = useParams()
+  const {reservations,fetchReservationData} = useReservationStore()
+
+  useEffect(() => {
+    fetchReservationData()
+  },[fetchReservationData])
   return (
     <FaskesLayout>
       <FaskesSidebar>
@@ -42,75 +49,40 @@ const FaskesQueue = () => {
                 </Link>
         </ul>
       </FaskesSidebar>
-      <FaskesContainer >
-        <Table>
-            <TableHeader className="bg-[#92DBD8]">
-                <TableHead className="text-black text-center">No</TableHead>
-                <TableHead className="text-black text-center">Nama Pasien</TableHead>
-                <TableHead className="text-black text-center">Keluhan</TableHead>
-                <TableHead className="text-black text-center">Atur</TableHead>
-                <TableHead className="text-black text-center">Status</TableHead>
-                <TableHead className="text-black text-center">BPJS</TableHead>
-            </TableHeader>
-            <TableBody>
-                <TableRow className="text-center border-black">
-                    <TableCell>1</TableCell>
-                    <TableCell>John Doe</TableCell>
-                    <TableCell>Sakit Kepala Sudah 3 Hari</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Check In"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Skip</Button>
-                    </TableCell>
-                    <TableCell>Check In</TableCell>
-                    <TableCell className="flex justify-center items-center"><Check /></TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>2</TableCell>
-                    <TableCell>Foo Bar</TableCell>
-                    <TableCell>Batuk Pilek</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Check In"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Skip</Button>
-                    </TableCell>
-                    <TableCell>Check In</TableCell>
-                    <TableCell className="flex justify-center items-center"></TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>3</TableCell>
-                    <TableCell>John Doe</TableCell>
-                    <TableCell>Sakit Kepala Sudah 3 Hari</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Check In"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Skip</Button>
-                    </TableCell>
-                    <TableCell>Skipped</TableCell>
-                    <TableCell className="flex justify-center items-center"><Check /></TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>4</TableCell>
-                    <TableCell>John Doe</TableCell>
-                    <TableCell>Sakit Kepala Sudah 3 Hari</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Check In"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Skip</Button>
-                    </TableCell>
-                    <TableCell>Skipped</TableCell>
-                    <TableCell className="flex justify-center items-center"></TableCell>
-                </TableRow>
-                <TableRow className="text-center border-black">
-                    <TableCell>5</TableCell>
-                    <TableCell>John Doe</TableCell>
-                    <TableCell>Sakit Kepala Sudah 3 Hari</TableCell>
-                    <TableCell className="flex items-center justify-center gap-3">
-                        <MainButton text="Check In"/>
-                        <Button className="bg-red-500 hover:bg-red-700 duration-500">Skip</Button>
-                    </TableCell>
-                    <TableCell>Check In</TableCell>
-                    <TableCell className="flex justify-center items-center"><Check /></TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
-      </FaskesContainer>
+        {reservations.filter(item => item.poli_id ===  parseInt(poli!)).length > 0 ? (
+            <FaskesContainer>
+                <Table>
+                    <TableHeader className="bg-[#92DBD8] sticky top-0">
+                        <TableHead className="text-black text-center">No</TableHead>
+                        <TableHead className="text-black text-center">Nama Pasien</TableHead>
+                        <TableHead className="text-black text-center">Keluhan</TableHead>
+                        <TableHead className="text-black text-center">Atur</TableHead>
+                        <TableHead className="text-black text-center">Status</TableHead>
+                        <TableHead className="text-black text-center">BPJS</TableHead>
+                    </TableHeader>
+                    <TableBody>
+                        {reservations.filter(item => item.poli_id ===  parseInt(poli!)).map((item,index) => (
+                            <TableRow className="text-center border-black">
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{item.nama}</TableCell>
+                                <TableCell>{item.keluhan}</TableCell>
+                                <TableCell className="flex items-center justify-center gap-3">
+                                    <MainButton text="Check In"/>
+                                    <Button className="bg-red-500 hover:bg-red-700 duration-500">Skip</Button>
+                                </TableCell>
+                                <TableCell>{item.status}</TableCell>
+                                <TableCell className="flex justify-center items-center">{item.bpjs === true ? <Check /> : ""}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </FaskesContainer>
+            
+        ) : (
+            <div className="flex w-full justify-center items-center">
+                <h1 className="text-3xl">Data Not Found</h1>
+            </div>
+        )}
     </FaskesLayout>
   )
 }
