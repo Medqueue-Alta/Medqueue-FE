@@ -113,7 +113,7 @@ const FaskesSchedule = () => {
                                 <TableCell>{formatDay(item.hari)}</TableCell>
                                 <TableCell>{item.jam_mulai} - {item.jam_selesai}</TableCell>
                                 <TableCell>{item.kuota}</TableCell>
-                                <TableCell>12</TableCell>
+                                <TableCell>{item.terisi}</TableCell>
                                 <TableCell className="flex items-center justify-center gap-3">
                                     <MainButton text="Edit" onClick={() => navigate(`/faskes/jadwal/${poli}/${item.schedule_id}`)}/>
                                     <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id!)}>Hapus</Button>

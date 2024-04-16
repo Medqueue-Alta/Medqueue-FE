@@ -9,6 +9,7 @@ export interface ScheduleType {
     jam_mulai: string;
     jam_selesai: string;
     kuota: number;
+    terisi: number;
 }
 
 interface ScheduleStoreType {
@@ -25,7 +26,8 @@ export const useSchedulesState = create<ScheduleStoreType>()((set) => ({
         hari: "",
         jam_mulai: "",
         jam_selesai: "",
-        kuota: 0
+        kuota: 0,
+        terisi: 0
     },
     fetchSchedules: async (poli_id : number) => {
         try {

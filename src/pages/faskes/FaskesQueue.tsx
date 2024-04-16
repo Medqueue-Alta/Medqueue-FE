@@ -5,7 +5,10 @@ import MainButton from "@/components/MainButton"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useToast } from "@/components/ui/use-toast"
+import axiosWithConfig from "@/utils/api/axiosWithConfig"
 import { useReservationStore } from "@/utils/states/reservation"
+import { IResponse } from "@/utils/types/api"
 import { Check } from "lucide-react"
 import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
@@ -13,10 +16,48 @@ import { Link, useParams } from "react-router-dom"
 const FaskesQueue = () => {
   const {poli} = useParams()
   const {reservations,fetchReservationData} = useReservationStore()
-
+  const {toast} = useToast()
   useEffect(() => {
     fetchReservationData()
   },[fetchReservationData])
+
+  const checkin = async (id : number) => {
+    try {
+        const response = await axiosWithConfig.put(`/reservations/${id}`, {
+            status: "Check In"
+        })
+        toast({
+            title: "Success",
+            description: (response.data as IResponse).message
+        })
+        await fetchReservationData()
+    } catch (error) {
+        toast({
+            title: "Error",
+            description: (error as Error).message,
+            variant: "destructive"
+        })
+    }
+  }
+
+  const skip = async (id : number) => {
+    try {
+        const response = await axiosWithConfig.put(`/reservations/${id}`, {
+            status: "Skipped"
+        })
+        toast({
+            title: "Success",
+            description: (response.data as IResponse).message
+        })
+        await fetchReservationData()
+    } catch (error) {
+        toast({
+            title: "Error",
+            description: (error as Error).message,
+            variant: "destructive"
+        })
+    }
+  }
   return (
     <FaskesLayout>
       <FaskesSidebar>
@@ -67,8 +108,8 @@ const FaskesQueue = () => {
                                 <TableCell>{item.nama}</TableCell>
                                 <TableCell>{item.keluhan}</TableCell>
                                 <TableCell className="flex items-center justify-center gap-3">
-                                    <MainButton text="Check In"/>
-                                    <Button className="bg-red-500 hover:bg-red-700 duration-500">Skip</Button>
+                                    <MainButton text="Check In" onClick={() => checkin(item.reservations_id)}/>
+                                    <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => skip(item.reservations_id)}>Skip</Button>
                                 </TableCell>
                                 <TableCell>{item.status}</TableCell>
                                 <TableCell className="flex justify-center items-center">{item.bpjs === true ? <Check /> : ""}</TableCell>
