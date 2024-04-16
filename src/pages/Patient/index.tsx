@@ -1,53 +1,131 @@
 import { useEffect, useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 import PatientCard from "@/components/PatientReservedScheduleCard";
 import QueueCard from "@/components/PatientQueueCard";
 import PatientInformationCard from "@/components/PatientInformationCard";
 import PatientLayout from "@/components/PatientLayout";
 
-import { getPatient } from "@/utils/api/patient/api";
-import { IPatient } from "@/utils/api/patient/type";
+import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
+import {
+  getPatient,
+  getPatientReservation,
+  getReservations,
+} from "@/utils/api/patient/api";
+import {
+  IPatient,
+  PatientReservation,
+} from "@/utils/api/patient/type";
+import { IResponse } from "@/utils/types/api";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+
 
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
+  const [data, setData] = useState<IResponse>();
+  const [reservation, setReservation] =
+    useState<IResponse<PatientReservation>>();
 
- useEffect(() => {
-   async function fetchData () {
-     try {
-       const response = await getPatient();
-       setUser(response.data);
-       
-     } catch (error) {
-       console.log((error as Error).message.toString());
-     }
-   }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setAxiosConfig(localStorage.getItem("token")!);
+        const response = await getPatient();
+        setUser(response.data);
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: (error as Error).message,
+          variant: "destructive",
+        });
+      }
+    }
 
-   fetchData();
- }, []);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchReservations() {
+      try {
+        const response = await getReservations();
+        setData(response);
+        console.log(response.data)
+
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: (error as Error).message,
+          variant: "destructive",
+        });
+      }
+    }
+
+    fetchReservations();
+  }, []);
+
+  useEffect(() => {
+    async function fetchPatientReservation() {
+      try {
+
+        const response = await getPatientReservation(2);
+
+        setReservation(response);
+        console.log(response)
+      } catch (error) {
+        console.log((error as Error).message.toString());
+      }
+    }
+
+    fetchPatientReservation();
+  }, []);
 
   return (
     <PatientLayout>
-      <div className="grid justify-center justify-items-center items-center gap-2">
+      <div className="grid grid-rows-2 justify-center justify-items-center items-center gap-2 h-full">
         <div className="w-full my-8">
-          <PatientInformationCard nama={user?.nama} NIK={user?.no_nik} BJPS={user?.no_bpjs} />
-        </div>
-        <div className="w-full my-5">
-          <PatientCard
-            title="Poli Umum"
-            jadwal="12:00"
-            tanggal="12-04-2024"
-            dokter="dr. John Doe"
+          <PatientInformationCard
+            nama={user?.nama}
+            NIK={user?.no_nik}
+            BJPS={user?.no_bpjs}
           />
         </div>
-        <div className="w-full my-24 self-start">
-          <div className="grid grid-flow-col gap-1">
-            <QueueCard antrian="12" />
-            <QueueCard antrian="15" />
+        {reservation?.data ? ( // Check if reservation data is available
+          <>
+            <div className="w-full my-5">
+              <PatientCard
+                title={data?.data.poli}
+                jadwal={reservation?.data.jam_mulai}
+                tanggal={reservation?.data.tanggal}
+              />
+            </div>
+            <div className="w-full my-24 self-start">
+              <div className="grid grid-flow-col gap-1">
+                <QueueCard
+                  title="Antrian Anda"
+                  antrian={reservation?.data.nomor_antrian}
+                />
+                <QueueCard
+                  title="Antrian Sekarang"
+                  antrian={reservation?.data.antrian_sekarang}
+                />
+              </div>
+              <p className="text-xs">
+                *Antrian yang terlewat akan dimasukkan ke dalam waiting list
+              </p>
+            </div>
+          </>
+        ) : (
+          <div className="w-full my-28 py-14 self-start text-2xl ">
+            <Button
+              type="submit"
+              className="w-full h-full self-center text-xl bg-[#089993]"
+              asChild
+            >
+              <Link to={"/pasien/reservasi"}>Silakan buat reservasi</Link>
+            </Button>
           </div>
-          <p className="text-xs">
-            *Antrian yang terlewat akan dimasukkan ke dalam waiting list
-          </p>
-        </div>
+        )}
       </div>
     </PatientLayout>
   );

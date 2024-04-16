@@ -2,12 +2,12 @@ import { checkProperty, valueFormatData } from "@/utils/formatter";
 import { IResponse } from "@/utils/types/api";
 import {
   IPatient,
-  ISchedule,
-  ReservationSchema,
+  IReservation,
+  PatientReservation,
   ScheduleData,
-  UpdateProfileSchema,
 } from "@/utils/api/patient/type";
 import axiosWithConfig from "../axiosWithConfig";
+import { ReservationSchema, UpdateProfileSchema } from "./form-type";
 
 export const getPatient = async () => {
   try {
@@ -19,11 +19,33 @@ export const getPatient = async () => {
   }
 };
 
-export const getSchedule = async () => {
+export const getSchedule = async (poli_id: string) => {
   try {
-    const response = await axiosWithConfig.get("/schedules");
+    const response = await axiosWithConfig.get(`/schedules/`, {
+      params: { poli_id },
+    });
 
-    return response.data as ISchedule<ScheduleData[]>;
+    return response.data as IResponse<ScheduleData[]>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const getReservations = async () => {
+  try {
+    const response = await axiosWithConfig.get("/reservation");
+
+    return response.data as IResponse<IReservation>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const getPatientReservation = async (id_jadwal?: number) => {
+  try {
+    const response = await axiosWithConfig.get(`/reservations/${id_jadwal}`);
+
+    return response.data as IResponse<PatientReservation>;
   } catch (error: any) {
     throw Error(error.response.data.message);
   }

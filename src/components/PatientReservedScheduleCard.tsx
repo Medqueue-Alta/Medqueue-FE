@@ -1,14 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Props {
-  title: string;
-  tanggal: string;
-  jadwal: string;
-  dokter: string;
+  title?: string;
+  tanggal?: string;
+  jadwal?: string;
 }
 
 const PatientCard = (props: Props) => {
-  const { title, tanggal, jadwal, dokter } = props;
+  const { title, tanggal, jadwal } = props;
 
   return (
     <Card className="self-start w-full h-full ">
@@ -25,11 +24,6 @@ const PatientCard = (props: Props) => {
           <p>Jadwal</p> 
           <p>:</p>
           <p>{jadwal}</p>
-        </div>
-        <div className="grid grid-cols-3">
-          <p>Dokter</p> 
-          <p>:</p>
-          <p>{dokter}</p>
         </div>
       </CardContent>
     </Card>
