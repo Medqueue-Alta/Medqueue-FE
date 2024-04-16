@@ -87,6 +87,7 @@ const PatientHome = () => {
       4: "UGD",
     };
 
+
     const poliName = namaPoli[kodePoli || 0];
     return poliName || "Tidak Diketahui";
   }
@@ -101,7 +102,7 @@ const PatientHome = () => {
             BJPS={user?.no_bpjs}
           />
         </div>
-        {information ? ( // Check if reservation data is available
+        {newNewData ? ( // Check if reservation data is available
           <>
             <div className="w-full my-5">
               <PatientCard
