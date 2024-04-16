@@ -85,11 +85,6 @@ const EditFaskesSchedule = () => {
     },
   ]
 
-  const formatTime = (strTime : string) => {
-    const timeParts = strTime ? strTime.split('.') : ""
-    return `${timeParts[0]}:${timeParts[1]}`
-  }
-
   const editSchedules = async (body : SchedulesSchema) => {
     try {
       console.log(body)
@@ -164,7 +159,7 @@ const EditFaskesSchedule = () => {
                         placeholder="Jam Mulai"
                         aria-disabled={form.formState.isSubmitting}
                         disabled={form.formState.isSubmitting}
-                        value={formatTime(field.value as string)} 
+                        value={field.value as string} 
                       />
                     )}
                   </CustomFormField>
@@ -182,7 +177,7 @@ const EditFaskesSchedule = () => {
                         placeholder="Jam Selesai"
                         aria-disabled={form.formState.isSubmitting}
                         disabled={form.formState.isSubmitting}
-                        value={formatTime(field.value as string)} 
+                        value={field.value as string} 
                       />
                     )}
                   </CustomFormField>
