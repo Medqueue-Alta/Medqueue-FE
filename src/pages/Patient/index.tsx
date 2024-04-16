@@ -101,7 +101,7 @@ const PatientHome = () => {
             BJPS={user?.no_bpjs}
           />
         </div>
-        {reservation ? ( // Check if reservation data is available
+        {information ? ( // Check if reservation data is available
           <>
             <div className="w-full my-5">
               <PatientCard
