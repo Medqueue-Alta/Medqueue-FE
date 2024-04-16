@@ -5,11 +5,12 @@ interface Props {
     className?: string
     type?: "submit" | "reset" | "button" | undefined,
     onClick?: () => void;
+    id?: string
 }
 
 const MainButton = (props: Props) => {
-    const {text, type, className, onClick} = props
-  return <Button className={`bg-[#089993] hover:bg-[#1c5e5b] duration-500 ${className}`} type={type} onClick={onClick}>{text}</Button>
+    const {text, type, className, onClick,id} = props
+  return <Button className={`bg-[#089993] hover:bg-[#1c5e5b] duration-500 ${className}`} type={type} onClick={onClick} id={id}>{text}</Button>
 }
 
 export default MainButton

@@ -101,28 +101,28 @@ const AddFaskesSchedule = () => {
 <FaskesLayout>
       <FaskesSidebar>
       <ul className="flex flex-col justify-center pl-5 h-full gap-2">
-                <Link to={"/faskes/antrian/1"}>
+                <Link to={"/faskes/antrian/1"} id="nav-umum">
                     <div className={`${poli === "1" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                         <li className={`${poli === "1" ? "" : "text-white"} text-xl`}>Poli Umum</li>
                     </div>
                 </Link>
-                <Link to={"/faskes/antrian/2"}>
+                <Link to={"/faskes/antrian/2"} id="nav-gigi">
                     <div className={`${poli === "2" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                         <li className={`${poli === "2" ? "" : "text-white"} text-xl`}>Poli Gigi & Mulut</li>
                     </div>
                 </Link>
-                <Link to={"/faskes/antrian/3"}>
+                <Link to={"/faskes/antrian/3"} id="nav-kia">
                     <div className={`${poli === "3" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                         <li className={`${poli === "3" ? "" : "text-white"} text-xl`}>Poli KIA</li>
                     </div>
                 </Link>
-                <Link to={"/faskes/antrian/4"}>
+                <Link to={"/faskes/antrian/4"} id="nav-ugd">
                     <div className={`${poli === "4" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                         <li className={`${poli === "4" ? "" : "text-white"} text-xl`}>UGD</li>
                     </div>
                 </Link>
                 <Separator className="my-3"/>
-                <Link to={"/faskes/jadwal/add"}>
+                <Link to={"/faskes/jadwal/add"} id="nav-add-schedule">
                     <div className={`${location.pathname === "/faskes/jadwal/add" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                         <li className={`${location.pathname === "/faskes/jadwal/add" ? "" : "text-white"} text-xl`}>Tambah Jadwal</li>
                     </div>

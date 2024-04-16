@@ -61,22 +61,22 @@ const FaskesSchedule = () => {
     <FaskesLayout>
       <FaskesSidebar>
         <ul className="flex flex-col justify-center pl-5 h-full gap-2">
-            <Link to={"/faskes/jadwal/1"}>
+            <Link to={"/faskes/jadwal/1"} id="nav-umum">
                 <div className={`${poli === "1" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                     <li className={`${poli === "1" ? "" : "text-white"} text-xl`}>Poli Umum</li>
                 </div>
             </Link>
-            <Link to={"/faskes/jadwal/2"}>
+            <Link to={"/faskes/jadwal/2"} id="nav-gigi">
                 <div className={`${poli === "2" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                     <li className={`${poli === "2" ? "" : "text-white"} text-xl`}>Poli Gigi & Mulut</li>
                 </div>
             </Link>
-            <Link to={"/faskes/jadwal/3"}>
+            <Link to={"/faskes/jadwal/3"} id="nav-kia">
                 <div className={`${poli === "3" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                     <li className={`${poli === "3" ? "" : "text-white"} text-xl`}>Poli KIA</li>
                 </div>
             </Link>
-            <Link to={"/faskes/jadwal/4"}>
+            <Link to={"/faskes/jadwal/4"} id="nav-ugd">
                 <div className={`${poli === "4" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
                     <li className={`${poli === "4" ? "" : "text-white"} text-xl`}>UGD</li>
                 </div>
@@ -115,8 +115,8 @@ const FaskesSchedule = () => {
                                 <TableCell>{item.kuota}</TableCell>
                                 <TableCell>{item.terisi}</TableCell>
                                 <TableCell className="flex items-center justify-center gap-3">
-                                    <MainButton text="Edit" onClick={() => navigate(`/faskes/jadwal/${poli}/${item.schedule_id}`)}/>
-                                    <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id!)}>Hapus</Button>
+                                    <MainButton text="Edit" onClick={() => navigate(`/faskes/jadwal/${poli}/${item.schedule_id}`)} id="btn-edit"/>
+                                    <Button className="bg-red-500 hover:bg-red-700 duration-500" onClick={() => deleteData(item.schedule_id!)} id="delete-schedules">Hapus</Button>
                                 </TableCell>
                             </TableRow>
                         ))}

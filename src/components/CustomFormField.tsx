@@ -68,7 +68,7 @@ export function CustomFormField<T extends FieldValues>(
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="w-full">
+        <FormItem className="w-full" id={`${name}`}>
           <FormLabel className="font-bold text-lg md:text-sm">
             {label}
           </FormLabel>
@@ -91,7 +91,7 @@ export function CustomFormDatePicker<T extends FieldValues>(
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col w-full">
+        <FormItem className="flex flex-col w-full" id={`${name}`}>
           <FormLabel className="font-bold text-lg md:text-sm">
             {label}
           </FormLabel>
@@ -148,7 +148,7 @@ export function CustomFormTextArea<T extends FieldValues>(
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="w-full">
+        <FormItem className="w-full" id={`${name}`}>
           <FormLabel className="font-bold text-lg">{label}</FormLabel>
           <FormControl className="text-m">
             <Textarea
@@ -192,14 +192,14 @@ export function CustomFormCheckbox<T extends FieldValues>(
 export function CustomFormSelect<T extends FieldValues>(
   props: Readonly<Props<T>>
 ) {
-  const { name, label, placeholder, description, control, options } = props;
+  const { name, label, placeholder, description, control, options} = props;
 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem id={`${name}`}>
           <FormLabel>{label}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
