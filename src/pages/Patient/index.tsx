@@ -20,6 +20,7 @@ const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
   const [reservation, setReservation] = useState<IReservation[]>([]);
   const [newNewData, setNewNewData] = useState<IReservation>();
+  const [Jadwal, setJadwal] = useState(0);
   const [information, setInformation] = useState<ScheduleData>();
 
   useEffect(() => {
@@ -58,30 +59,36 @@ const PatientHome = () => {
   }, []);
 
   useEffect(() => {
-    async function fetchPatientSchedule() {
-      const customID = 5;
-      const newData = reservation.filter(
-        (item) => item.reservations_id === customID
-      );
+    const newData = reservation.filter((item) => item.reservations_id === 5);
 
+    if (newData.length > 0) {
       setNewNewData(newData[0]);
-      try {
-        let idJadwal;
-        if (newNewData) {
-          idJadwal = newNewData.id_jadwal;
-        } else {
-          throw new Error("newNewData is not defined.");
-        }
+      console.log(newNewData);
+    }
 
-        const response = await getSchedule(idJadwal);
+    const idJadwal = newNewData?.id_jadwal;
+    if (idJadwal !== undefined) {
+      setJadwal(idJadwal);
+    }
+  }, [reservation, newNewData]);
+
+  useEffect(() => {
+    async function fetchPatientSchedule() {
+      try {
+        console.log(Jadwal);
+        const response = await getSchedule(Jadwal);
         setInformation(response.data);
       } catch (error) {
-        console.log((error as Error).message.toString());
+        toast({
+          title: "Error",
+          description: (error as Error).message,
+          variant: "destructive",
+        });
       }
     }
 
     fetchPatientSchedule();
-  }, [reservation, newNewData]);
+  }, [Jadwal]);
 
   function poliIDConversion(kodePoli?: number) {
     const namaPoli: { [key: number]: string } = {
