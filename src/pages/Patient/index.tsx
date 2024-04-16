@@ -70,7 +70,7 @@ const PatientHome = () => {
     if (idJadwal !== undefined) {
       setJadwal(idJadwal);
     }
-  }, [reservation]);
+  }, [reservation, newNewData]);
 
   useEffect(() => {
     async function fetchPatientSchedule() {
@@ -88,7 +88,7 @@ const PatientHome = () => {
     }
 
     fetchPatientSchedule();
-  }, [newNewData]);
+  }, [newNewData, Jadwal]);
 
   function poliIDConversion(kodePoli?: number) {
     const namaPoli: { [key: number]: string } = {
