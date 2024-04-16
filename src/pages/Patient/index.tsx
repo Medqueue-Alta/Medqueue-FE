@@ -12,26 +12,15 @@ import {
   getPatientReservation,
   getSchedule,
 } from "@/utils/api/patient/api";
-import {
-  IPatient,
-  IReservation,
-
-  ScheduleData,
-} from "@/utils/api/patient/type";
+import { IPatient, IReservation, ScheduleData } from "@/utils/api/patient/type";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
-
 
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
   const [reservation, setReservation] = useState<IReservation[]>([]);
-  const [newData, setNewData] = useState<IReservation[]>([]);
   const [newNewData, setNewNewData] = useState<IReservation>();
-  const [information, setInformation] =
-    useState<ScheduleData>();
-
-
+  const [information, setInformation] = useState<ScheduleData>();
 
   useEffect(() => {
     async function fetchData() {
@@ -56,7 +45,6 @@ const PatientHome = () => {
       try {
         const response = await getPatientReservation();
         setReservation(response.data);
-
       } catch (error) {
         toast({
           title: "Error",
@@ -69,34 +57,27 @@ const PatientHome = () => {
     fetchReservations();
   }, []);
 
-  useEffect(() => {
-
-    const customID = 5
-    const newData = reservation.filter((item) => item.reservations_id === customID)
-    
-    setNewData(newData)
-    setNewNewData(newData[0])
-    console.log(newNewData)
-  }, [])
-
 
   useEffect(() => {
     async function fetchPatientSchedule() {
+      const customID = 5;
+      const newData = reservation.filter(
+        (item) => item.reservations_id === customID
+      );
 
+      
+      setNewNewData(newData[0]);
       try {
-       const idJadwal = newData[0].id_jadwal
+        const idJadwal = newData[0].id_jadwal;
         const response = await getSchedule(idJadwal);
         setInformation(response.data);
-        console.log(information)
-
       } catch (error) {
         console.log((error as Error).message.toString());
       }
     }
 
     fetchPatientSchedule();
-  }, []);
-
+  }, [reservation]);
 
   function poliIDConversion(kodePoli?: number) {
     const namaPoli: { [key: number]: string } = {
@@ -106,7 +87,7 @@ const PatientHome = () => {
       4: "UGD",
     };
 
-    const poliName = namaPoli[kodePoli || 0]; 
+    const poliName = namaPoli[kodePoli || 0];
     return poliName || "Tidak Diketahui";
   }
 
