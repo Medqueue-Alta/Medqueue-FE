@@ -57,7 +57,6 @@ const PatientHome = () => {
     fetchReservations();
   }, []);
 
-
   useEffect(() => {
     async function fetchPatientSchedule() {
       const customID = 5;
@@ -65,10 +64,15 @@ const PatientHome = () => {
         (item) => item.reservations_id === customID
       );
 
-      
       setNewNewData(newData[0]);
       try {
-        const idJadwal = newNewData?.id_jadwal;
+        let idJadwal;
+        if (newNewData) {
+          idJadwal = newNewData.id_jadwal;
+        } else {
+          throw new Error("newNewData is not defined.");
+        }
+
         const response = await getSchedule(idJadwal);
         setInformation(response.data);
       } catch (error) {
@@ -77,7 +81,7 @@ const PatientHome = () => {
     }
 
     fetchPatientSchedule();
-  }, [user, reservation]);
+  }, [reservation, newNewData]);
 
   function poliIDConversion(kodePoli?: number) {
     const namaPoli: { [key: number]: string } = {
@@ -87,7 +91,6 @@ const PatientHome = () => {
       4: "UGD",
     };
 
-    
     const poliName = namaPoli[kodePoli || 0];
     return poliName || "Tidak Diketahui";
   }
