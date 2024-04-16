@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
+
 
 import {
   CustomFormDatePicker,
@@ -25,7 +27,7 @@ import {
 import {
   addNewReservation,
   getPatient,
-  getSchedule,
+  getSchedules,
 } from "@/utils/api/patient/api";
 import { IPatient, ScheduleData } from "@/utils/api/patient/type";
 import {
@@ -34,12 +36,15 @@ import {
 } from "@/utils/api/patient/form-type";
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 
+
 const PatientReservation = () => {
   const [user, setUser] = useState<IPatient>();
   const [jadwal, setJadwal] = useState<ScheduleData[]>([]);
   const [jadwalBaru, setJadwalBaru] = useState<ScheduleData[]>([]);
   const [day, setDay] = useState("");
   const [prevJadwalBaruLength, setPrevJadwalBaruLength] = useState<number>(0);
+
+const navigate = useNavigate();
 
   // List Poli di hardcode untuk saat ini
   const poli = [
@@ -95,7 +100,7 @@ const PatientReservation = () => {
     const fetchJadwal = async () => {
       try {
         setAxiosConfig(localStorage.getItem("token")!);
-        const response = await getSchedule(poliValue);
+        const response = await getSchedules(poliValue);
         setJadwal(response.data);
         console.log(jadwal);
       } catch (error) {
@@ -121,7 +126,7 @@ const PatientReservation = () => {
       // Simpan Hari yang didapatkan kedalam konstant baru lalu ubah menjadi
       // format Indonesia
       const selectedDate = new Date(tanggal);
-      const selectedDay = selectedDate.toLocaleString("id-ID", {
+      const selectedDay = selectedDate.toLocaleString("en-US", {
         weekday: "long",
       });
 
@@ -171,6 +176,7 @@ const PatientReservation = () => {
 
       const result = await addNewReservation(newData);
 
+      navigate("/pasien/home");
       toast({
         title: "Success",
         description: result.message,

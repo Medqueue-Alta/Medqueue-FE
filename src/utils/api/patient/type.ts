@@ -14,10 +14,14 @@ export interface ScheduleData {
 }
 
 export interface IReservation {
-  reservations_id: string;
-  id_jadwal: number
+  reservations_id: number;
+  user_id: number;
+  id_jadwal: number;
   nama: string;
-  poli: string;
+  poli_id: number;
+  tanggal_kunjungan: string;
+  antrian_anda: number;
+  antrian_sekarang: number;
 }
 
 export interface PatientReservation {

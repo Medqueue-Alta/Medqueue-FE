@@ -3,7 +3,6 @@ import { IResponse } from "@/utils/types/api";
 import {
   IPatient,
   IReservation,
-  PatientReservation,
   ScheduleData,
 } from "@/utils/api/patient/type";
 import axiosWithConfig from "../axiosWithConfig";
@@ -19,7 +18,7 @@ export const getPatient = async () => {
   }
 };
 
-export const getSchedule = async (poli_id: string) => {
+export const getSchedules = async (poli_id: string) => {
   try {
     const response = await axiosWithConfig.get(`/schedules/`, {
       params: { poli_id },
@@ -31,21 +30,33 @@ export const getSchedule = async (poli_id: string) => {
   }
 };
 
-export const getReservations = async () => {
+export const getSchedule = async (id_jadwal?: number) => {
   try {
-    const response = await axiosWithConfig.get("/reservation");
+    const response = await axiosWithConfig.get(`/schedules/${id_jadwal}`
+    );
 
-    return response.data as IResponse<IReservation>;
+    return response.data as IResponse<ScheduleData>;
   } catch (error: any) {
     throw Error(error.response.data.message);
   }
 };
 
-export const getPatientReservation = async (id_jadwal?: number) => {
+export const getPatientReservation = async () => {
+  try {
+    const response = await axiosWithConfig.get("/reservation");
+
+    return response.data as IResponse<IReservation[]>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+
+export const getReservations = async (id_jadwal?: number) => {
   try {
     const response = await axiosWithConfig.get(`/reservations/${id_jadwal}`);
 
-    return response.data as IResponse<PatientReservation>;
+    return response.data as IResponse<IReservation>;
   } catch (error: any) {
     throw Error(error.response.data.message);
   }
