@@ -30,7 +30,7 @@ export const getSchedules = async (poli_id: string) => {
   }
 };
 
-export const getSchedule = async (id_jadwal?: number) => {
+export const getSchedule = async (id_jadwal: number) => {
   try {
     const response = await axiosWithConfig.get(`/schedules/${id_jadwal}`
     );
