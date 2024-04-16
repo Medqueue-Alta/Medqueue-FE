@@ -19,7 +19,6 @@ import { Button } from "@/components/ui/button";
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
   const [reservation, setReservation] = useState<IReservation[]>([]);
-  const [newData, setNewData] = useState<IReservation[]>([]);
   const [newNewData, setNewNewData] = useState<IReservation>();
   const [information, setInformation] = useState<ScheduleData>();
 
@@ -66,7 +65,7 @@ const PatientHome = () => {
         (item) => item.reservations_id === customID
       );
 
-      setNewData(newData);
+      
       setNewNewData(newData[0]);
       try {
         const idJadwal = newData[0].id_jadwal;
