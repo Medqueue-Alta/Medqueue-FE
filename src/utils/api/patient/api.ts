@@ -19,7 +19,7 @@ export const getPatient = async () => {
   }
 };
 
-export const getSchedule = async (poli_id: number) => {
+export const getSchedule = async (poli_id: string) => {
   try {
     const response = await axiosWithConfig.get(`/schedules/`, {
       params: { poli_id },
