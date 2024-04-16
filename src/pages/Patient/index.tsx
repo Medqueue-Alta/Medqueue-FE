@@ -10,22 +10,28 @@ import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 import {
   getPatient,
   getPatientReservation,
-  getReservations,
+  getSchedule,
 } from "@/utils/api/patient/api";
 import {
   IPatient,
-  PatientReservation,
+  IReservation,
+
+  ScheduleData,
 } from "@/utils/api/patient/type";
-import { IResponse } from "@/utils/types/api";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 
+
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
-  const [data, setData] = useState<IResponse>();
-  const [reservation, setReservation] =
-    useState<IResponse<PatientReservation>>();
+  const [reservation, setReservation] = useState<IReservation[]>([]);
+  const [newData, setNewData] = useState<IReservation[]>([]);
+  const [newNewData, setNewNewData] = useState<IReservation>();
+  const [information, setInformation] =
+    useState<ScheduleData>();
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -48,9 +54,8 @@ const PatientHome = () => {
   useEffect(() => {
     async function fetchReservations() {
       try {
-        const response = await getReservations();
-        setData(response);
-        console.log(response.data)
+        const response = await getPatientReservation();
+        setReservation(response.data);
 
       } catch (error) {
         toast({
@@ -65,20 +70,45 @@ const PatientHome = () => {
   }, []);
 
   useEffect(() => {
-    async function fetchPatientReservation() {
+
+    const customID = 5
+    const newData = reservation.filter((item) => item.reservations_id === customID)
+    
+    setNewData(newData)
+    setNewNewData(newData[0])
+    console.log(newNewData)
+  }, [])
+
+
+  useEffect(() => {
+    async function fetchPatientSchedule() {
+
       try {
+       const idJadwal = newData[0].id_jadwal
+        const response = await getSchedule(idJadwal);
+        setInformation(response.data);
+        console.log(information)
 
-        const response = await getPatientReservation(2);
-
-        setReservation(response);
-        console.log(response)
       } catch (error) {
         console.log((error as Error).message.toString());
       }
     }
 
-    fetchPatientReservation();
+    fetchPatientSchedule();
   }, []);
+
+
+  function poliIDConversion(kodePoli?: number) {
+    const namaPoli: { [key: number]: string } = {
+      1: "Poli Umum",
+      2: "Poli Gigi & Mulut",
+      3: "Poli KIA",
+      4: "UGD",
+    };
+
+    const poliName = namaPoli[kodePoli || 0]; 
+    return poliName || "Tidak Diketahui";
+  }
 
   return (
     <PatientLayout>
@@ -90,24 +120,25 @@ const PatientHome = () => {
             BJPS={user?.no_bpjs}
           />
         </div>
-        {reservation?.data ? ( // Check if reservation data is available
+        {reservation ? ( // Check if reservation data is available
           <>
             <div className="w-full my-5">
               <PatientCard
-                title={data?.data.poli}
-                jadwal={reservation?.data.jam_mulai}
-                tanggal={reservation?.data.tanggal}
+                title={poliIDConversion(newNewData?.poli_id)}
+                // title={information?.jam_mulai}
+                jadwal={information?.jam_mulai}
+                tanggal={information?.hari}
               />
             </div>
             <div className="w-full my-24 self-start">
               <div className="grid grid-flow-col gap-1">
                 <QueueCard
                   title="Antrian Anda"
-                  antrian={reservation?.data.nomor_antrian}
+                  antrian={newNewData?.antrian_anda}
                 />
                 <QueueCard
                   title="Antrian Sekarang"
-                  antrian={reservation?.data.antrian_sekarang}
+                  antrian={newNewData?.antrian_sekarang}
                 />
               </div>
               <p className="text-xs">
