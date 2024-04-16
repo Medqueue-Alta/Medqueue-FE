@@ -102,43 +102,29 @@ const PatientHome = () => {
             BJPS={user?.no_bpjs}
           />
         </div>
-        {newNewData ? ( // Check if reservation data is available
-          <>
-            <div className="w-full my-5">
-              <PatientCard
-                title={poliIDConversion(newNewData?.poli_id)}
-                // title={information?.jam_mulai}
-                jadwal={information?.jam_mulai}
-                tanggal={information?.hari}
-              />
-            </div>
-            <div className="w-full my-24 self-start">
-              <div className="grid grid-flow-col gap-1">
-                <QueueCard
-                  title="Antrian Anda"
-                  antrian={newNewData?.antrian_anda}
-                />
-                <QueueCard
-                  title="Antrian Sekarang"
-                  antrian={newNewData?.antrian_sekarang}
-                />
-              </div>
-              <p className="text-xs">
-                *Antrian yang terlewat akan dimasukkan ke dalam waiting list
-              </p>
-            </div>
-          </>
-        ) : (
-          <div className="w-full my-28 py-14 self-start text-2xl ">
-            <Button
-              type="submit"
-              className="w-full h-full self-center text-xl bg-[#089993]"
-              asChild
-            >
-              <Link to={"/pasien/reservasi"}>Silakan buat reservasi</Link>
-            </Button>
+        <div className="w-full my-5">
+          <PatientCard
+            title={poliIDConversion(newNewData?.poli_id)}
+            // title={information?.jam_mulai}
+            jadwal={information?.jam_mulai}
+            tanggal={information?.hari}
+          />
+        </div>
+        <div className="w-full my-24 self-start">
+          <div className="grid grid-flow-col gap-1">
+            <QueueCard
+              title="Antrian Anda"
+              antrian={newNewData?.antrian_anda}
+            />
+            <QueueCard
+              title="Antrian Sekarang"
+              antrian={newNewData?.antrian_sekarang}
+            />
           </div>
-        )}
+          <p className="text-xs">
+            *Antrian yang terlewat akan dimasukkan ke dalam waiting list
+          </p>
+        </div>
       </div>
     </PatientLayout>
   );
