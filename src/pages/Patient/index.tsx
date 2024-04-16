@@ -13,8 +13,7 @@ import {
   getSchedule,
 } from "@/utils/api/patient/api";
 import { IPatient, IReservation, ScheduleData } from "@/utils/api/patient/type";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+
 
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
