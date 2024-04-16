@@ -14,7 +14,6 @@ import {
 } from "@/utils/api/patient/api";
 import {
   IPatient,
-  IReservation,
   PatientReservation,
 } from "@/utils/api/patient/type";
 import { IResponse } from "@/utils/types/api";
@@ -24,7 +23,7 @@ import { Button } from "@/components/ui/button";
 
 const PatientHome = () => {
   const [user, setUser] = useState<IPatient>();
-  const [data, setData] = useState<IResponse<IReservation>>();
+  const [data, setData] = useState<IResponse>();
   const [reservation, setReservation] =
     useState<IResponse<PatientReservation>>();
 
@@ -51,6 +50,8 @@ const PatientHome = () => {
       try {
         const response = await getReservations();
         setData(response);
+        console.log(response.data)
+
       } catch (error) {
         toast({
           title: "Error",
@@ -66,10 +67,11 @@ const PatientHome = () => {
   useEffect(() => {
     async function fetchPatientReservation() {
       try {
-        const response = await getPatientReservation(
-          data?.data.reservations_id
-        );
+
+        const response = await getPatientReservation(2);
+
         setReservation(response);
+        console.log(response)
       } catch (error) {
         console.log((error as Error).message.toString());
       }

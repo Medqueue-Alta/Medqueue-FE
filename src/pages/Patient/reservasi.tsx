@@ -69,11 +69,11 @@ const PatientReservation = () => {
   const form = useForm<ReservationSchema>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
-      poli: "",
-      Hari: "",
-      Jadwal: "",
+      poli_id: "",
+      tanggal_kunjungan: "",
+      id_jadwal: "",
       keluhan: "",
-      BPJS: false,
+      bpjs: false,
     },
   });
 
@@ -90,7 +90,7 @@ const PatientReservation = () => {
   }, []);
 
   useEffect(() => {
-    const poliValue = form.getValues("poli");
+    const poliValue = form.getValues("poli_id");
 
     const fetchJadwal = async () => {
       try {
@@ -111,11 +111,11 @@ const PatientReservation = () => {
     if (poliValue) {
       fetchJadwal();
     }
-  }, [form.getValues("poli")]);
+  }, [form.getValues("poli_id")]);
 
   useEffect(() => {
     // tanggal di ekstrak dari value yang di input dari datepicker
-    const tanggal = form.getValues("Hari");
+    const tanggal = form.getValues("tanggal_kunjungan");
 
     if (tanggal) {
       // Simpan Hari yang didapatkan kedalam konstant baru lalu ubah menjadi
@@ -127,19 +127,22 @@ const PatientReservation = () => {
 
       // Simpan hari yang dipilih dalam state selectedDay
       setDay(selectedDay.toLowerCase());
+      
     }
-  }, [form.getValues("Hari")]);
+  }, [form.getValues("tanggal_kunjungan")]);
 
   useEffect(() => {
     // Perintah baru untuk melakukan penyaringan jadwal setelah
     // selectedDay diperbarui
-    console.log(day)
+    console.log(jadwal);
+    console.log(day);
     if (day !== "") {
+      
       const sortedJadwal = jadwal.filter(
         (jadwal) => jadwal.hari.toLowerCase() === day
       );
       setJadwalBaru(sortedJadwal);
-      console.log(jadwalBaru)
+      console.log(jadwalBaru);
     }
   }, [day, jadwal]);
 
@@ -151,7 +154,8 @@ const PatientReservation = () => {
     if (prevJadwalBaruLength === 0 && jadwalBaru.length === 0) {
       toast({
         title: "Error",
-        description: "Tidak ada jadwal tersedia untuk hari ini.",
+        description:
+          "Tidak ada jadwal tersedia untuk hari ini. Geser notifikasi ini dan coba kembali",
         variant: "destructive",
       });
     }
@@ -159,7 +163,13 @@ const PatientReservation = () => {
 
   async function onSubmit(data: ReservationSchema) {
     try {
-      const result = await addNewReservation(data);
+      // Konversikan format tanggal sesuai dengan kebutuhan API
+      const formattedDate = formatDateForAPI(data.tanggal_kunjungan);
+
+      // Ganti data form tanggal_kunjungan dengan data dengan format baru 
+      const newData = { ...data, tanggal_kunjungan: formattedDate };
+
+      const result = await addNewReservation(newData);
 
       toast({
         title: "Success",
@@ -173,6 +183,16 @@ const PatientReservation = () => {
       });
     }
   }
+
+  function formatDateForAPI(date: string): string {
+    // Ubah format tanggal sesuai kebutuhan API di sini
+    const dateObject = new Date(date);
+    const year = dateObject.getFullYear();
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, "0"); // Tambah 1 karena bulan dimulai dari 0
+    const day = dateObject.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}T17:00:00.000Z`;
+  }
+
 
   return (
     <PatientLayout>
@@ -193,23 +213,23 @@ const PatientReservation = () => {
               >
                 <CustomFormSelect
                   control={form.control}
-                  name="poli"
+                  name="poli_id"
                   label="Poli Klinik"
                   placeholder="Poli Klinik"
                   options={poliOptions}
                 />
                 <CustomFormDatePicker
                   control={form.control}
-                  name="Hari"
+                  name="tanggal_kunjungan"
                   label="Tanggal Daftar"
                   placeholder="Tanggal Daftar"
                   disabled={
-                    form.formState.isSubmitting || form.watch("poli") === ""
+                    form.formState.isSubmitting || form.watch("poli_id") === ""
                   }
                 />
                 <CustomFormSelect
                   control={form.control}
-                  name="Jadwal"
+                  name="id_jadwal"
                   label="Jadwal"
                   placeholder="Pilih Jadwal"
                   options={jadwalBaru.map((jadwal) => ({
@@ -217,7 +237,8 @@ const PatientReservation = () => {
                     value: jadwal.schedule_id.toString(),
                   }))}
                   disabled={
-                    form.formState.isSubmitting || form.watch("Hari") === ""
+                    form.formState.isSubmitting ||
+                    form.watch("tanggal_kunjungan") === ""
                   }
                 />
                 <CustomFormTextArea
@@ -226,13 +247,14 @@ const PatientReservation = () => {
                   label="Keluhan"
                   placeholder="Keluhan Anda"
                   disabled={
-                    form.formState.isSubmitting || form.watch("Jadwal") === ""
+                    form.formState.isSubmitting ||
+                    form.watch("id_jadwal") === ""
                   }
                   aria-disabled={form.formState.isSubmitting}
                 />
                 <FormField
                   control={form.control}
-                  name="BPJS"
+                  name="bpjs"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                       <FormControl>
@@ -241,7 +263,7 @@ const PatientReservation = () => {
                           onCheckedChange={field.onChange}
                           disabled={
                             form.formState.isSubmitting ||
-                            form.watch("Jadwal") === ""
+                            form.watch("id_jadwal") === ""
                           }
                         />
                       </FormControl>

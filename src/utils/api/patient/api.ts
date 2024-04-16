@@ -19,7 +19,7 @@ export const getPatient = async () => {
   }
 };
 
-export const getSchedule = async (poli_id: string) => {
+export const getSchedule = async (poli_id: number) => {
   try {
     const response = await axiosWithConfig.get(`/schedules/`, {
       params: { poli_id },
@@ -33,7 +33,7 @@ export const getSchedule = async (poli_id: string) => {
 
 export const getReservations = async () => {
   try {
-    const response = await axiosWithConfig.get("/reservations");
+    const response = await axiosWithConfig.get("/reservation");
 
     return response.data as IResponse<IReservation>;
   } catch (error: any) {
@@ -41,13 +41,9 @@ export const getReservations = async () => {
   }
 };
 
-export const getPatientReservation = async (
-  reservations_id: number | undefined
-) => {
+export const getPatientReservation = async (id_jadwal?: number) => {
   try {
-    const response = await axiosWithConfig.get(
-      `/reservations/${reservations_id}`
-    );
+    const response = await axiosWithConfig.get(`/reservations/${id_jadwal}`);
 
     return response.data as IResponse<PatientReservation>;
   } catch (error: any) {
@@ -88,7 +84,7 @@ export const updateProfile = async (body: UpdateProfileSchema) => {
         formData.append(key, valueFormatData(body[key]));
       }
     }
-    const response = await axiosWithConfig.put("/profile", formData, {
+    const response = await axiosWithConfig.put("/users", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

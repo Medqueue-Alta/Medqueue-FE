@@ -1,11 +1,11 @@
 import * as z from "zod";
 
 export const reservationSchema = z.object({
-  poli: z
+  poli_id: z
     .string()
     .min(1, { message: "Silahkan pilih Poli Klinik yang sesuai" }),
-  Hari: z.string().min(1, { message: "Silahkan pilih Hari yang sesuai" }),
-  Jadwal: z.string().min(1, { message: "Silahkan pilih jadwal yang sesuai" }),
+  tanggal_kunjungan: z.string().min(1, { message: "Silahkan pilih Hari yang sesuai" }),
+  id_jadwal: z.string().min(1, { message: "Silahkan pilih jadwal yang sesuai" }),
   keluhan: z
     .string()
     .min(10, {
@@ -15,7 +15,7 @@ export const reservationSchema = z.object({
       message:
         "Keluhan tidak perlu sampai 160 karakter. Silahkan isi lebih ringkas",
     }),
-  BPJS: z.boolean().default(false).optional(),
+  bpjs: z.boolean().default(false).optional(),
 });
 
 export const updateProfileSchema = z

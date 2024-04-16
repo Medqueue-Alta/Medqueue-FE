@@ -14,7 +14,8 @@ export interface ScheduleData {
 }
 
 export interface IReservation {
-  reservations_id: number;
+  reservations_id: string;
+  id_jadwal: number
   nama: string;
   poli: string;
 }
