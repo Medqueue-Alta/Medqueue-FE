@@ -23,9 +23,9 @@ const DropdownNavbar = () => {
   }
 
   return (
-    <DropdownMenu >
+    <DropdownMenu>
       <DropdownMenuTrigger id="trigger-btn">
-        <img src="/Hamburger.png" alt="Hamburger" />
+        <img src="/Hamburger.png" alt="Hamburger" className="brightness-200s" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -4,15 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 
-
 import {
   CustomFormDatePicker,
   CustomFormSelect,
   CustomFormTextArea,
-} from "@/components/PatientCustomFormField";
-import PatientInformationCard from "@/components/PatientInformationCard";
-import PatientLayout from "@/components/PatientLayout";
-import PatientReservationCard from "@/components/PatientReservationCard";
+} from "@/components/Pasien/PatientCustomFormField";
+import PatientInformationCard from "@/components/Pasien/PatientInformationCard";
+import PatientLayout from "@/components/Pasien/PatientLayout";
+import PatientReservationCard from "@/components/Pasien/PatientReservationCard";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -36,7 +35,6 @@ import {
 } from "@/utils/api/patient/form-type";
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 
-
 const PatientReservation = () => {
   const [user, setUser] = useState<IPatient>();
   const [jadwal, setJadwal] = useState<ScheduleData[]>([]);
@@ -44,7 +42,7 @@ const PatientReservation = () => {
   const [day, setDay] = useState("");
   const [prevJadwalBaruLength, setPrevJadwalBaruLength] = useState<number>(0);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // List Poli di hardcode untuk saat ini
   const poli = [
@@ -132,7 +130,6 @@ const navigate = useNavigate();
 
       // Simpan hari yang dipilih dalam state selectedDay
       setDay(selectedDay.toLowerCase());
-      
     }
   }, [form.getValues("tanggal_kunjungan")]);
 
@@ -142,7 +139,6 @@ const navigate = useNavigate();
     console.log(jadwal);
     console.log(day);
     if (day !== "") {
-      
       const sortedJadwal = jadwal.filter(
         (jadwal) => jadwal.hari.toLowerCase() === day
       );
@@ -171,7 +167,7 @@ const navigate = useNavigate();
       // Konversikan format tanggal sesuai dengan kebutuhan API
       const formattedDate = formatDateForAPI(data.tanggal_kunjungan);
 
-      // Ganti data form tanggal_kunjungan dengan data dengan format baru 
+      // Ganti data form tanggal_kunjungan dengan data dengan format baru
       const newData = { ...data, tanggal_kunjungan: formattedDate };
 
       const result = await addNewReservation(newData);
@@ -198,7 +194,6 @@ const navigate = useNavigate();
     const day = dateObject.getDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}T17:00:00.000Z`;
   }
-
 
   return (
     <PatientLayout>
@@ -266,7 +261,10 @@ const navigate = useNavigate();
                   control={form.control}
                   name="bpjs"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4" id="bpjs-checkbox">
+                    <FormItem
+                      className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+                      id="bpjs-checkbox"
+                    >
                       <FormControl>
                         <Checkbox
                           checked={field.value}

@@ -1,5 +1,7 @@
 .navbar-container {
   position: sticky;
+  overflow: hidden;
+  top: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
@@ -11,19 +13,23 @@
 }
 
 .layout-container {
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  height: full;
+  position: relative;
+  display: grid;
+  grid-template-columns: 3fr;
+  overflow: auto!;
+  height: 100%;
   /* height: calc(var(--vh, 1vh) * 100); */
 }
 
 .footer-container {
   position: sticky;
+  bottom: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: start;
   overflow: auto;
-  height: 5.8rem;
+  height: 5rem;
+  width: 100%;
   padding: 1.25rem;
 }

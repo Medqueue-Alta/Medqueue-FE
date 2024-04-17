@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 
-import PatientCard from "@/components/PatientReservedScheduleCard";
-import QueueCard from "@/components/PatientQueueCard";
-import PatientInformationCard from "@/components/PatientInformationCard";
-import PatientLayout from "@/components/PatientLayout";
+import PatientCard from "@/components/Pasien/PatientReservedScheduleCard";
+import QueueCard from "@/components/Pasien/PatientQueueCard";
+import PatientInformationCard from "@/components/Pasien/PatientInformationCard";
+import PatientLayout from "@/components/Pasien/PatientLayout";
 
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 import {
@@ -104,12 +104,21 @@ const PatientHome = () => {
     return poliName || "Tidak Diketahui";
   }
 
+  function capitalizeFirstLetter(nama?: string) {
+    if (nama !== undefined) {
+      const capitalizedNama = nama.charAt(0).toUpperCase() + nama.slice(1);
+      return capitalizedNama;
+    }
+
+    return "John Doe";
+  }
+
   return (
     <PatientLayout>
       <div className="grid grid-rows-2 justify-center justify-items-center items-center gap-2 h-full">
         <div className="w-full my-8">
           <PatientInformationCard
-            nama={user?.nama}
+            nama={capitalizeFirstLetter(user?.nama)}
             NIK={user?.no_nik}
             BJPS={user?.no_bpjs}
           />
@@ -123,8 +132,8 @@ const PatientHome = () => {
                 tanggal={information?.hari}
               />
             </div>
-            <div className="w-full my-24 self-start">
-              <div className="grid grid-flow-col gap-1">
+            <div className="w-full my-16 py-2 self-start">
+              <div className="grid grid-flow-col gap-1 ">
                 <QueueCard
                   title="Antrian Anda"
                   antrian={newNewData?.antrian_anda}

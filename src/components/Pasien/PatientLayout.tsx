@@ -10,10 +10,12 @@ const PatientLayout = (props: Props) => {
   const { children } = props;
 
   return (
-    <div className="layout-container">
-      <NavigationBar />
-      <div className="w-full h-full">{children}</div>
-      <Footer />
+    <div className="flex justify-center bg-[#066e6a]">
+      <div className="layout-container md:min-w-[480px] md:max-w-[480px] md:justify-items-center bg-white">
+        <NavigationBar />
+        <div className="w-full h-full">{children}</div>
+        <Footer />
+      </div>
     </div>
   );
 };
