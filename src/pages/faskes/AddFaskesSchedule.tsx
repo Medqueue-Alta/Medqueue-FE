@@ -1,132 +1,168 @@
-import FaskesLayout from "@/components/FaskesLayout"
-import FaskesSidebar from "@/components/FaskesSidebar"
-import FaskesContainer from "@/components/FaskesContainer"
-import { Input } from "@/components/ui/input"
-import MainButton from "@/components/MainButton"
-import { Separator } from "@/components/ui/separator"
-import { Link, useParams, useLocation, useNavigate } from "react-router-dom"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { SchedulesSchema, schedulesSchema } from "@/utils/api/faskes/type"
-import { Form } from "@/components/ui/form"
-import { CustomFormField, CustomFormSelect } from "@/components/CustomFormField"
-import { postSchedules } from "@/utils/api/faskes/api"
-import { useToast } from "@/components/ui/use-toast"
-import { setAxiosConfig } from "@/utils/api/axiosWithConfig"
-import { useSchedulesState } from "@/utils/states/schedules"
-import { useEffect } from "react"
+import FaskesLayout from "@/components/Faskes/FaskesLayout";
+import FaskesSidebar from "@/components/Faskes/FaskesSidebar";
+import FaskesContainer from "@/components/Faskes/FaskesContainer";
+import { Input } from "@/components/ui/input";
+import MainButton from "@/components/MainButton";
+import { Separator } from "@/components/ui/separator";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { SchedulesSchema, schedulesSchema } from "@/utils/api/faskes/type";
+import { Form } from "@/components/ui/form";
+import {
+  CustomFormField,
+  CustomFormSelect,
+} from "@/components/Faskes/CustomFormField";
+import { postSchedules } from "@/utils/api/faskes/api";
+import { useToast } from "@/components/ui/use-toast";
+import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
+import { useSchedulesState } from "@/utils/states/schedules";
+import { useEffect } from "react";
 
 const AddFaskesSchedule = () => {
-  const {poli} = useParams()
-  const location = useLocation()
-  const navigate = useNavigate()
-  const {toast} = useToast()
-  const {schedule} = useSchedulesState()
+  const { poli } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { schedule } = useSchedulesState();
   const form = useForm<SchedulesSchema>({
     resolver: zodResolver(schedulesSchema),
-  })
+  });
 
   useEffect(() => {
     form.reset(schedule);
-  }, [schedule,form])
-
+  }, [schedule, form]);
 
   const poliKlinik = [
     {
       label: "Poli Umum",
-      value: "1"
+      value: "1",
     },
     {
       label: "Poli Gigi & Mulut",
-      value: "2"
+      value: "2",
     },
     {
       label: "Poli KIA",
-      value: "3"
+      value: "3",
     },
     {
       label: "UGD",
-      value: "4"
+      value: "4",
     },
-  ]
+  ];
   const hari = [
     {
       label: "Senin",
-      value: "Monday"
+      value: "Monday",
     },
     {
       label: "Selasa",
-      value: "Tuesday"
+      value: "Tuesday",
     },
     {
       label: "Rabu",
-      value: "Wednesday"
+      value: "Wednesday",
     },
     {
       label: "Kamis",
-      value: "Thursday"
+      value: "Thursday",
     },
     {
       label: "Jumat",
-      value: "Friday"
+      value: "Friday",
     },
     {
       label: "Sabtu",
-      value: "Saturday"
+      value: "Saturday",
     },
     {
       label: "Minggu",
-      value: "Sunday"
+      value: "Sunday",
     },
-  ]
-  const addSchedule = async (body : SchedulesSchema) => {
+  ];
+  const addSchedule = async (body: SchedulesSchema) => {
     try {
-      console.log(body)
-      setAxiosConfig(localStorage.getItem("token")!)
-      const response = await postSchedules(body)
+      console.log(body);
+      setAxiosConfig(localStorage.getItem("token")!);
+      const response = await postSchedules(body);
       toast({
         title: "Success",
-        description: response.message
-      })
-      navigate("/")
+        description: response.message,
+      });
+      navigate("/");
     } catch (error) {
       toast({
         title: "Error",
         description: (error as Error).message,
-        variant: "destructive"
-      })
+        variant: "destructive",
+      });
     }
-  }
+  };
   return (
-<FaskesLayout>
+    <FaskesLayout>
       <FaskesSidebar>
-      <ul className="flex flex-col justify-center pl-5 h-full gap-2">
-                <Link to={"/faskes/antrian/1"} id="nav-umum">
-                    <div className={`${poli === "1" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "1" ? "" : "text-white"} text-xl`}>Poli Umum</li>
-                    </div>
-                </Link>
-                <Link to={"/faskes/antrian/2"} id="nav-gigi">
-                    <div className={`${poli === "2" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "2" ? "" : "text-white"} text-xl`}>Poli Gigi & Mulut</li>
-                    </div>
-                </Link>
-                <Link to={"/faskes/antrian/3"} id="nav-kia">
-                    <div className={`${poli === "3" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "3" ? "" : "text-white"} text-xl`}>Poli KIA</li>
-                    </div>
-                </Link>
-                <Link to={"/faskes/antrian/4"} id="nav-ugd">
-                    <div className={`${poli === "4" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${poli === "4" ? "" : "text-white"} text-xl`}>UGD</li>
-                    </div>
-                </Link>
-                <Separator className="my-3"/>
-                <Link to={"/faskes/jadwal/add"} id="nav-add-schedule">
-                    <div className={`${location.pathname === "/faskes/jadwal/add" ? "bg-[#92DBD8]" : ""} cursor-pointer  p-2 max-w-[90%] rounded-lg`}>
-                        <li className={`${location.pathname === "/faskes/jadwal/add" ? "" : "text-white"} text-xl`}>Tambah Jadwal</li>
-                    </div>
-                </Link>
+        <ul className="flex flex-col justify-center pl-5 h-full gap-2">
+          <Link to={"/faskes/antrian/1"} id="nav-umum">
+            <div
+              className={`${
+                poli === "1" ? "bg-[#92DBD8]" : ""
+              } cursor-pointer  p-2 max-w-[90%] rounded-lg`}
+            >
+              <li className={`${poli === "1" ? "" : "text-white"} text-xl`}>
+                Poli Umum
+              </li>
+            </div>
+          </Link>
+          <Link to={"/faskes/antrian/2"} id="nav-gigi">
+            <div
+              className={`${
+                poli === "2" ? "bg-[#92DBD8]" : ""
+              } cursor-pointer  p-2 max-w-[90%] rounded-lg`}
+            >
+              <li className={`${poli === "2" ? "" : "text-white"} text-xl`}>
+                Poli Gigi & Mulut
+              </li>
+            </div>
+          </Link>
+          <Link to={"/faskes/antrian/3"} id="nav-kia">
+            <div
+              className={`${
+                poli === "3" ? "bg-[#92DBD8]" : ""
+              } cursor-pointer  p-2 max-w-[90%] rounded-lg`}
+            >
+              <li className={`${poli === "3" ? "" : "text-white"} text-xl`}>
+                Poli KIA
+              </li>
+            </div>
+          </Link>
+          <Link to={"/faskes/antrian/4"} id="nav-ugd">
+            <div
+              className={`${
+                poli === "4" ? "bg-[#92DBD8]" : ""
+              } cursor-pointer  p-2 max-w-[90%] rounded-lg`}
+            >
+              <li className={`${poli === "4" ? "" : "text-white"} text-xl`}>
+                UGD
+              </li>
+            </div>
+          </Link>
+          <Separator className="my-3" />
+          <Link to={"/faskes/jadwal/add"} id="nav-add-schedule">
+            <div
+              className={`${
+                location.pathname === "/faskes/jadwal/add" ? "bg-[#92DBD8]" : ""
+              } cursor-pointer  p-2 max-w-[90%] rounded-lg`}
+            >
+              <li
+                className={`${
+                  location.pathname === "/faskes/jadwal/add" ? "" : "text-white"
+                } text-xl`}
+              >
+                Tambah Jadwal
+              </li>
+            </div>
+          </Link>
         </ul>
       </FaskesSidebar>
       <FaskesContainer title="Tambah Jadwal">
@@ -134,10 +170,24 @@ const AddFaskesSchedule = () => {
           <Form {...form}>
             <form action="" onSubmit={form.handleSubmit(addSchedule)}>
               <div className="mb-3">
-                <CustomFormSelect label="Poli Klinik" placeholder="Poli Klinik" control={form.control} name="poli_id" disabled={form.formState.isSubmitting} options={poliKlinik}/>
+                <CustomFormSelect
+                  label="Poli Klinik"
+                  placeholder="Poli Klinik"
+                  control={form.control}
+                  name="poli_id"
+                  disabled={form.formState.isSubmitting}
+                  options={poliKlinik}
+                />
               </div>
               <div className="mb-3">
-                  <CustomFormSelect label="Hari" placeholder="Hari" control={form.control} name="hari" disabled={form.formState.isSubmitting} options={hari} />
+                <CustomFormSelect
+                  label="Hari"
+                  placeholder="Hari"
+                  control={form.control}
+                  name="hari"
+                  disabled={form.formState.isSubmitting}
+                  options={hari}
+                />
               </div>
               <div className="mb-3 flex items-center justify-between gap-3">
                 <div className="w-1/2">
@@ -147,31 +197,31 @@ const AddFaskesSchedule = () => {
                     label="Jam Mulai"
                   >
                     {(field) => (
-                      <Input 
+                      <Input
                         {...field}
-                        type="time" 
+                        type="time"
                         placeholder="Jam Mulai"
                         aria-disabled={form.formState.isSubmitting}
                         disabled={form.formState.isSubmitting}
-                        value={field.value as string} 
+                        value={field.value as string}
                       />
                     )}
                   </CustomFormField>
                 </div>
                 <div className="w-1/2">
-                <CustomFormField
+                  <CustomFormField
                     control={form.control}
                     name="jam_selesai"
                     label="Jam Selesai"
                   >
                     {(field) => (
-                      <Input 
+                      <Input
                         {...field}
-                        type="time" 
+                        type="time"
                         placeholder="Jam Selesai"
                         aria-disabled={form.formState.isSubmitting}
                         disabled={form.formState.isSubmitting}
-                        value={field.value as string} 
+                        value={field.value as string}
                       />
                     )}
                   </CustomFormField>
@@ -184,26 +234,26 @@ const AddFaskesSchedule = () => {
                   label="Kuota"
                 >
                   {(field) => (
-                    <Input 
+                    <Input
                       {...field}
-                      type="number" 
+                      type="number"
                       placeholder="Kuota"
                       aria-disabled={form.formState.isSubmitting}
                       disabled={form.formState.isSubmitting}
-                      value={field.value as string} 
+                      value={field.value as string}
                     />
                   )}
                 </CustomFormField>
               </div>
               <div className="text-center">
-                <MainButton text="Tambah Jadwal" type="submit"/>
+                <MainButton text="Tambah Jadwal" type="submit" />
               </div>
             </form>
           </Form>
         </div>
       </FaskesContainer>
-   </FaskesLayout>
-  )
-}
+    </FaskesLayout>
+  );
+};
 
-export default AddFaskesSchedule
+export default AddFaskesSchedule;

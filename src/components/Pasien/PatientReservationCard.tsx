@@ -1,12 +1,12 @@
-import  { ReactNode } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { ReactNode } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 interface Props {
   children: ReactNode;
 }
 
 const PatientReservationCard = (props: Props) => {
-const { children } = props;
+  const { children } = props;
 
   return (
     <Card className="w-80 bg-[#92DBD8] rounded-2xl shadow-md">
@@ -18,6 +18,6 @@ const { children } = props;
       </CardContent>
     </Card>
   );
-}
+};
 
-export default PatientReservationCard
+export default PatientReservationCard;

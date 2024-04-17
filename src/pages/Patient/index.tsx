@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 
-import PatientCard from "@/components/PatientReservedScheduleCard";
-import QueueCard from "@/components/PatientQueueCard";
-import PatientInformationCard from "@/components/PatientInformationCard";
-import PatientLayout from "@/components/PatientLayout";
+import PatientCard from "@/components/Pasien/PatientReservedScheduleCard";
+import QueueCard from "@/components/Pasien/PatientQueueCard";
+import PatientInformationCard from "@/components/Pasien/PatientInformationCard";
+import PatientLayout from "@/components/Pasien/PatientLayout";
 
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 import {

@@ -3,23 +3,24 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 
-
-import PatientLayout from "@/components/PatientLayout";
-import UpdateProfileCard from "@/components/PatientUpdateProfileCard";
+import PatientLayout from "@/components/Pasien/PatientLayout";
+import UpdateProfileCard from "@/components/Pasien/PatientUpdateProfileCard";
 import {
   CustomFormField,
   CustomFormSelect,
   CustomFormDatePicker,
-} from "@/components/PatientCustomFormField";
+} from "@/components/Pasien/PatientCustomFormField";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 import { getPatient, updateProfile } from "@/utils/api/patient/api";
-import { updateProfileSchema, UpdateProfileSchema } from "@/utils/api/patient/form-type";
+import {
+  updateProfileSchema,
+  UpdateProfileSchema,
+} from "@/utils/api/patient/form-type";
 import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
-
 
 const UpdateProfile = () => {
   const [patient, setPatient] = useState("");
@@ -40,7 +41,7 @@ const UpdateProfile = () => {
       passwordConfirmation: "",
     },
   });
-  
+
   const gender = [
     {
       label: "Laki-Laki",
