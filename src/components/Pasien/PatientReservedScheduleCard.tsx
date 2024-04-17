@@ -10,11 +10,11 @@ const PatientCard = (props: Props) => {
   const { title, tanggal, jadwal } = props;
 
   return (
-    <Card className="self-start w-full h-full rounded-md bg-[#92DBD8] shadow-lg">
+    <Card className="self-start w-full h-full rounded-lg bg-[#92DBD8] shadow-lg">
       <CardHeader className="flex flex-row justify-center p-4">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent className="p-4 bg-[#BEE8E6]">
+      <CardContent className="p-4 bg-[#BEE8E6] rounded-lg">
         <div className="grid grid-cols-4">
           <p>Tanggal</p>
           <p>:</p>
