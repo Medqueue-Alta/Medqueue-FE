@@ -1,3 +1,5 @@
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,9 +8,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { toast } from "@/components/ui/use-toast";
 
 const DropdownNavbar = () => {
+  const navigate = useNavigate();
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/login");
+    toast({
+      title: "Success",
+      description: "Berhasil Log-Out",
+    });
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -32,7 +45,7 @@ const DropdownNavbar = () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="gap-2">
           <img src="/log-out.png" alt="" />
-          <p>Log Out</p>
+          <p onClick={logout}>Log Out</p>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
