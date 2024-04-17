@@ -8,8 +8,8 @@ import UpdateProfileCard from "@/components/Pasien/PatientUpdateProfileCard";
 import {
   CustomFormField,
   CustomFormSelect,
-  CustomFormDatePicker,
 } from "@/components/Pasien/PatientCustomFormField";
+import { CustomFormDatePicker } from "@/components/Faskes/CustomFormField";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
