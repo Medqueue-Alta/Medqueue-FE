@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 import PatientLayout from "@/components/Pasien/PatientLayout";
 import UpdateProfileCard from "@/components/Pasien/PatientUpdateProfileCard";
@@ -24,6 +25,7 @@ import { setAxiosConfig } from "@/utils/api/axiosWithConfig";
 
 const UpdateProfile = () => {
   const [patient, setPatient] = useState("");
+  const navigate = useNavigate();
 
   const form = useForm<UpdateProfileSchema>({
     resolver: zodResolver(updateProfileSchema),
@@ -104,7 +106,7 @@ const UpdateProfile = () => {
   async function onSubmit(data: UpdateProfileSchema) {
     try {
       const result = await updateProfile(data);
-
+      navigate("/pasien/home");
       toast({
         title: "Success",
         description: result.message,
