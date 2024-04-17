@@ -223,6 +223,7 @@ const navigate = useNavigate();
                   label="Poli Klinik"
                   placeholder="Poli Klinik"
                   options={poliOptions}
+                  id="poli-select"
                 />
                 <CustomFormDatePicker
                   control={form.control}
@@ -232,6 +233,7 @@ const navigate = useNavigate();
                   disabled={
                     form.formState.isSubmitting || form.watch("poli_id") === ""
                   }
+                  id="tanggal-select"
                 />
                 <CustomFormSelect
                   control={form.control}
@@ -246,6 +248,7 @@ const navigate = useNavigate();
                     form.formState.isSubmitting ||
                     form.watch("tanggal_kunjungan") === ""
                   }
+                  id="jadwal-select"
                 />
                 <CustomFormTextArea
                   control={form.control}
@@ -257,12 +260,13 @@ const navigate = useNavigate();
                     form.watch("id_jadwal") === ""
                   }
                   aria-disabled={form.formState.isSubmitting}
+                  id="keluhan-textarea"
                 />
                 <FormField
                   control={form.control}
                   name="bpjs"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4" id="bpjs-checkbox">
                       <FormControl>
                         <Checkbox
                           checked={field.value}
@@ -282,6 +286,7 @@ const navigate = useNavigate();
                 <Button
                   type="submit"
                   className="w-max self-center bg-[#089993]"
+                  id="sumbit-btn"
                 >
                   Submit
                 </Button>

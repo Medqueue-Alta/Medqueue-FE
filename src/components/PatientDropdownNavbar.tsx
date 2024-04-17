@@ -23,27 +23,27 @@ const DropdownNavbar = () => {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
+    <DropdownMenu >
+      <DropdownMenuTrigger id="trigger-btn">
         <img src="/Hamburger.png" alt="Hamburger" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="gap-2">
+        <DropdownMenuItem className="gap-2" id="profile-btn">
           <img src="/user.png" alt="" />
           <Link to={"/pasien/update-profile"}>
             <p>Profile</p>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2">
+        <DropdownMenuItem className="gap-2" id="reservation-btn">
           <img src="/calendar-clock.png" alt="" />
           <Link to={"/pasien/reservasi"}>
             <p>Reservasi</p>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="gap-2">
+        <DropdownMenuItem className="gap-2" id="logout-btn">
           <img src="/log-out.png" alt="" />
           <p onClick={logout}>Log Out</p>
         </DropdownMenuItem>

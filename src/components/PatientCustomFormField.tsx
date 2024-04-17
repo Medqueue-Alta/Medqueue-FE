@@ -52,6 +52,7 @@ interface Props<T extends FieldValues> {
   control: Control<T>;
   "data-testid"?: string;
   disabled?: boolean;
+  id: string;
 }
 
 interface ChildrenProps<T extends FieldValues> extends Props<T> {
@@ -61,15 +62,17 @@ interface ChildrenProps<T extends FieldValues> extends Props<T> {
 export function CustomFormField<T extends FieldValues>(
   props: Readonly<ChildrenProps<T>>
 ) {
-  const { name, label, description, control, children } = props;
+  const { name, label, description, control, children, id } = props;
 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="w-full">
-          <FormLabel className="font-bold text-lg md:text-sm">{label}</FormLabel>
+        <FormItem className="w-full" id={id}>
+          <FormLabel className="font-bold text-lg md:text-sm">
+            {label}
+          </FormLabel>
           <FormControl className="text-m">{children(field)}</FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
@@ -82,14 +85,14 @@ export function CustomFormField<T extends FieldValues>(
 export function CustomFormDatePicker<T extends FieldValues>(
   props: Readonly<Props<T>>
 ) {
-  const { name, label, disabled, placeholder, description, control } = props;
+  const { name, label, disabled, placeholder, description, control, id } = props;
 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col w-full">
+        <FormItem className="flex flex-col w-full" id={id}>
           <FormLabel className="font-bold text-lg md:text-sm">
             {label}
           </FormLabel>
@@ -138,14 +141,14 @@ export function CustomFormDatePicker<T extends FieldValues>(
 }
 
 export function CustomFormTextArea<T extends FieldValues>(props: Readonly<Props<T>>) {
-  const { name, label, disabled, placeholder, description, control } = props;
+  const { name, label, disabled, placeholder, description, control, id } = props;
 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="w-full">
+        <FormItem className="w-full" id={id}>
           <FormLabel className="font-bold text-lg">{label}</FormLabel>
           <FormControl className="text-m">
             <Textarea
@@ -164,14 +167,17 @@ export function CustomFormTextArea<T extends FieldValues>(props: Readonly<Props<
 }
 
 export function CustomFormCheckbox<T extends FieldValues>(props: Readonly<Props<T>>) {
-  const { name, label, description, control } = props;
+  const { name, label, description, control, id } = props;
 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+        <FormItem
+          className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+          id={id}
+        >
           <FormControl>
             <Checkbox checked={field.value} onCheckedChange={field.onChange} />
           </FormControl>
@@ -188,7 +194,7 @@ export function CustomFormCheckbox<T extends FieldValues>(props: Readonly<Props<
 export function CustomFormSelect<T extends FieldValues>(
   props: Readonly<Props<T>>
 ) {
-  const { name, label, disabled, placeholder, description, control, options } = props;
+  const { name, label, disabled, placeholder, description, control, options, id } = props;
 
   return (
     <FormField
@@ -196,7 +202,7 @@ export function CustomFormSelect<T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="font-bold text-lg md:text-sm">
+          <FormLabel className="font-bold text-lg md:text-sm" id={id}>
             {label}
           </FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
