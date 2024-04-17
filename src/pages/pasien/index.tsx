@@ -104,12 +104,21 @@ const PatientHome = () => {
     return poliName || "Tidak Diketahui";
   }
 
+  function capitalizeFirstLetter(nama?: string) {
+    if (nama !== undefined) {
+      const capitalizedNama = nama.charAt(0).toUpperCase() + nama.slice(1);
+      return capitalizedNama;
+    }
+
+    return "John Doe";
+  }
+
   return (
     <PatientLayout>
       <div className="grid grid-rows-2 justify-center justify-items-center items-center gap-2 h-full">
         <div className="w-full my-8">
           <PatientInformationCard
-            nama={user?.nama}
+            nama={capitalizeFirstLetter(user?.nama)}
             NIK={user?.no_nik}
             BJPS={user?.no_bpjs}
           />
