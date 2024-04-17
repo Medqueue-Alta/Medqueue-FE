@@ -40,7 +40,6 @@ const PatientReservation = () => {
   const [jadwal, setJadwal] = useState<ScheduleData[]>([]);
   const [jadwalBaru, setJadwalBaru] = useState<ScheduleData[]>([]);
   const [day, setDay] = useState("");
-  const [prevJadwalBaruLength, setPrevJadwalBaruLength] = useState<number>(0);
 
   const navigate = useNavigate();
 
@@ -83,6 +82,7 @@ const PatientReservation = () => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setAxiosConfig(localStorage.getItem("token")!);
         const response = await getPatient();
         setUser(response.data);
       } catch (error) {
@@ -97,7 +97,7 @@ const PatientReservation = () => {
 
     const fetchJadwal = async () => {
       try {
-        setAxiosConfig(localStorage.getItem("token")!);
+        
         const response = await getSchedules(poliValue);
         setJadwal(response.data);
         console.log(jadwal);
@@ -147,20 +147,13 @@ const PatientReservation = () => {
     }
   }, [day, jadwal]);
 
-  useEffect(() => {
-    setPrevJadwalBaruLength(jadwalBaru.length);
-  }, [jadwalBaru]);
+  
 
   useEffect(() => {
-    if (prevJadwalBaruLength === 0 && jadwalBaru.length === 0) {
-      toast({
-        title: "Error",
-        description:
-          "Tidak ada jadwal tersedia untuk hari ini. Geser notifikasi ini dan coba kembali",
-        variant: "destructive",
-      });
+    if (jadwalBaru.length === 0) {
+      console.log("Tidak ada jadwal di hari yang anda");
     }
-  }, [jadwalBaru, prevJadwalBaruLength]);
+  }, [jadwalBaru]);
 
   async function onSubmit(data: ReservationSchema) {
     try {
@@ -235,10 +228,14 @@ const PatientReservation = () => {
                   name="id_jadwal"
                   label="Jadwal"
                   placeholder="Pilih Jadwal"
-                  options={jadwalBaru.map((jadwal) => ({
-                    label: `${jadwal.hari} - ${jadwal.jam_mulai}`,
-                    value: jadwal.schedule_id.toString(),
-                  }))}
+                  options={
+                    jadwalBaru.length > 0
+                      ? jadwalBaru.map((jadwal) => ({
+                          label: `${jadwal.hari} - ${jadwal.jam_mulai}`,
+                          value: jadwal.schedule_id.toString(),
+                        }))
+                      : [{ label: "Tidak ada jadwal tersedia", value: " " }]
+                  }
                   disabled={
                     form.formState.isSubmitting ||
                     form.watch("tanggal_kunjungan") === ""
@@ -252,7 +249,7 @@ const PatientReservation = () => {
                   placeholder="Keluhan Anda"
                   disabled={
                     form.formState.isSubmitting ||
-                    form.watch("id_jadwal") === ""
+                    (jadwalBaru.length === 0)
                   }
                   aria-disabled={form.formState.isSubmitting}
                   id="keluhan-textarea"
@@ -271,7 +268,7 @@ const PatientReservation = () => {
                           onCheckedChange={field.onChange}
                           disabled={
                             form.formState.isSubmitting ||
-                            form.watch("id_jadwal") === ""
+                            form.watch("keluhan") === ""
                           }
                         />
                       </FormControl>
