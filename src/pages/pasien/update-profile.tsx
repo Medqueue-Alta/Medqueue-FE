@@ -182,7 +182,6 @@ const UpdateProfile = () => {
                   placeholder="Tanggal Lahir"
                   control={form.control}
                   name="tgl_lahir"
-                  id="form-tgl-lahir"
                 />
                 <CustomFormSelect
                   label="Jenis Kelamin"
