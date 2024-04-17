@@ -8,9 +8,9 @@ import FaskesHome from '@/pages/faskes/FaskesHome'
 import FaskesQueue from '@/pages/faskes/FaskesQueue'
 import FaskesSchedule from '@/pages/faskes/FaskesSchedule'
 
-import PatientHome from '@/pages/Patient'
-import PatientReservation from '@/pages/Patient/reservasi'
-import UpdateProfile from '@/pages/Patient/update-profile'
+import PatientHome from '@/pages/pasien'
+import PatientReservation from '@/pages/pasien/reservasi'
+import UpdateProfile from '@/pages/pasien/update-profile'
 import ProtectedRoutes from './ProtectedRoutes'
 import EditFaskesSchedule from '@/pages/faskes/EditFaskesSchedule'
 

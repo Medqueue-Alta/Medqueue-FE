@@ -123,8 +123,8 @@ const PatientHome = () => {
                 tanggal={information?.hari}
               />
             </div>
-            <div className="w-full my-24 self-start">
-              <div className="grid grid-flow-col gap-1">
+            <div className="w-full my-16 py-2 self-start">
+              <div className="grid grid-flow-col gap-1 ">
                 <QueueCard
                   title="Antrian Anda"
                   antrian={newNewData?.antrian_anda}

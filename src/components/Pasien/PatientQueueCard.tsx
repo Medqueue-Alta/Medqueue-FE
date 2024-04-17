@@ -9,9 +9,9 @@ const QueueCard = (props: Props) => {
   const { title, antrian } = props;
 
   return (
-    <Card className="self-start w-max h-max">
+    <Card className="self-start h-full">
       <CardHeader className="flex flex-row justify-center p-4 bg-[#92DBD8]">
-        <CardTitle>{title}</CardTitle>
+        <CardTitle >{title}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col items-center bg-[#BEE8E6]">
         <p className="text-8xl">{antrian}</p>

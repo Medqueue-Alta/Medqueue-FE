@@ -9,7 +9,7 @@ const PatientReservationCard = (props: Props) => {
   const { children } = props;
 
   return (
-    <Card className="w-80 bg-[#92DBD8] rounded-2xl shadow-md">
+    <Card className="w-80 bg-[#92DBD8] rounded-2xl shadow-lg">
       <CardHeader className="items-center p-4">
         <CardTitle className="uppercase text-justify">Atur Jadwal</CardTitle>
       </CardHeader>
