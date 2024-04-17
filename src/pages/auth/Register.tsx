@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { RegisterSchema, registerSchema } from "@/utils/api/auth/type";
 import { Form } from "@/components/ui/form";
+import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { userRegister } from "@/utils/api/auth/api";
 import { useNavigate } from "react-router-dom";
@@ -257,6 +258,12 @@ const Register = () => {
             </div>
           </form>
         </Form>
+        <p className="text-center mt-3 text-sm">
+          Sudah Punya Akun?{" "}
+          <Link to={"/login"} className="hover:text-[#1c5e5b] duration-500">
+            Login
+          </Link>
+        </p>
       </div>
     </AuthLayout>
   );
