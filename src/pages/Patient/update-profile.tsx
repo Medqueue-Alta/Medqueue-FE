@@ -9,8 +9,8 @@ import UpdateProfileCard from "@/components/PatientUpdateProfileCard";
 import {
   CustomFormField,
   CustomFormSelect,
+  CustomFormDatePicker,
 } from "@/components/PatientCustomFormField";
-import { CustomFormDatePicker } from "@/components/CustomFormField";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -131,6 +131,7 @@ const UpdateProfile = () => {
                   control={form.control}
                   label="Nama Lengkap"
                   name="nama"
+                  id="form-nama"
                 >
                   {(field) => (
                     <Input
@@ -146,6 +147,7 @@ const UpdateProfile = () => {
                   control={form.control}
                   label="Email"
                   name="email"
+                  id="form-email"
                 >
                   {(field) => (
                     <Input
@@ -162,6 +164,7 @@ const UpdateProfile = () => {
                   control={form.control}
                   label="Tempat Lahir"
                   name="tempat_lahir"
+                  id="form-tempat-lahir"
                 >
                   {(field) => (
                     <Input
@@ -178,6 +181,7 @@ const UpdateProfile = () => {
                   placeholder="Tanggal Lahir"
                   control={form.control}
                   name="tgl_lahir"
+                  id="form-tgl-lahir"
                 />
                 <CustomFormSelect
                   label="Jenis Kelamin"
@@ -186,6 +190,7 @@ const UpdateProfile = () => {
                   name="gender"
                   disabled={form.formState.isSubmitting}
                   options={genderOptions}
+                  id="form-gender"
                 />
                 <CustomFormSelect
                   label="Golongan Darah"
@@ -194,11 +199,13 @@ const UpdateProfile = () => {
                   name="gol_darah"
                   disabled={form.formState.isSubmitting}
                   options={goldarOptions}
+                  id="form-goldar"
                 />
                 <CustomFormField
                   control={form.control}
                   label="NIK"
                   name="no_nik"
+                  id="form-nik"
                 >
                   {(field) => (
                     <Input
@@ -214,6 +221,7 @@ const UpdateProfile = () => {
                   control={form.control}
                   label="No BPJS"
                   name="no_bpjs"
+                  id="form-bpjs"
                 >
                   {(field) => (
                     <Input
@@ -229,6 +237,7 @@ const UpdateProfile = () => {
                   control={form.control}
                   label="No Telpon"
                   name="no_telepon"
+                  id="form-tel"
                 >
                   {(field) => (
                     <Input
@@ -245,6 +254,7 @@ const UpdateProfile = () => {
                   control={form.control}
                   label="Password"
                   name="password"
+                  id="form-password"
                 >
                   {(field) => (
                     <Input
@@ -261,6 +271,7 @@ const UpdateProfile = () => {
                   control={form.control}
                   label="Konfirmasi Password"
                   name="passwordConfirmation"
+                  id="form-repassword"
                 >
                   {(field) => (
                     <Input
@@ -277,6 +288,7 @@ const UpdateProfile = () => {
                   <Button
                     type="submit"
                     className="w-max h-max self-center bg-[#089993]"
+                    id="update-btn"
                   >
                     Update
                   </Button>

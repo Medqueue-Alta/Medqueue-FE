@@ -6,7 +6,7 @@ const NavigationBar = () => {
   return (
     <nav className="navbar-container bg-[#089993]">
       <div className="justify-self-start">
-        <Link to={"/pasien/home"}>
+        <Link to={"/pasien/home"} id="logo-btn">
           <img
             src="/MedQueue_Icon.png"
             alt="MedQueue_Icon"
