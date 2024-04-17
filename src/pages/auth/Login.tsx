@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form"
 import { useToast } from "@/components/ui/use-toast"
 import { userLogin } from "@/utils/api/auth/api"
 import { CustomFormField } from "@/components/CustomFormField"
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   const { toast } = useToast()
@@ -82,6 +83,7 @@ const Login = () => {
                 </div>
               </form>
             </Form>
+            <p className='text-center mt-3 text-sm'>Belum Punya Akun? <Link to={"/register"} className='hover:text-[#1c5e5b] duration-500'>Register</Link></p>
         </div>
     </AuthLayout>
   )
