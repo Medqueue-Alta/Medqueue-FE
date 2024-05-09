@@ -1,5 +1,5 @@
 
-import MainButton from "@/components/MainButton";
+import MainButton from "@/components/ui/MainButton";
 import AuthLayout from "@/components/authLayout";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";

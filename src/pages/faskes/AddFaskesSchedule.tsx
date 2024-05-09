@@ -2,7 +2,7 @@ import FaskesLayout from "@/components/Faskes/FaskesLayout";
 import FaskesSidebar from "@/components/Faskes/FaskesSidebar";
 import FaskesContainer from "@/components/Faskes/FaskesContainer";
 import { Input } from "@/components/ui/input";
-import MainButton from "@/components/MainButton";
+import MainButton from "@/components/ui/MainButton";
 import { Separator } from "@/components/ui/separator";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";

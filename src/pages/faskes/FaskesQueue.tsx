@@ -1,7 +1,7 @@
 import FaskesContainer from "@/components/Faskes/FaskesContainer";
 import FaskesLayout from "@/components/Faskes/FaskesLayout";
 import FaskesSidebar from "@/components/Faskes/FaskesSidebar";
-import MainButton from "@/components/MainButton";
+import MainButton from "@/components/ui/MainButton";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {

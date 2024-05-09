@@ -1,6 +1,6 @@
 import AuthLayout from "@/components/authLayout";
 import { Input } from "@/components/ui/input";
-import MainButton from "@/components/MainButton";
+import MainButton from "@/components/ui/MainButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { RegisterSchema, registerSchema } from "@/utils/api/auth/type";
